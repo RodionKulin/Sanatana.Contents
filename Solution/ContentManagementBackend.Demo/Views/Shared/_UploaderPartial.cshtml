@@ -1,0 +1,55 @@
+﻿@model string
+
+<table class="noborder-table upl-halftable">
+    <tbody>
+        <tr>
+            <td>
+                <div class="upl-dropzone upl-previewborder">
+                    <div class="upl-empty"
+                         style="@(string.IsNullOrEmpty(Model) ? null : "display:none")">
+                        <i class="fa fa-ban"></i>
+                        <div>
+                            @GlobalContent.ImageUploader_NoImageDropZone
+                        </div>
+                    </div>
+                    <div class="upl-loading" style="display:none">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                    </div>
+                    <img src="@Model" class="upl-img"
+                         style="width: 270px; @(string.IsNullOrEmpty(Model) ? "display:none": null)"/>
+                    <i title="@GlobalContent.Common_Delete" class="fa fa-times upl-delete"></i>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <div>@GlobalContent.ImageUploader_UploadFromFile</div>
+                    <div class="mbottom-mini">
+                        <input id="uplFileupload" type="file">
+                    </div>
+
+                    <div>@GlobalContent.ImageUploader_DownloadFromUrl</div>
+                    <div class="mbottom-mini">
+                        <table class="noborder-table">
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control upl-urlinput" />
+                                </td>
+                                <td>
+                                    <input type="button" class="btn btn-default url-urlbutton"
+                                           value="@GlobalContent.Common_Download" />
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <div>
+                        <a href="#" id="uplRestore" style="display:none">
+                            @GlobalContent.ImageUploader_Restore
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

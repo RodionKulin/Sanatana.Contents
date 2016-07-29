@@ -1,0 +1,41 @@
+﻿@model SelectContentVM<ObjectId>
+
+@{
+    ViewBag.Title = Model.SelectedCategories.First().Name;
+    Layout = "~/Views/Shared/_SidebarLayout.cshtml";
+}
+
+@section head{
+    @Styles.Render("~/content/posts-list")
+}
+
+<div class="als-wrapper">
+    @foreach (ContentRenderVM<ObjectId> contentVM in Model.ContentRenderVMs)
+    {
+        @CommonTemplates.PostShort(Html, contentVM)
+    }
+
+    <div class="al-ajaxlist">
+        <!-- ko foreach: posts.items -->
+        @CommonTemplates.PostShortKO()
+        <!-- /ko -->
+    </div>    
+</div>
+
+<p data-bind="visible: posts.isInitialLoad() || posts.isLoading()"
+   class="content-loading" style="display:none">
+    <i class="fa fa-spinner fa-pulse"></i>
+</p>
+
+@CommonTemplates.ItemsPager(Html, Model)
+
+@section scripts{
+    <script type="text/javascript">
+        var basePickID = '@Model.PickID'
+        var isLastPage = @(Model.IsLastPage ? "true" : "false")
+        var categoryIDs = @Html.Raw(Model.SelectedCategoryIDsJSArray)
+    </script>
+    @Scripts.Render("~/content/jsajax")
+    @Scripts.Render("~/content/jsarticles-list")
+}
+

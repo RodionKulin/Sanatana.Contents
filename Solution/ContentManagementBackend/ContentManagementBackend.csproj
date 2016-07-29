@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C920D46-0705-4B2F-96C4-E8478E842D74}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContentManagementBackend</RootNamespace>
+    <AssemblyName>ContentManagementBackend</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\Common.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\DAL\CacheLayer\SingleInstanceCommentCache.cs" />
+    <Compile Include="Model\DAL\CacheLayer\SingleInstancePostCache.cs" />
+    <Compile Include="Model\DAL\CacheProvider\AspNetCacheProvider.cs" />
+    <Compile Include="Model\DAL\CacheLayer\SingleInstanceCategoryCache.cs" />
+    <Compile Include="Model\DAL\CacheProvider\ICacheProvider.cs" />
+    <Compile Include="Model\DAL\CacheProvider\NoCacheProvider.cs" />
+    <Compile Include="Model\Entities\Core\ContentBase.cs" />
+    <Compile Include="Model\Entities\Core\YoutubePost.cs" />
+    <Compile Include="Model\Entities\Results\ContentCategoryGroup.cs" />
+    <Compile Include="Model\Managers\CategoryManager.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Queries\CommentImageQueries.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Settings\IImageSettingsFactory.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Settings\ImageSettings.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Settings\ImageSettingsFactory.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Settings\AvatarImageSettings.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Queries\ContentImageQueries.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Queries\FileQueriesBase.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Queries\PreviewImageQueries.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Queries\AvatarImageQueries.cs" />
+    <Compile Include="Model\DAL\DataLayer\ICategoryQueries.cs" />
+    <Compile Include="Model\DAL\DataLayer\ICommentQueries.cs" />
+    <Compile Include="Model\DAL\ImageQueries\PathCreator.cs" />
+    <Compile Include="Model\DAL\ImageQueries\StreamPostedFile.cs" />
+    <Compile Include="Model\DAL\Search\NoSearchQueries.cs" />
+    <Compile Include="Model\Entities\Core\Category.cs" />
+    <Compile Include="Model\Entities\Enums\ContentFullQuery.cs" />
+    <Compile Include="Model\Entities\Enums\CommentState.cs" />
+    <Compile Include="Model\Entities\Core\CommentVote.cs" />
+    <Compile Include="Model\Extensions\ViewmodelExtensions.cs" />
+    <Compile Include="Model\Managers\IContentManager.cs" />
+    <Compile Include="Model\Pipelines\ContentPipelines\ImportYoutubeContentPipeline.cs" />
+    <Compile Include="Model\Utility\Html\HtmlNodes\HtmlAttribute.cs" />
+    <Compile Include="Model\Utility\Html\HtmlNodes\HtmlComment.cs" />
+    <Compile Include="Model\Utility\Html\HtmlNodes\HtmlElement.cs" />
+    <Compile Include="Model\Utility\Html\HtmlNodes\HtmlInstruction.cs" />
+    <Compile Include="Model\Utility\Html\HtmlNodes\HtmlRootElement.cs" />
+    <Compile Include="Model\Utility\Html\HtmlNodes\HtmlText.cs" />
+    <Compile Include="Model\Managers\CommentManager.cs" />
+    <Compile Include="Model\Managers\ICategoryManager.cs" />
+    <Compile Include="Model\Managers\ICommentManager.cs" />
+    <Compile Include="Model\Pipelines\ContentPipelines\ContentPipelineBase.cs" />
+    <Compile Include="Model\Pipelines\CommentPipelines\CommentPipelineBase.cs" />
+    <Compile Include="Model\Pipelines\CommentPipelines\DeleteCommentPipeline.cs" />
+    <Compile Include="Model\Pipelines\CommentPipelines\UpdateCommentPipeline.cs" />
+    <Compile Include="Model\Pipelines\ImagePipelines\UploadImagePipeline.cs" />
+    <Compile Include="Model\DAL\Files\FileDetails.cs" />
+    <Compile Include="Model\DAL\Files\IFileStorage.cs" />
+    <Compile Include="Model\DAL\DataLayer\IContentQueries.cs" />
+    <Compile Include="Model\DAL\Search\ISearchQueries.cs" />
+    <Compile Include="Model\Entities\Core\Post.cs" />
+    <Compile Include="Model\Constants.cs" />
+    <Compile Include="Model\Entities\Enums\ImageStatus.cs" />
+    <Compile Include="Model\Pipelines\ContentPipelines\InsertContentPipeline.cs" />
+    <Compile Include="Model\Pipelines\CommentPipelines\InsertCommentPipeline.cs" />
+    <Compile Include="Model\Managers\ContentManager.cs" />
+    <Compile Include="Model\Pipelines\ContentPipelines\DeleteContentPipeline.cs" />
+    <Compile Include="Model\Pipelines\ContentPipelines\UpdateContentPipeline.cs" />
+    <Compile Include="Model\Utility\Captcha\ICaptchaProvider.cs" />
+    <Compile Include="Model\Utility\Captcha\NoCaptchaProvider.cs" />
+    <Compile Include="Model\Utility\Html\Media\HtmlImageInfo.cs" />
+    <Compile Include="Model\Utility\Html\Minifier\MinifyHtmlTag.cs" />
+    <Compile Include="Model\Utility\Html\Minifier\MinifyTagType.cs" />
+    <Compile Include="Model\Utility\Html\HtmlTagRemover.cs" />
+    <Compile Include="Model\Utility\CommentState\ICommentStateProvider.cs" />
+    <Compile Include="Model\Utility\Images\ImageDownloader.cs" />
+    <Compile Include="Model\Utility\CommentState\CommentStateProvider.cs" />
+    <Compile Include="Model\Utility\Encryption\ContentEncryption.cs" />
+    <Compile Include="Model\Utility\Encryption\IContentEncryption.cs" />
+    <Compile Include="Model\DAL\ImageQueries\Settings\ImageTargetParameters.cs" />
+    <Compile Include="Model\Utility\Words\Hyphenation.cs" />
+    <Compile Include="Model\Utility\Words\Letters.cs" />
+    <Compile Include="Model\Utility\Words\Translit.cs" />
+    <Compile Include="Model\Utility\Words\WordEndings.cs" />
+    <Compile Include="Model\ViewModels\Content\ContentFullVM.cs" />
+    <Compile Include="Model\ViewModels\Content\ContentSubmitVM.cs" />
+    <Compile Include="Model\ViewModels\Content\ContentUpdateResult.cs" />
+    <Compile Include="Model\ViewModels\Comments\CommentRenderVM.cs" />
+    <Compile Include="Model\ViewModels\IPagerVM.cs" />
+    <Compile Include="Model\ViewModels\Pipelines\ContentDeletePipelineModel.cs" />
+    <Compile Include="Model\ViewModels\Pipelines\ContentPipelineModel.cs" />
+    <Compile Include="Model\ViewModels\Pipelines\ImagePipelineModel.cs" />
+    <Compile Include="Model\ViewModels\Pipelines\ImagePipelineResult.cs" />
+    <Compile Include="Model\ViewModels\Content\ContentEditVM.cs" />
+    <Compile Include="Model\ViewModels\Content\ContentRenderVM.cs" />
+    <Compile Include="Model\Entities\Core\Comment.cs" />
+    <Compile Include="Model\Entities\Core\Keyword.cs" />
+    <Compile Include="Model\Utility\Html\Minifier\ContentMinifier.cs" />
+    <Compile Include="Model\Utility\Html\Minifier\ContentMinifyMode.cs" />
+    <Compile Include="Model\DAL\Files\FileStorage.cs" />
+    <Compile Include="Model\Utility\Images\Resizing\ImageNewSizes.cs" />
+    <Compile Include="Model\Utility\Images\Resizing\ImageResizeType.cs" />
+    <Compile Include="Model\Utility\Images\Resizing\ImageResizing.cs" />
+    <Compile Include="Model\Utility\Html\HtmlNodes\HtmlNode.cs" />
+    <Compile Include="Model\Utility\Html\HtmlParser.cs" />
+    <Compile Include="Model\Utility\Html\HtmlSanitizer.cs" />
+    <Compile Include="Model\Utility\Html\Media\HtmlMediaExtractor.cs" />
+    <Compile Include="Model\ViewModels\Pipelines\CommentPipelineModel.cs" />
+    <Compile Include="Model\ViewModels\Comments\CommentVM.cs" />
+    <Compile Include="Model\ViewModels\Pipelines\ContentPipelineResult.cs" />
+    <Compile Include="Model\ViewModels\Content\SelectContentVM.cs" />
+    <Compile Include="Model\ViewModels\Content\SelectNextContentVM.cs" />
+    <Compile Include="Model\ViewModels\Search\SearchResponse.cs" />
+    <Compile Include="Model\ViewModels\Search\SearchResultVM.cs" />
+    <Compile Include="Model\ViewModels\Search\SearchInputVM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\InnerMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InnerMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MessageResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\InnerMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>InnerMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MessageResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\RegularJobs\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "..\..\..\..\Build\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

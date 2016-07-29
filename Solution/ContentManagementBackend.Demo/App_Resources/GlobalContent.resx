@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Post_Add_Title" xml:space="preserve">
+    <value>Добавить материал</value>
+  </data>
+  <data name="Post_Delete_Message" xml:space="preserve">
+    <value>Статья успешно удалена</value>
+  </data>
+  <data name="Post_Delete_Title" xml:space="preserve">
+    <value>Статья удалена</value>
+  </data>
+  <data name="Post_Edit_AddPost" xml:space="preserve">
+    <value>Добавить статью</value>
+  </data>
+  <data name="Post_Edit_ImageTitle" xml:space="preserve">
+    <value>Изображение в списке</value>
+  </data>
+  <data name="Post_Edit_Title" xml:space="preserve">
+    <value>Редактирование статьи</value>
+  </data>
+  <data name="Post_Edit_UpdateNonceModalTitle" xml:space="preserve">
+    <value>Подтверждение</value>
+  </data>
+  <data name="Post_Full_AddDate" xml:space="preserve">
+    <value>Добавлено</value>
+  </data>
+  <data name="Post_Full_CommentEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Post_Full_Comments" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="Post_Full_CommentUserName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Post_Full_Reply" xml:space="preserve">
+    <value>Ответить</value>
+  </data>
+  <data name="Post_Full_SimilarPosts" xml:space="preserve">
+    <value>Смотреть дальше</value>
+  </data>
+  <data name="Post_Index_PostNotFoundTitle" xml:space="preserve">
+    <value>Статья не найдена</value>
+  </data>
+  <data name="SidebarLayout_Comments" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="Post_List_Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Post_List_More" xml:space="preserve">
+    <value>Перейти</value>
+  </data>
+  <data name="Post_List_NextList" xml:space="preserve">
+    <value>Показать ещё</value>
+  </data>
+  <data name="Post_List_Title" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="BsDatetimePicker_NextCentury" xml:space="preserve">
+    <value>Слeдующий век</value>
+  </data>
+  <data name="BsDatetimePicker_NextDecade" xml:space="preserve">
+    <value>Слeдующая декада</value>
+  </data>
+  <data name="BsDatetimePicker_NextMonth" xml:space="preserve">
+    <value>Слeдующий месяц</value>
+  </data>
+  <data name="BsDatetimePicker_NextYear" xml:space="preserve">
+    <value>Слeдующий год</value>
+  </data>
+  <data name="BsDatetimePicker_PrevCentury" xml:space="preserve">
+    <value>Предыдущий век</value>
+  </data>
+  <data name="BsDatetimePicker_PrevDecade" xml:space="preserve">
+    <value>Предыдущая декада</value>
+  </data>
+  <data name="BsDatetimePicker_PrevMonth" xml:space="preserve">
+    <value>Предыдущий месяц</value>
+  </data>
+  <data name="BsDatetimePicker_PrevYear" xml:space="preserve">
+    <value>Предыдущий год</value>
+  </data>
+  <data name="BsDatetimePicker_SelectDecade" xml:space="preserve">
+    <value>Выберите декаду</value>
+  </data>
+  <data name="BsDatetimePicker_SelectMonth" xml:space="preserve">
+    <value>Выберите месяц</value>
+  </data>
+  <data name="BsDatetimePicker_SelectYear" xml:space="preserve">
+    <value>Выберите год</value>
+  </data>
+  <data name="Ckeditor_ImageLeft" xml:space="preserve">
+    <value>Изображение слева</value>
+  </data>
+  <data name="Ckeditor_ImageRight" xml:space="preserve">
+    <value>Изображение справа</value>
+  </data>
+  <data name="Ckeditor_Subtitle" xml:space="preserve">
+    <value>Подзаголовок</value>
+  </data>
+  <data name="Common_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>Вы уверены?</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Common_Download" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Common_Paging_First" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Common_Paging_First_Title" xml:space="preserve">
+    <value>Перейти в начало</value>
+  </data>
+  <data name="Common_Paging_Last" xml:space="preserve">
+    <value>Конец</value>
+  </data>
+  <data name="Common_Paging_Last_Title" xml:space="preserve">
+    <value>Перейти в конец</value>
+  </data>
+  <data name="Common_Paging_Next" xml:space="preserve">
+    <value>След</value>
+  </data>
+  <data name="Common_Paging_Next_Title" xml:space="preserve">
+    <value>Перейти к следующей странице</value>
+  </data>
+  <data name="Common_Paging_Page_Title" xml:space="preserve">
+    <value>Перейти к странице {0}</value>
+  </data>
+  <data name="Common_Paging_Prev" xml:space="preserve">
+    <value>Пред</value>
+  </data>
+  <data name="Common_Paging_Prev_Title" xml:space="preserve">
+    <value>Перейти к предыдущей странице</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="ImageUploader_DownloadFromUrl" xml:space="preserve">
+    <value>Загрузить из Url</value>
+  </data>
+  <data name="ImageUploader_FormatException" xml:space="preserve">
+    <value>Допустимы только изображения в формате jpg, png и gif.</value>
+  </data>
+  <data name="ImageUploader_NoImageDropZone" xml:space="preserve">
+    <value>Перетащите изображение для загрузки</value>
+  </data>
+  <data name="ImageUploader_Restore" xml:space="preserve">
+    <value>Восстановить изображение</value>
+  </data>
+  <data name="ImageUploader_UploadFromFile" xml:space="preserve">
+    <value>Загрузить из файла</value>
+  </data>
+  <data name="Post_Full_DefaultInputText" xml:space="preserve">
+    <value>Оставьте комментарий</value>
+  </data>
+  <data name="CommentAuthPipeline_PasswordRequired" xml:space="preserve">
+    <value>Введите пароль</value>
+  </data>
+  <data name="CommentAuthPipeline_EmailBadFormed" xml:space="preserve">
+    <value>Неверно введён Email</value>
+  </data>
+  <data name="CommentAuthPipeline_EmailRequired" xml:space="preserve">
+    <value>Введите Email</value>
+  </data>
+  <data name="CommentAuthPipeline_NameRequired" xml:space="preserve">
+    <value>Введите Имя</value>
+  </data>
+  <data name="Post_List_New" xml:space="preserve">
+    <value>Новое</value>
+  </data>
+  <data name="Shared_Error_BackText" xml:space="preserve">
+    <value>вернуться</value>
+  </data>
+  <data name="Shared_Error_Message1" xml:space="preserve">
+    <value>Произошла ошибка при выполнении запроса. Попробуйте </value>
+  </data>
+  <data name="Shared_Error_Message2" xml:space="preserve">
+    <value>на главную страницу.</value>
+  </data>
+  <data name="Shared_Error_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Ckeditor_Image" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="Post_Moderation_Title" xml:space="preserve">
+    <value>Полный список статей</value>
+  </data>
+  <data name="Post_Moderation_TitleShort" xml:space="preserve">
+    <value>Полный список</value>
+  </data>
+  <data name="Categories_List_Title" xml:space="preserve">
+    <value>Категории</value>
+  </data>
+  <data name="Common_Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Search_Index_Title" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Search_Index_Find" xml:space="preserve">
+    <value>Найти</value>
+  </data>
+  <data name="Search_Index_AllCategories" xml:space="preserve">
+    <value>Везде</value>
+  </data>
+  <data name="Common_PostComments" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="Common_PostViews" xml:space="preserve">
+    <value>Просмотры</value>
+  </data>
+  <data name="Categories_Index_NotFound" xml:space="preserve">
+    <value>Не найдена категория</value>
+  </data>
+  <data name="Shared_Layout_SearchDefault" xml:space="preserve">
+    <value>поиск</value>
+  </data>
+  <data name="CommentAuthPipeline_DuplicateEmail" xml:space="preserve">
+    <value>Email '{0}' уже используется.</value>
+  </data>
+  <data name="Common_AuthError" xml:space="preserve">
+    <value>Произошла ошибка при авторизации.</value>
+  </data>
+  <data name="Post_Full_AuthLocalAccount" xml:space="preserve">
+    <value>Войти анонимно</value>
+  </data>
+  <data name="Post_Full_AuthSocialAccount" xml:space="preserve">
+    <value>Войти через социальную сеть</value>
+  </data>
+  <data name="Menu_Posts" xml:space="preserve">
+    <value>Статьи</value>
+  </data>
+  <data name="Menu_PostsAdd" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Menu_PostsEditList" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Menu_Users" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="Layout_CopyWarning" xml:space="preserve">
+    <value>Любое использование материалов допускается только с согласия редакции.</value>
+  </data>
+  <data name="Ckeditor_ImageFullWidth" xml:space="preserve">
+    <value>Изображение во всю ширину</value>
+  </data>
+  <data name="Post_Edit_PreviewPostButton" xml:space="preserve">
+    <value>Предварительный просмотр</value>
+  </data>
+  <data name="Post_Edit_PreviewPostTitle" xml:space="preserve">
+    <value>Предварительный просмотр</value>
+  </data>
+  <data name="SidebarLayout_PopularPosts" xml:space="preserve">
+    <value>Популярное</value>
+  </data>
+  <data name="Search_Index_YouSearched" xml:space="preserve">
+    <value>Вы искали</value>
+  </data>
+  <data name="Search_Index_NoMatchFound" xml:space="preserve">
+    <value>К сожалению, ничего не найдено. Попробуйте переформулировать свой запрос или поискать что-то другое.</value>
+  </data>
+  <data name="Error_NoSuchPage_Description" xml:space="preserve">
+    <value>Этот адрес удалён, стёрт, закопан или поломан. Возможно, что материалы по этому адресу более не доступны.</value>
+  </data>
+  <data name="Error_NoSuchPage_Home" xml:space="preserve">
+    <value>На Главную: Жмите сюда и мы вернём вас на главную страницу</value>
+  </data>
+  <data name="Error_NoSuchPage_Message" xml:space="preserve">
+    <value>Не удалось найти то, что вы искали</value>
+  </data>
+  <data name="Error_NoSuchPage_SearchMessage" xml:space="preserve">
+    <value>К Поиску: Найдите нужную страницу через поиск</value>
+  </data>
+  <data name="Error_NoSuchPage_Suggestion" xml:space="preserve">
+    <value>Но не волнуйтесь, попробуйте вернуться:</value>
+  </data>
+  <data name="Error_NoSuchPage_Title" xml:space="preserve">
+    <value>Страница не найдена</value>
+  </data>
+  <data name="Error_Internal_Description" xml:space="preserve">
+    <value>Скорее всего, это не та страница, которую вы ожидали увидеть. Мы попробуем разобраться что же пошло не так при выполнении запроса.</value>
+  </data>
+  <data name="Error_Internal_Message" xml:space="preserve">
+    <value>Произошла внутренняя ошибка</value>
+  </data>
+  <data name="Error_Internal_Title" xml:space="preserve">
+    <value>Внутренняя ошибка</value>
+  </data>
+</root>

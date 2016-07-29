@@ -1,0 +1,27 @@
+﻿.af-details>span,
+.af-details>a{    
+    margin-right: 30px;
+}
+.af-topimage{
+    margin: 5px 0;
+    width: 100%;
+}
+.af-publishtime{
+    text-transform:capitalize;
+}
+.af-content {
+    margin: 10px 0 15px 0;
+}
+    .af-content p{
+        margin: 14px 0;
+    }    
+    .af-content ul{
+        list-style-type: disc !important;
+    }  
+    .af-content li{
+        margin-left:20px;
+    }
+.af-latest .al-block{
+    width:360px;
+    margin-right: 7px;
+}

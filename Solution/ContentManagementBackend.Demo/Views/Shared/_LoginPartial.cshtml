@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNet.Identity
+
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post
+                , new { id = "logoutForm", @class = "login-form", style = Request.IsAuthenticated ? "" : "display:none" }))
+{
+    if (Request.IsAuthenticated)
+    {
+        @Html.AntiForgeryToken()
+    }
+
+    <ul class="login">
+        <li>
+            <span>@(Request.IsAuthenticated ? @Html.LayoutVM().CurrentUser.UserName : null)</span>
+        </li>
+        <li class="exit">
+            <a href="javascript:document.getElementById('logoutForm').submit()"
+               class="fa fa-times" title="@IdentityResourceHelper.Load("Shared_LoginPartial_LogOff")"></a>
+        </li>
+    </ul>
+}
+
+@if (!Request.IsAuthenticated)
+{
+    <ul id="loginActions" class="login">
+        <li>@Html.ActionLink(IdentityResourceHelper.Load("Shared_LoginPartial_LogIn"), "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

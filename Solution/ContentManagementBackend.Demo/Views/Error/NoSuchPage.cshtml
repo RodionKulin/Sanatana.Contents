@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = GlobalContent.Error_NoSuchPage_Title;
+}
+
+<h1 style="text-transform:uppercase">@GlobalContent.Error_NoSuchPage_Message</h1>
+<h3>@GlobalContent.Error_NoSuchPage_Description</h3>
+
+<p style="text-align:center">
+    <img src="/content/images/pug1.gif" style="width:500px" />
+</p>
+
+<h2>@GlobalContent.Error_NoSuchPage_Suggestion</h2>
+
+<p>
+    <a href="/" class="btn btn-primary" style="font-size:20px">@GlobalContent.Error_NoSuchPage_Home</a>
+</p>
+<p>
+    <a href="@Url.Action("Index", "Search")" 
+       class="btn btn-primary" style="font-size:20px">@GlobalContent.Error_NoSuchPage_SearchMessage</a>
+</p>

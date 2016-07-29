@@ -1,0 +1,22 @@
+﻿@model SelectContentVM<ObjectId>
+@using MvcPaging
+
+@{
+    ViewBag.Title = GlobalContent.Post_Moderation_Title;
+}
+
+@CommonTemplates.ItemsPager(Html, Model)
+
+<div class="al-wrapper">
+    @foreach (ContentRenderVM<ObjectId> contentVM in Model.ContentRenderVMs)
+    {
+        @CommonTemplates.PostTile(contentVM)
+    }
+</div>
+
+@CommonTemplates.ItemsPager(Html, Model)
+
+@section scripts{
+    @Styles.Render("~/content/posts-list")
+}
+

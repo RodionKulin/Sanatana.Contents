@@ -1,0 +1,127 @@
+﻿@using IndividualSiteMap.MVC
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>@ViewBag.Title | @SiteConstants.SITE_BRAND</title>
+    @Styles.Render("~/content/layout")
+    @RenderSection("head", required: false)
+</head>
+<body>
+    @if (!HttpContext.Current.Request.IsLocal)
+    {
+        //place google/yandex metrica script here
+    }
+    <div class="body-gap">       
+        <div class="social-links">
+            <a href="/">
+                <img src="/content/images/transparent.gif" class="youtube" />
+            </a>
+            <a href="/">
+                <img src="/content/images/transparent.gif" class="vk" />
+            </a>
+        </div>
+    </div>
+    <div class="body-top @(Html.LayoutVM().ActiveMenuItemIsParent ? "top-height2" : null)">
+        <a class="logo" href="/">
+            <img src="/content/images/transparent.gif" alt="@SiteConstants.SITE_BRAND" />
+        </a>
+
+        @*MENU START*@
+        <div class="menu-container">
+            <ul class="menu-roots">
+                @foreach (RenderItem item in Html.LayoutVM().PublicMenuItems)
+                {
+                    <li>
+                        <a href="@(item.IsClickable ? item.Href : "#")" class="@(item.IsChildOrSelfCurrentItem ? "active" : "")">
+                            @item.Title
+                        </a>
+                        @if (item.Children.Count > 0)
+                        {
+                            <div class="menu-drop">
+                                @foreach (RenderItem child in item.Children)
+                                {
+                                    <a href="@child.Href" class="@(child.IsChildOrSelfCurrentItem ? "active" : "")">
+                                        @child.Title
+                                    </a>
+                                }
+                            </div>
+                        }                                      
+                    </li>
+                }
+            </ul>
+            @if (Html.LayoutVM().ActiveMenuItemIsParent)
+            {
+                <ul class="menu-sub">
+                    @foreach (RenderItem item in Html.LayoutVM().ActiveMenuItem.Children)
+                    {
+                        <li>
+                            <a href="@item.Href" class="@(item.IsChildOrSelfCurrentItem ? "active" : "")">
+                                @item.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>        
+        @*MENU END*@
+
+        <div class="search">
+            <input type="text" id="search" class="empty" value="@GlobalContent.Shared_Layout_SearchDefault" />
+            <a href="#">
+                <i class="fa fa-search"></i>
+            </a>
+        </div>
+
+        @Html.Partial("_LoginPartial")
+    </div>
+    <div class="body-container">
+        <div class="body-content">            
+            @*ADMIN MENU START*@
+            @if (Html.LayoutVM().IsStuffMember)
+            {               
+                <ul class="menu-roots menu-admin">
+                    @foreach (RenderItem item in Html.LayoutVM().AdminMenuItems)
+                    {
+                        <li>
+                            <a href="@(item.IsClickable ? item.Href : "#")">
+                                @item.Title
+                            </a>
+                            @if (item.Children.Count > 0)
+                            {
+                                <div class="menu-drop">
+                                    @foreach (RenderItem child in item.Children)
+                                    {
+                                        <a href="@child.Href" class="@(child.IsChildOrSelfCurrentItem ? "active" : "")">
+                                            @child.Title
+                                        </a>
+                                    }
+                                </div>
+                            }
+                        </li>
+                        }
+                </ul>
+            }
+            @*ADMIN MENU END*@
+            @RenderBody()
+        </div>
+        <footer class="footer color-gray">
+            <p class="footer-cats">
+                @foreach(Category<ObjectId> item in Html.LayoutVM().FooterCategories)
+                {
+                    @Html.ActionLink(item.Name, "Category", "Posts", new { categoryUrl = item.Url  }, null)
+                }
+            </p>
+            <p>@GlobalContent.Layout_CopyWarning &copy; @SiteConstants.SITE_BRAND 
+            @SiteConstants.SITE_FOUNDATION_YEAR@(@DateTime.Now.Year == @SiteConstants.SITE_FOUNDATION_YEAR ? "" : "-" + @DateTime.Now.Year)</p>
+        </footer>
+    </div>
+
+    @Styles.Render("~/content/css")
+    @Scripts.Render("~/content/jscore")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

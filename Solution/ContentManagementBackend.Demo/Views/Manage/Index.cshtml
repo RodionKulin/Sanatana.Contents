@@ -1,0 +1,76 @@
+﻿@model Common.Identity2_1.ManageIndexViewModel
+@{
+    ViewBag.Title = IdentityResourceHelper.Load("Manage_Index_Title");
+}
+
+<h2>@ViewBag.Title.</h2>
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div class="row">
+    <div class="col-md-8">
+        <p>
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink(IdentityResourceHelper.Load("Manage_Index_ChangePassword"), "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink(IdentityResourceHelper.Load("Manage_Index_PickPassword"), "SetPassword")
+            }
+        </p>
+        <p>
+            @IdentityResourceHelper.Load("Manage_Index_PhoneNumber") @(Model.PhoneNumber
+                ?? IdentityResourceHelper.Load("Common_None")) [
+            @if (Model.PhoneNumber != null)
+            {
+                @Html.ActionLink(IdentityResourceHelper.Load("Common_Change"), "AddPhoneNumber")
+                @: &nbsp;|&nbsp;
+                @Html.ActionLink(IdentityResourceHelper.Load("Common_Remove"), "RemovePhoneNumber")
+            }
+            else
+            {
+                @Html.ActionLink(IdentityResourceHelper.Load("Common_Add"), "AddPhoneNumber")
+            }
+            ]
+        </p>
+        <p>
+            @IdentityResourceHelper.Load("Manage_Index_ExternalLogins") @Model.Logins.Count
+            @Html.ActionLink("[" + IdentityResourceHelper.Load("Common_Manage") + "]", "ManageLogins")
+        </p>
+        @if (Model.TwoFactor)
+        {
+            <form method="post" action="/Manage/DisableTFA">
+                <p>
+                    @IdentityResourceHelper.Load("Manage_Index_TwoFactorEnabled")
+                    <input type="submit" value="@IdentityResourceHelper.Load("Common_Disable")" class="btn btn-default" />
+                </p>
+            </form>
+        }
+        else
+        {
+            <form method="post" action="/Manage/EnableTFA">
+                <p>
+                    @IdentityResourceHelper.Load("Manage_Index_TwoFactorDisabled")
+                    <input type="submit" value="@IdentityResourceHelper.Load("Common_Enable")" class="btn btn-default" />
+                </p>
+            </form>
+        }
+        @if (Model.BrowserRemembered)
+        {
+            <form method="post" action="/Manage/ForgetBrowser">
+                <p>
+                    @IdentityResourceHelper.Load("Manage_Index_BrowserRemembered")
+                    <input type="submit" value="@IdentityResourceHelper.Load("Manage_Index_ForgetBrowser")" class="btn btn-default" />
+                </p>
+            </form>
+        }
+        else
+        {
+            <form method="post" action="/Manage/RememberBrowser">
+                <p>
+                    @IdentityResourceHelper.Load("Manage_Index_BrowserNotRemembered")
+                    <input type="submit" value="@IdentityResourceHelper.Load("Manage_Index_RememberBrowser")" class="btn btn-default" />
+                </p>
+            </form>
+        }
+    </div>
+</div>

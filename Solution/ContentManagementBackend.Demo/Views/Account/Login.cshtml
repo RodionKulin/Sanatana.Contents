@@ -1,0 +1,81 @@
+﻿@model LoginViewModel
+
+@{
+    ViewBag.Title = IdentityResourceHelper.Load("Account_Login_Title");
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Model == null ? null : Model.ReturnUrl }
+                , FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @*<h2 class="title mbottom-small">@IdentityResourceHelper.Load("Account_Login_UserLocalAccount")</h2>
+                <hr />*@
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@IdentityResourceHelper.Load("Account_Login_LogIn")" class="btn btn-default" />
+                    </div>
+                </div>
+                <p>
+                    @Html.ActionLink(IdentityResourceHelper.Load("Account_Login_RegisterLink"), "Register"
+                        , null, new { @class = "mright-small" })
+
+                    @Html.ActionLink(IdentityResourceHelper.Load("Account_Login_ForgetPasswordLink"), "ForgotPassword"
+                        , null, new { @class = "" })
+                </p>
+            }
+        </section>
+    </div>
+    <div class="col-md-4">      
+        <div id="uLogin" class="li-social"
+             data-ulogin="display=panel;fields=first_name,last_name,photo,photo_big;
+             providers=vkontakte,odnoklassniki,facebook,yandex,mailru,googleplus,twitter,youtube,google,livejournal,flickr,wargaming,instagram,vimeo,dudu,tumblr,liveid,foursquare,webmoney,soundcloud,uid,steam,linkedin,lastfm,openid;
+             hidden=other;redirect_uri=;callback=uLoginCallback"></div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/content/jsjqueryval")
+    @Scripts.Render("~/content/jsajax")
+    <script type="text/javascript">        
+        function uLoginCallback(token) {     
+            ajaxRequest(
+               '/Account/ULoginAjaxCallback',
+               {
+                   token: token,
+                   returnUrl: getParameterByName('returnUrl')
+               },
+               function (data, hasError) {
+                   if (!hasError) {
+                       window.location.href = data.redirect
+                   }
+               })
+        }
+        function getParameterByName(name) {
+            var url = window.location.href.toLowerCase()
+            name = name.replace(/[\[\]]/g, "\\$&").toLowerCase()
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+    </script>
+    <script src="//ulogin.ru/js/ulogin.js" async="async"></script>
+}

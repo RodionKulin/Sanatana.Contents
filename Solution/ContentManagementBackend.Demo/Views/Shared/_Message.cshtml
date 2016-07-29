@@ -1,0 +1,12 @@
+﻿@model MessageContentVM
+
+@{    
+    ViewBag.Title = Model.Title;
+}
+
+
+<div class="alert @(Model.IsError ? "alert-danger" : "alert-success")" role="alert">
+    @Model.Message
+</div>
+
+
