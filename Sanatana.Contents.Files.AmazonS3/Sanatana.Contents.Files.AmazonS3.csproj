@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.3.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sanatana.Contents\Sanatana.Contents.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\AmazonS3Messages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AmazonS3Messages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\AmazonS3Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AmazonS3Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

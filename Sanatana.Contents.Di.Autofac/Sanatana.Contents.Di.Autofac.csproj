@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sanatana.Contents.Database.EntityFrameworkCore\Sanatana.Contents.Database.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Sanatana.Contents.Database.MongoDb\Sanatana.Contents.Database.MongoDb.csproj" />
+    <ProjectReference Include="..\Sanatana.Contents.Files.AmazonS3\Sanatana.Contents.Files.AmazonS3.csproj" />
+    <ProjectReference Include="..\Sanatana.Contents.Search.ElasticSearch\Sanatana.Contents.Search.ElasticSearch.csproj" />
+    <ProjectReference Include="..\Sanatana.Contents\Sanatana.Contents.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Sanatana.EntityFrameworkCore">
+      <HintPath>..\ThirdParty\Sanatana.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Sanatana.MongoDb">
+      <HintPath>..\ThirdParty\Sanatana.MongoDb.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

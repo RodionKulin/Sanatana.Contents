@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LinqKit.Core" Version="1.1.15" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0-preview1-final" />
+    <PackageReference Include="RevStackCore-ImageSharp" Version="0.9.0" />
+    <PackageReference Include="Unidecode.NET" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Sanatana.Patterns.Pipelines">
+      <HintPath>..\ThirdParty\Sanatana.Patterns.Pipelines.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\ContentsMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContentsMessages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ContentsMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContentsMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
