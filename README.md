@@ -1,16 +1,18 @@
-# ContentManagementBackend
-ContentManagementBackend is a c# CRUD operations backend for content like posts and comments.
+# Description and benefits
+-Sanatana.Contents provides content CRUD operations, global search, attachments and comments support, html sanitizing and permissions control.
 
-Solution contains of:
+-Create, Update, Delete operations based on Sanatana.Patterns.Pipelines project that allows reusing and altering predefined pipelines to custom needs.
 
--ContentManagementBackend main library
+-It is a backend implementation with no built in UI. It can be wired to existing solution requiring content management.
 
--MongoDb storage provider for posts, comments CRUD operations
+-NET standard 2.0 version, so it can be used in both NET environments: Full, Core.
 
--Amazon S3 storage provider for images CRUD operations
+-Basic role based permission system lets you control access to different content types. No built in default roles and permission types means you can define em on your application level as enum and supply as integers to Sanatana.Contents.
 
--ElasticSearch provider for CRUD search operations on posts
+-Everything is extendable and replaceable through dependency injection. Autofac as DI container is recommended, although not restricted to it.
 
--Demo MVC site which utilises ContentManagementBackend as example
+-Technologies used allow to serve a small load single instance or high load distributed content application. EntityFrameworkCore and MongoDb are provided as data access layers. ElasticSearch as search engine. Amazon S3 or OS file system as files storage.  
 
--Initializer console application for creating DB indexes, users and demo content
+-Maximum simplicity of adding new content types. Edit DbContext to add mapping for new entity and inherit it from base Content type. To introduce custom entities to ElasticSearch Automapper configuration is required on top of usual ElasticSearch mapping.
+
+-Have multiple content types in single application. Like posts, support tickets, shop items, you name it. Entities that have free input text as some of their properties are likely to fit.
