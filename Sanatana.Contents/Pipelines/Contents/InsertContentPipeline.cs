@@ -15,6 +15,7 @@ using Sanatana.Contents.Search;
 using Sanatana.Contents.Database;
 using Sanatana.Contents.Html;
 using Sanatana.Contents.Utilities;
+using Sanatana.Contents.Files.Services;
 
 namespace Sanatana.Contents.Pipelines.Contents
 {
@@ -27,9 +28,9 @@ namespace Sanatana.Contents.Pipelines.Contents
         //init
         public InsertContentPipeline(IPipelineExceptionHandler exceptionHandler, IContentQueries<TKey, TContent> contentQueries
             , IPermissionSelector<TKey, TCategory> permissionSelector, ISearchQueries<TKey> searchQueries
-            , IImageFileQueries imageFileQueries, IHtmlMediaExtractor htmlMediaExtractor, IUrlEncoder urlEncoder)
+            , IImageFileService imageFileService, IHtmlMediaExtractor htmlMediaExtractor, IUrlEncoder urlEncoder)
             : base(exceptionHandler, contentQueries, permissionSelector
-                  , searchQueries, imageFileQueries, htmlMediaExtractor, urlEncoder)
+                  , searchQueries, imageFileService, htmlMediaExtractor, urlEncoder)
         {
             RegisterModules();
         }

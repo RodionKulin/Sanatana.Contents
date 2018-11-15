@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Sanatana.Contents.Files.Queries
+namespace Sanatana.Contents.Files.Services
 {
-    public interface IImageFileQueries
+    public interface IImageFileService
     {
         (List<string>, List<string>) GenerateRelativePathsAndUrls(int pathProviderId, string directoryArg, int count);
         Task<List<FileDetails>> GetUnusedStoredKeys(int pathProviderId, IEnumerable<string> currentFilePaths, string directoryArg);

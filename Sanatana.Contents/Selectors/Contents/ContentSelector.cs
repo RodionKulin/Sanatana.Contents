@@ -241,6 +241,7 @@ namespace Sanatana.Contents.Selectors.Contents
             //assemble
             return new ContentPageVM<TKey, TCategory, TContent>()
             {
+                Status = OperationStatus.Success,
                 Page = page,
                 PageSize = pageSize,
                 TotalItems = countContent ? contentCountSelectedCategories : 0,
@@ -315,7 +316,7 @@ namespace Sanatana.Contents.Selectors.Contents
                 Contents = items,
                 LastPublishTimeUtcIso8601 = items.Count == 0
                     ? null
-                    : items.Last().PublishTimeUtc.ToIso8601()
+                    : items.Last().PublishTimeUtc.ToIso8601()                
             };
         }
 

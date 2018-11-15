@@ -1,5 +1,6 @@
 ﻿using Sanatana.Contents.Database;
 using Sanatana.Contents.Files.Queries;
+using Sanatana.Contents.Files.Services;
 using Sanatana.Contents.Objects;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Pipelines.Images;
@@ -30,20 +31,20 @@ namespace Sanatana.Contents.Pipelines.Contents
         protected ISearchQueries<TKey> _searchQueries;
         protected IPermissionSelector<TKey, TCategory> _permissionSelector;
         protected TContent _storedContent;
-        protected IFileQueries _fileQueries;
+        protected IFileService _fileService;
 
 
 
         //init
         public DeleteContentPipeline(IPipelineExceptionHandler exceptionHandler, IContentQueries<TKey, TContent> contentQueries
             , ICommentQueries<TKey, TContent, TComment> commentQueries, IPermissionSelector<TKey, TCategory> permissionSelector
-            , ISearchQueries<TKey> searchQueries, IFileQueries fileQueries)
+            , ISearchQueries<TKey> searchQueries, IFileService fileService)
         {
             _exceptionHandler = exceptionHandler;
             _contentQueries = contentQueries;
             _commentQueries = commentQueries;
             _searchQueries = searchQueries;
-            _fileQueries = fileQueries;
+            _fileService = fileService;
             _permissionSelector = permissionSelector;
 
             RegisterModules();
@@ -178,7 +179,7 @@ namespace Sanatana.Contents.Pipelines.Contents
             string contentId = context.Input.ContentId.ToString();
 
             int pathProviderId = context.Input.ContentImagesPathMapperId.Value;
-            await _fileQueries.DeleteDirectory(pathProviderId, contentId).ConfigureAwait(false);
+            await _fileService.DeleteDirectory(pathProviderId, contentId).ConfigureAwait(false);
 
             return true;
         }

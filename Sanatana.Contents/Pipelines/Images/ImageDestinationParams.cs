@@ -15,7 +15,7 @@ namespace Sanatana.Contents.Pipelines.Images
         public bool RoundCorners { get; set; }
         public ImageFormat TargetFormat { get; set; }
         public ImageResizeType ResizeType { get; set; }
-        public int FilePathMapperId { get; set; }
+        public int FilePathProviderId { get; set; }
 
         
     }

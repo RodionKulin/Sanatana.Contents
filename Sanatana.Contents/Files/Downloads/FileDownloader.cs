@@ -16,11 +16,13 @@ namespace Sanatana.Contents.Files.Downloads
     public class FileDownloader : IFileDownloader
     {
         //methods
-        public virtual Task<PipelineResult<byte[]>> Download(Stream inputStream, long contentLength, long? contentLengthLimit)
+        public virtual Task<PipelineResult<byte[]>> Download(Stream inputStream, long? contentLength, long? contentLengthLimit)
         {
             PipelineResult<byte[]> result = null;
 
-            if (contentLengthLimit != null && contentLength > contentLengthLimit)
+            if (contentLengthLimit != null 
+                && contentLength != null
+                && contentLength > contentLengthLimit)
             {
                 string error = string.Format(ContentsMessages.Image_SizeExceeeded, contentLengthLimit);
                 result = PipelineResult<byte[]>.Error(error);

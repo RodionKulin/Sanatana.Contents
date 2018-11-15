@@ -44,7 +44,7 @@ namespace Sanatana.Contents.Caching
             if (idFieldValue.Contains(FieldSeperator.ToString()))
                 throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", "idFieldValue");
 
-            return $"urn:{objectType.Name}:{idFieldValue}";
+            return $"urn:{objectType.FullName}:{idFieldValue}";
         }
 
         public static string Create<T>()
@@ -60,7 +60,7 @@ namespace Sanatana.Contents.Caching
             if (idFieldName.Contains(FieldSeperator.ToString()))
                 throw new ArgumentException("idFieldName cannot have the illegal characters: ':'", "idFieldName");
 
-            return $"urn:{objectType.Name}:{idFieldName}:{idFieldValue}";
+            return $"urn:{objectType.FullName}:{idFieldName}:{idFieldValue}";
         }
 
         public static string Create<T>(string idFieldValue)
@@ -99,7 +99,7 @@ namespace Sanatana.Contents.Caching
 
         public static string CreateWithParts<T>(params string[] keyParts)
         {
-            return CreateWithParts(typeof(T).Name, keyParts);
+            return CreateWithParts(typeof(T).FullName, keyParts);
         }
 
         public static string CreateWithValues(string objectTypeName, params object[] keyParts)
@@ -128,7 +128,7 @@ namespace Sanatana.Contents.Caching
 
         public static string CreateWithValues<T>(params object[] keyParts)
         {
-            return CreateWithValues(typeof(T).Name, keyParts);
+            return CreateWithValues(typeof(T).FullName, keyParts);
         }
 
         private static string ListToString(IEnumerable list)

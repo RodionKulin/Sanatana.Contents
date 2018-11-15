@@ -31,6 +31,11 @@ namespace Sanatana.Contents.Files.Queries
                 file.Delete();
             }
 
+            if(file.Directory.Exists == false)
+            {
+                file.Directory.Create();
+            }
+
             using (Stream fileStream = File.Create(fullPath))
             {
                 fileStream.Write(inputBytes, 0, inputBytes.Length);
@@ -74,6 +79,13 @@ namespace Sanatana.Contents.Files.Queries
             {
                 string oldFullPath = Path.Combine(_settings.Directory, oldNamePaths[i]);
                 string newFullPath = Path.Combine(_settings.Directory, newNamePaths[i]);
+
+                DirectoryInfo directory = new DirectoryInfo(newFullPath);
+                if (directory.Exists == false)
+                {
+                    directory.Create();
+                }
+
                 File.Copy(oldFullPath, newFullPath);
             }
 
@@ -86,6 +98,13 @@ namespace Sanatana.Contents.Files.Queries
             {
                 string oldFullPath = Path.Combine(_settings.Directory, oldNamePaths[i]);
                 string newFullPath = Path.Combine(_settings.Directory, newNamePaths[i]);
+                
+                DirectoryInfo directory = new DirectoryInfo(newFullPath);
+                if (directory.Exists == false)
+                {
+                    directory.Create();
+                }
+                
                 File.Move(oldFullPath, newFullPath);
             }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using Sanatana.Contents.Database;
 using Sanatana.Contents.Files.Queries;
+using Sanatana.Contents.Files.Services;
 using Sanatana.Contents.Html.Media;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Pipelines;
@@ -22,9 +23,9 @@ namespace Sanatana.Contents.Di.AutofacSpecs.Objects
 
         public InsertTicketPipeline(IPipelineExceptionHandler exceptionHandler, IContentQueries<ObjectId, Ticket<ObjectId>> contentQueries
             , IPermissionSelector<ObjectId, Category<ObjectId>> permissionSelector, ISearchQueries<ObjectId> searchQueries
-            , IImageFileQueries imageFileQueries, IHtmlMediaExtractor htmlMediaExtractor, IUrlEncoder urlEncoder)
+            , IImageFileService imageFileService, IHtmlMediaExtractor htmlMediaExtractor, IUrlEncoder urlEncoder)
             : base(exceptionHandler, contentQueries, permissionSelector
-                  , searchQueries, imageFileQueries, htmlMediaExtractor, urlEncoder)
+                  , searchQueries, imageFileService, htmlMediaExtractor, urlEncoder)
         {
 
         }

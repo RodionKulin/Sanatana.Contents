@@ -16,6 +16,7 @@ using Sanatana.Contents.Files.Queries;
 using Sanatana.Contents.Caching.Concrete;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Selectors.Contents;
+using Sanatana.Contents.Objects;
 
 namespace Sanatana.Contents.Di.AutofacSpecs
 {
@@ -117,5 +118,20 @@ namespace Sanatana.Contents.Di.AutofacSpecs
             }
         }
 
+        [TestFixture]
+        public class when_calling_generic_selector : AutofacSetupBase
+        {
+            [Test]
+            public void then_calles_selector_instance_from_autofac()
+            {
+                IContainer container = _builder.Build();
+                var selector1 = container.Resolve<IContentSelector<ObjectId, Category<ObjectId>, Content<ObjectId>>>();
+                selector1.ShouldNotBeNull();
+
+                var pageVM = selector1.SelectPage(1, 10
+                    , DataAmount.FullContent, true, 0, null, false, x => true).Result;
+                pageVM.ShouldNotBeNull();
+            }
+        }
     }
 }

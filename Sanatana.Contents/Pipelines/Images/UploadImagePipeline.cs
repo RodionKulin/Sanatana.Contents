@@ -24,7 +24,7 @@ namespace Sanatana.Contents.Pipelines.Images
         protected List<byte[]> _formatedBytes;
         protected IFileDownloader _fileDownloader;
         protected IImageResizer _imageResizer;
-        protected List<string> _targetNamePaths;
+        protected List<string> _filePathsWithName;
 
 
         //init
@@ -47,7 +47,7 @@ namespace Sanatana.Contents.Pipelines.Images
             Register(GenerateTargetsNamePaths);
             Register(Download);
             Register(Format);
-            Register(Store);
+            Register(CreateFile);
         }
 
         public override async Task RollBack(
@@ -73,7 +73,7 @@ namespace Sanatana.Contents.Pipelines.Images
         public virtual Task<bool> GenerateTargetsNamePaths(
            PipelineContext<UploadImageParams, PipelineResult<List<UploadImageResult>>> context)
         {
-            _targetNamePaths = new List<string>();
+            _filePathsWithName = new List<string>();
             context.Output = new PipelineResult<List<UploadImageResult>>()
             {
                 Completed = true,
@@ -83,7 +83,7 @@ namespace Sanatana.Contents.Pipelines.Images
             for (int i = 0; i < context.Input.Destinations.Count; i++)
             {
                 ImageDestinationParams targetFile = context.Input.Destinations[i];
-                FilePathProvider pathMapper = _filePathProviders[targetFile.FilePathMapperId];
+                FilePathProvider pathProvider = _filePathProviders[targetFile.FilePathProviderId];
 
                 string fileName = context.Input.DestinationFileNames == null
                     ? ShortGuid.NewGuid().Value
@@ -91,12 +91,13 @@ namespace Sanatana.Contents.Pipelines.Images
 
                 context.Output.Data.Add(new UploadImageResult()
                 {
-                    FileName = fileName,
-                    Url = pathMapper.GetFullUrl(context.Input.UserId, fileName)
+                    FileName = pathProvider.GetName(fileName),
+                    Url = pathProvider.GetFullUrl(context.Input.RelativePathArg, fileName)
                 });
 
-                string namePath = pathMapper.GetNamePath(context.Input.UserId, fileName);
-                _targetNamePaths.Add(namePath);
+                string filePathAndName = pathProvider.GetPathAndName(context.Input.RelativePathArg, fileName);
+                filePathAndName = filePathAndName.Replace('/', '\\');
+                _filePathsWithName.Add(filePathAndName);
             }
 
             return Task.FromResult(true);
@@ -105,14 +106,14 @@ namespace Sanatana.Contents.Pipelines.Images
         public virtual async Task<bool> CheckExistingNames(
            PipelineContext<UploadImageParams, PipelineResult<List<UploadImageResult>>> context)
         {
-            for (int i = 0; i < _targetNamePaths.Count; i++)
+            for (int i = 0; i < _filePathsWithName.Count; i++)
             {
-                bool exists = await _fileStorage.Exists(_targetNamePaths[i])
+                bool exists = await _fileStorage.Exists(_filePathsWithName[i])
                     .ConfigureAwait(false);
 
                 if (exists)
                 {
-                    string message = string.Format(ContentsMessages.Image_NameInUse, _targetNamePaths[i]);
+                    string message = string.Format(ContentsMessages.Image_NameInUse, _filePathsWithName[i]);
                     context.Output = PipelineResult<List<UploadImageResult>>.Error(message);
                     return false;
                 }
@@ -132,10 +133,10 @@ namespace Sanatana.Contents.Pipelines.Images
             }
 
             PipelineResult<byte[]> downloadResult = context.Input.DownloadUrl == null
-                ? await _fileDownloader.Download(context.Input.FileStream.Stream
-                    , context.Input.FileStream.ContentLength, context.Input.ContentLengthLimit)
+                ? await _fileDownloader.Download(context.Input.FileStream
+                    , context.Input.FileLength, context.Input.FileLengthLimit)
                     .ConfigureAwait(false)
-                : await _fileDownloader.Download(context.Input.DownloadUrl, context.Input.ContentLengthLimit)
+                : await _fileDownloader.Download(context.Input.DownloadUrl, context.Input.FileLengthLimit)
                     .ConfigureAwait(false);
 
             if (downloadResult.Completed == false)
@@ -170,13 +171,13 @@ namespace Sanatana.Contents.Pipelines.Images
             return Task.FromResult(true);
         }
 
-        public virtual async Task<bool> Store(
+        public virtual async Task<bool> CreateFile(
            PipelineContext<UploadImageParams, PipelineResult<List<UploadImageResult>>> context)
         {
             for (int i = 0; i < context.Input.Destinations.Count; i++)
             {
                 byte[] formatedBytes = _formatedBytes[i];
-                string namePath = _targetNamePaths[i];
+                string namePath = _filePathsWithName[i];
 
                 await _fileStorage.Create(namePath, formatedBytes).ConfigureAwait(false);
             }

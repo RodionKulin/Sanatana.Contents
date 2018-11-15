@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 using Sanatana.Patterns.Pipelines;
-using ImageSharp;
-using ImageSharp.Processing;
-using ImageSharp.Formats;
 using Sanatana.Contents.Resources;
 using System.IO;
-
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.Primitives;
 
 namespace Sanatana.Contents.Files.Resizer
 {
     public class ImageSharpResizer : IImageResizer
     {
+        //methods
         public virtual PipelineResult<byte[]> Resize(byte[] imageBytes, ImageFormat targetFormat
             , ImageResizeType resizeType, int width, int height, bool roundCorners)
         {
             byte[] outputBytes = null;
 
-            using (Image<Color> image = new Image<Color>(imageBytes))
+            
+            using (Image<Rgba32> image = Image.Load(imageBytes))
             {
                 ImageNewSizes sizes = new ImageNewSizes(image.Width, image.Height);
                 if (sizes.IsEmpty)
@@ -32,7 +34,7 @@ namespace Sanatana.Contents.Files.Resizer
                     return PipelineResult<byte[]>.Error(ContentsMessages.Image_FormatException);
                 }
 
-                outputBytes = Save(image, sizes, targetFormat, roundCorners);
+                outputBytes = Save(image, sizes, targetFormat, resizeType, roundCorners);
              
             }
 
@@ -73,16 +75,21 @@ namespace Sanatana.Contents.Files.Resizer
             }
         }
 
-        protected virtual byte[] Save(Image<Color> image
-            , ImageNewSizes sizes, ImageFormat targetFormat, bool roundCorners)
+        protected virtual byte[] Save(Image<Rgba32> image
+            , ImageNewSizes sizes, ImageFormat targetFormat, ImageResizeType resizeType, bool roundCorners)
         {
-            image = image.Crop(sizes.CropRegion);
-            image = image.Resize(new ResizeOptions
+            if(resizeType != ImageResizeType.None)
             {
-                Size = sizes.Size,
-                Mode = ResizeMode.Stretch
-            });
-            image = image.Pad(sizes.Padding.Width, sizes.Padding.Height);
+                image.Mutate(x => x
+                    .Crop(sizes.CropRegion)
+                    .Resize(new ResizeOptions
+                    {
+                        Size = sizes.Size,
+                        Mode = ResizeMode.Stretch
+                    })
+                    .Pad(sizes.Padding.Width, sizes.Padding.Height)
+                );
+            }
 
             byte[] outputBytes = null;
             using (MemoryStream outputStream = new MemoryStream())

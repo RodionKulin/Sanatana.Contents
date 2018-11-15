@@ -8,10 +8,11 @@ using System.IO;
 using Sanatana.Contents.Html.Media;
 using Sanatana.Contents.Html.HtmlNodes;
 using Sanatana.Contents.Utilities;
+using Sanatana.Contents.Files.Queries;
 
-namespace Sanatana.Contents.Files.Queries
+namespace Sanatana.Contents.Files.Services
 {
-    public class ImageFileQueries : IImageFileQueries
+    public class ImageFileService : IImageFileService
     {
         //fields
         protected Dictionary<int, FilePathProvider> _filePathProviders;
@@ -20,7 +21,7 @@ namespace Sanatana.Contents.Files.Queries
         
 
         //init
-        public ImageFileQueries(IEnumerable<FilePathProvider> filePathProviders, IFileStorage fileStorage
+        public ImageFileService(IEnumerable<FilePathProvider> filePathProviders, IFileStorage fileStorage
             , IHtmlMediaExtractor htmlMediaExtractor)
         {
             _htmlMediaExtractor = htmlMediaExtractor;
@@ -80,8 +81,8 @@ namespace Sanatana.Contents.Files.Queries
                     ShortGuid.NewGuid().Value   //generate new ShortGuid name argument
                 };
 
-                string newNamePath = pathMapper.GetNamePath(directoryAndNameFormatArgs);
-                newRelativeNamePaths.Add(newNamePath);
+                string newFilePaths = pathMapper.GetPathAndName(directoryAndNameFormatArgs);
+                newRelativeNamePaths.Add(newFilePaths);
 
                 string newUrl = pathMapper.GetFullUrl(directoryAndNameFormatArgs);
                 newUrls.Add(newUrl);
@@ -106,7 +107,7 @@ namespace Sanatana.Contents.Files.Queries
         {
             FilePathProvider pathMapper = _filePathProviders[pathProviderId];
 
-            string directoryPath = pathMapper.GetDirectoryPath(directoryArg);
+            string directoryPath = pathMapper.GetPath(directoryArg);
             List<FileDetails> storageStaticImages = await _fileStorage.GetList(directoryPath)
                 .ConfigureAwait(false);
 

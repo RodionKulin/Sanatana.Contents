@@ -1,4 +1,4 @@
-﻿using ImageSharp;
+﻿using SixLabors.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace Sanatana.Contents.Files.Resizer
         {
             Width = width;
             Height = height;
-            Size = new Size(0, 0);
+            Size = new Size(width, height);
             Padding = new Size(0, 0);
             CropRegion = new Rectangle(0, 0, width, height);
         }

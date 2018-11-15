@@ -1,6 +1,7 @@
 ﻿using Sanatana.Contents;
 using Sanatana.Contents.Files;
 using Sanatana.Contents.Files.Queries;
+using Sanatana.Contents.Files.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,14 +14,14 @@ namespace Sanatana.Contents.RegularJobs
     public class RemoveTempFilesJob : IContentRegularJob
     {
         //fields
-        protected IFileQueries _fileQueries;
+        protected IFileService _fileService;
         protected IEnumerable<FilePathProvider> _filePathProviders;
 
 
         //init
-        public RemoveTempFilesJob(IFileQueries fileQueries, IEnumerable<FilePathProvider> filePathProviders)
+        public RemoveTempFilesJob(IFileService fileService, IEnumerable<FilePathProvider> filePathProviders)
         {
-            _fileQueries = fileQueries;
+            _fileService = fileService;
             _filePathProviders = filePathProviders;
         }
 
@@ -35,7 +36,7 @@ namespace Sanatana.Contents.RegularJobs
                     continue;
                 }
                 
-                _fileQueries
+                _fileService
                     .Clean(filePathMapper.FilePathProviderId, filePathMapper.RemoveFilesAfterAge.Value)
                     .Wait();
             }

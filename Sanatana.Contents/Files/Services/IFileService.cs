@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Sanatana.Contents.Files.Queries
+namespace Sanatana.Contents.Files.Services
 {
-    public interface IFileQueries
+    public interface IFileService
     {
         Task Clean(int pathProviderId, TimeSpan maxFileAge);
         Task Create(int pathProviderId, byte[] data, string directoryArg, string name);

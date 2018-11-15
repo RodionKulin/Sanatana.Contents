@@ -7,6 +7,7 @@ using System.IO;
 using Sanatana.Contents.Files.Queries;
 using Sanatana.Contents.Files.Resizer;
 using Sanatana.Contents.Files.Downloads;
+using Sanatana.Contents.Files.Services;
 
 namespace Sanatana.Contents.Di.Autofac
 {
@@ -31,8 +32,8 @@ namespace Sanatana.Contents.Di.Autofac
 
             builder.RegisterType<FileDownloader>().As<IFileDownloader>().SingleInstance();
             builder.RegisterType<ImageSharpResizer>().As<IImageResizer>().SingleInstance();
-            builder.RegisterType<ImageFileQueries>().As<IImageFileQueries>().InstancePerLifetimeScope();
-            builder.RegisterType<FileQueries>().As<IFileQueries>().InstancePerLifetimeScope();
+            builder.RegisterType<ImageFileService>().As<IImageFileService>().InstancePerLifetimeScope();
+            builder.RegisterType<FileService>().As<IFileService>().InstancePerLifetimeScope();
         }
     }
 }

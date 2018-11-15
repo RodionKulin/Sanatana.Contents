@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="LinqKit.Core" Version="1.1.15" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0-preview1-final" />
-    <PackageReference Include="RevStackCore-ImageSharp" Version="0.9.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />
     <PackageReference Include="Unidecode.NET" Version="1.1.1" />
   </ItemGroup>
 
@@ -31,5 +32,9 @@
       <LastGenOutput>ContentsMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;..\Build\&quot;" />
+  </Target>
 
 </Project>

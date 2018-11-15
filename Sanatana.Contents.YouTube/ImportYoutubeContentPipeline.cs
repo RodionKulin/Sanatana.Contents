@@ -17,6 +17,7 @@ using Sanatana.Contents.Html.Media;
 using Sanatana.Contents.Files.Queries;
 using Sanatana.Contents.Database;
 using Sanatana.Contents.Utilities;
+using Sanatana.Contents.Files.Services;
 
 namespace Sanatana.Contents
 {
@@ -34,9 +35,9 @@ namespace Sanatana.Contents
         //init
         public ImportYoutubeContentPipeline(IPipelineExceptionHandler exceptionHandler, IContentQueries<TKey, TContent> contentQueries
             , IPermissionSelector<TKey, TCategory> permissionSelector, ISearchQueries<TKey> searchQueries
-            , IImageFileQueries imageFileQueries, IHtmlMediaExtractor htmlMediaExtractor, IUrlEncoder urlEncoder)
+            , IImageFileService imageFileService, IHtmlMediaExtractor htmlMediaExtractor, IUrlEncoder urlEncoder)
             : base(exceptionHandler, contentQueries, permissionSelector
-                  , searchQueries, imageFileQueries, htmlMediaExtractor, urlEncoder)
+                  , searchQueries, imageFileService, htmlMediaExtractor, urlEncoder)
         {
             RegisterModules();
         }

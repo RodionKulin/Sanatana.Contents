@@ -4,11 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sanatana.Contents.Files.Queries;
 using Sanatana.Patterns.Pipelines;
 
-namespace Sanatana.Contents.Files.Queries
+namespace Sanatana.Contents.Files.Services
 {
-    public class FileQueries : IFileQueries
+    public class FileService : IFileService
     {
         //fields
         protected Dictionary<int, FilePathProvider> _filePathProviders;
@@ -17,7 +18,7 @@ namespace Sanatana.Contents.Files.Queries
 
 
         //init
-        public FileQueries(IEnumerable<FilePathProvider> filePathProviders, IFileStorage fileStorage)
+        public FileService(IEnumerable<FilePathProvider> filePathProviders, IFileStorage fileStorage)
         {
             _filePathProviders = filePathProviders.ToDictionary(x => x.FilePathProviderId);
             _fileStorage = fileStorage;
@@ -29,7 +30,7 @@ namespace Sanatana.Contents.Files.Queries
         public virtual Task Create(int pathProviderId, byte[] data, string directoryArg, string name)
         {
             FilePathProvider pathMapper = _filePathProviders[pathProviderId];
-            string namePath = pathMapper.GetNamePath(directoryArg, name);
+            string namePath = pathMapper.GetPathAndName(directoryArg, name);
             return _fileStorage.Create(namePath, data);
         }
 
@@ -39,7 +40,7 @@ namespace Sanatana.Contents.Files.Queries
         public virtual Task<bool> Exists(int pathProviderId, string directoryArg, string fileNameArg)
         {
             FilePathProvider pathMapper = _filePathProviders[pathProviderId];
-            string namePath = pathMapper.GetNamePath(directoryArg, fileNameArg);
+            string namePath = pathMapper.GetPathAndName(directoryArg, fileNameArg);
             return _fileStorage.Exists(namePath);
         }
 
@@ -50,10 +51,10 @@ namespace Sanatana.Contents.Files.Queries
             , int newMapperId, string newDirectoryArg, string newFileNameArg)
         {
             FilePathProvider oldPathMapper = _filePathProviders[oldMapperId];
-            string oldPath = oldPathMapper.GetNamePath(oldDirectoryArg, oldFileNameArg);
+            string oldPath = oldPathMapper.GetPathAndName(oldDirectoryArg, oldFileNameArg);
 
             FilePathProvider newPathMapper = _filePathProviders[newMapperId];
-            string newPath = newPathMapper.GetNamePath(newDirectoryArg, newFileNameArg);
+            string newPath = newPathMapper.GetPathAndName(newDirectoryArg, newFileNameArg);
 
             return _fileStorage.Move(new List<string>{ oldPath }, new List<string> { newPath });
         }
@@ -64,14 +65,14 @@ namespace Sanatana.Contents.Files.Queries
         public virtual Task DeleteFile(int pathProviderId, string directoryArg, string fileNameArg)
         {
             FilePathProvider pathMapper = _filePathProviders[pathProviderId];
-            string namePath = pathMapper.GetNamePath(directoryArg, fileNameArg);
+            string namePath = pathMapper.GetPathAndName(directoryArg, fileNameArg);
             return _fileStorage.Delete(new List<string>() { namePath });
         }
 
         public virtual Task DeleteDirectory(int pathProviderId, string directoryArg)
         {
             FilePathProvider pathMapper = _filePathProviders[pathProviderId];
-            string directoryPath = pathMapper.GetDirectoryPath(directoryArg);
+            string directoryPath = pathMapper.GetPath(directoryArg);
             return _fileStorage.DeleteDirectory(directoryPath);
         }
         
@@ -79,7 +80,7 @@ namespace Sanatana.Contents.Files.Queries
         {
             FilePathProvider pathMapper = _filePathProviders[pathProviderId];
 
-            string rootDirectoryPath = pathMapper.GetRootDirectoryPath();
+            string rootDirectoryPath = pathMapper.GetRootPath();
             List<FileDetails> files = await _fileStorage.GetList(rootDirectoryPath).ConfigureAwait(false);
            
             List<FileDetails> filesToDelete = new List<FileDetails>();

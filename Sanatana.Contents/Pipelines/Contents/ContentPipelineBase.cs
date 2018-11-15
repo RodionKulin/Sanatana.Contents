@@ -1,5 +1,6 @@
 ﻿using Sanatana.Contents.Database;
 using Sanatana.Contents.Files.Queries;
+using Sanatana.Contents.Files.Services;
 using Sanatana.Contents.Html;
 using Sanatana.Contents.Html.HtmlNodes;
 using Sanatana.Contents.Html.Media;
@@ -33,7 +34,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         protected ISearchQueries<TKey> _searchQueries;
         protected IPermissionSelector<TKey, TCategory> _permissionSelector;
         protected IUrlEncoder _urlEncoder;
-        protected IImageFileQueries _imageFileQueries;
+        protected IImageFileService _imageFileService;
         protected IHtmlMediaExtractor _htmlMediaExtractor;
 
 
@@ -46,13 +47,13 @@ namespace Sanatana.Contents.Pipelines.Contents
         //init
         public ContentPipelineBase(IPipelineExceptionHandler exceptionHandler, IContentQueries<TKey, TContent> contentQueries
             , IPermissionSelector<TKey, TCategory> permissionSelector, ISearchQueries<TKey> searchQueries
-            , IImageFileQueries imageFileQueries, IHtmlMediaExtractor htmlMediaExtractor, IUrlEncoder urlEncoder)
+            , IImageFileService imageFileService, IHtmlMediaExtractor htmlMediaExtractor, IUrlEncoder urlEncoder)
         {
             _exceptionHandler = exceptionHandler;
             _contentQueries = contentQueries;
             _permissionSelector = permissionSelector;
             _searchQueries = searchQueries;
-            _imageFileQueries = imageFileQueries;
+            _imageFileService = imageFileService;
             _htmlMediaExtractor = htmlMediaExtractor;
             _urlEncoder = urlEncoder;
         }
@@ -202,7 +203,7 @@ namespace Sanatana.Contents.Pipelines.Contents
             };
 
             int pathProviderId = context.Input.ContentImagesPathMapperId.Value;
-            await _imageFileQueries.UpdateContentImages(pathProviderId, contentElements, contentId).ConfigureAwait(false);
+            await _imageFileService.UpdateContentImages(pathProviderId, contentElements, contentId).ConfigureAwait(false);
           
             content.FullText = FullContentDocument.ToString();
             content.ShortText = ShortContentDocument.ToString();
