@@ -9,6 +9,7 @@ using Sanatana.Contents.Html.Media;
 using Sanatana.Contents.Html.HtmlNodes;
 using Sanatana.Contents.Utilities;
 using Sanatana.Contents.Files.Queries;
+using Sanatana.Contents.Extensions;
 
 namespace Sanatana.Contents.Files.Services
 {
@@ -25,7 +26,7 @@ namespace Sanatana.Contents.Files.Services
             , IHtmlMediaExtractor htmlMediaExtractor)
         {
             _htmlMediaExtractor = htmlMediaExtractor;
-            _filePathProviders = filePathProviders.ToDictionary(x => x.FilePathProviderId);
+            _filePathProviders = filePathProviders.ToDictionaryOrThrow();
             _fileStorage = fileStorage;
         }
 

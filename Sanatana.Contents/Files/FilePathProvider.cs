@@ -43,7 +43,7 @@ namespace Sanatana.Contents.Files
 
         public FilePathProvider(int filePathProviderId, string urlBase, ImageFormat extension)
         {
-            FilePathProviderId = FilePathProviderId;
+            FilePathProviderId = filePathProviderId;
             BaseUrl = urlBase;
             RelativePathFormat = "{0}";
             NameFormat = "{0}." + extension.ToString().ToLower();

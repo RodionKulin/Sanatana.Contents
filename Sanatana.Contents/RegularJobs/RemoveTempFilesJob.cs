@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sanatana.Contents.Extensions;
 
 namespace Sanatana.Contents.RegularJobs
 {
@@ -15,21 +16,21 @@ namespace Sanatana.Contents.RegularJobs
     {
         //fields
         protected IFileService _fileService;
-        protected IEnumerable<FilePathProvider> _filePathProviders;
-
+        protected Dictionary<int, FilePathProvider> _filePathProviders;
+        
 
         //init
         public RemoveTempFilesJob(IFileService fileService, IEnumerable<FilePathProvider> filePathProviders)
         {
             _fileService = fileService;
-            _filePathProviders = filePathProviders;
+            _filePathProviders = filePathProviders.ToDictionaryOrThrow();
         }
 
 
         //methods
         public virtual void Execute()
         {
-            foreach (FilePathProvider filePathMapper in _filePathProviders)
+            foreach (FilePathProvider filePathMapper in _filePathProviders.Values)
             {
                 if(filePathMapper.RemoveFilesAfterAge == null)
                 {

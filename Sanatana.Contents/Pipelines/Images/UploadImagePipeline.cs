@@ -11,6 +11,7 @@ using Sanatana.Contents.Files.Resizer;
 using Sanatana.Contents.Files.Queries;
 using Sanatana.Contents.Files;
 using Sanatana.Contents.Utilities;
+using Sanatana.Contents.Extensions;
 
 namespace Sanatana.Contents.Pipelines.Images
 {
@@ -32,7 +33,7 @@ namespace Sanatana.Contents.Pipelines.Images
             , IFileStorage fileStorage, IFileDownloader fileDownloader, IImageResizer imageResizer)
         {
             _exceptionHandler = exceptionHandler;
-            _filePathProviders = filePathProviders.ToDictionary(x => x.FilePathProviderId);
+            _filePathProviders = filePathProviders.ToDictionaryOrThrow();
             _fileStorage = fileStorage;
             _fileDownloader = fileDownloader;
             _imageResizer = imageResizer;

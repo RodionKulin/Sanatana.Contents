@@ -50,8 +50,12 @@ namespace Sanatana.Contents.Files.Queries
 
             string fullPath = Path.Combine(_settings.Directory, directoryPath);
             DirectoryInfo directory = new DirectoryInfo(fullPath);
-            FileInfo[] files = directory.GetFiles();
+            if(directory.Exists == false)
+            {
+                return Task.FromResult(list);
+            }
 
+            FileInfo[] files = directory.GetFiles();
             foreach (FileInfo file in files)
             {
                 string key = file.FullName.Replace(_settings.Directory, string.Empty);

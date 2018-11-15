@@ -19,8 +19,7 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Di.Autofac
 {
-    public class ContentAutofacModule<TKey> : Module
-        where TKey : struct
+    public class ContentAutofacModule : Module
     {
         //methods
         protected override void Load(ContainerBuilder builder)

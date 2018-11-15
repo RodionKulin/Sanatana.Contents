@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sanatana.Contents.Files.Queries;
 using Sanatana.Patterns.Pipelines;
+using Sanatana.Contents.Extensions;
 
 namespace Sanatana.Contents.Files.Services
 {
@@ -20,7 +21,7 @@ namespace Sanatana.Contents.Files.Services
         //init
         public FileService(IEnumerable<FilePathProvider> filePathProviders, IFileStorage fileStorage)
         {
-            _filePathProviders = filePathProviders.ToDictionary(x => x.FilePathProviderId);
+            _filePathProviders = filePathProviders.ToDictionaryOrThrow();
             _fileStorage = fileStorage;
         }
 
