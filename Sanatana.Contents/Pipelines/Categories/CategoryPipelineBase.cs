@@ -95,7 +95,8 @@ namespace Sanatana.Contents.Pipelines.Categories
         {
             TCategory category = context.Input.Category;
 
-            category.Url = _urlEncoder.Encode(category.Name);
+            category.Url = _urlEncoder.Encode(category.Name)
+                .ToLowerInvariant();
 
             return Task.FromResult(true);
         }

@@ -123,7 +123,8 @@ namespace Sanatana.Contents.Pipelines.Contents
         {
             TContent content = context.Input.Content;
 
-            content.Url = _urlEncoder.Encode(content.Title);
+            content.Url = _urlEncoder.Encode(content.Title)
+                .ToLowerInvariant();        
 
             return Task.FromResult(true);
         }
