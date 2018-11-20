@@ -118,87 +118,87 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Comment_ContentEmpty" xml:space="preserve">
-    <value>Comment text can not be empty.</value>
+    <value>Текст комментария не может быть пустым.</value>
   </data>
   <data name="Common_AuthorizationRequired" xml:space="preserve">
-    <value>Additional permissions are required to access,</value>
+    <value>Для доступа требуются дополнительные права.</value>
   </data>
   <data name="Common_CategoryNotFound" xml:space="preserve">
-    <value>Category not found</value>
+    <value>Категория не найдена</value>
   </data>
   <data name="Common_DateParseException" xml:space="preserve">
-    <value>Date was not submitted correctly {0}</value>
+    <value>Неверно указана дата {0}</value>
   </data>
   <data name="Common_ProcessingError" xml:space="preserve">
-    <value>En exception occured during execution of the request.</value>
+    <value>Во время обработки запроса произошло исключение.</value>
   </data>
   <data name="Common_UserNotFound" xml:space="preserve">
-    <value>User not found.</value>
+    <value>Пользователь не найден.</value>
   </data>
   <data name="Content_AuthorName" xml:space="preserve">
-    <value>Author</value>
+    <value>Автор</value>
   </data>
   <data name="Content_CategoryId" xml:space="preserve">
-    <value>Category</value>
+    <value>Категория</value>
   </data>
   <data name="Content_CommentsCount" xml:space="preserve">
-    <value>Comments count</value>
+    <value>Количество комментариев</value>
   </data>
   <data name="Content_FullContentEmpty" xml:space="preserve">
-    <value>Content text can not be empty.</value>
+    <value>Текст материала не может быть пустым.</value>
   </data>
   <data name="Content_FullText" xml:space="preserve">
-    <value>Full text</value>
+    <value>Полный текст</value>
   </data>
   <data name="Content_NotFound" xml:space="preserve">
-    <value>Content with with address does not exist.</value>
+    <value>Материал по этому адресу не существует.</value>
   </data>
   <data name="Content_PublishTimeIsNotUnique" xml:space="preserve">
-    <value>Publish time must be unique. Try changing publish time to a different value.</value>
+    <value>Время публикации должно быть уникально. Попробуйте изменить время публикации на другое.</value>
   </data>
   <data name="Content_PublishTimeUtc" xml:space="preserve">
-    <value>Publish time</value>
+    <value>Время публикации</value>
   </data>
   <data name="Content_ShortText" xml:space="preserve">
-    <value>Short text</value>
+    <value>Краткий текст</value>
   </data>
   <data name="Content_Shown" xml:space="preserve">
-    <value>Content shown: {0} from {1}</value>
+    <value>Показано материалов: {0} из {1}</value>
   </data>
   <data name="Content_Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Название</value>
   </data>
   <data name="Content_TitleEmpty" xml:space="preserve">
-    <value>Title can not be empty.</value>
+    <value>Название материала не может быть пустым.</value>
   </data>
   <data name="Content_UrlIsNotUnique" xml:space="preserve">
-    <value>Content with same url already exists. Consider changing url itself or content title if url is generated from it.</value>
+    <value>Уже есть материал с таким адресом. Измените адрес материала или заголовок, если адрес составляется автоматически.</value>
   </data>
   <data name="Content_ViewsCount" xml:space="preserve">
-    <value>Views count</value>
+    <value>Количество просмотров</value>
   </data>
   <data name="Content_WrongUpdateNonce" xml:space="preserve">
-    <value>Content was updated by somebody else since time you selected it. After you submit this updated will be discarded. You sure want to continue?</value>
+    <value>Содержимое было изменено с момента получения кем-то другим. Ваше действие их отменит. Уверены, что хотите продолжить?</value>
   </data>
   <data name="Image_FormatException" xml:space="preserve">
-    <value>Unexpected image format.</value>
+    <value>Не верный формат изображения.</value>
   </data>
   <data name="Image_InvalidUrl" xml:space="preserve">
-    <value>Url is not formatted correctly {0}</value>
+    <value>Не верно сформирован адрес {0}</value>
   </data>
   <data name="Image_NameInUse" xml:space="preserve">
-    <value>Image with a name {0} already exists.</value>
+    <value>Изображение с названием {0} уже сохранено.</value>
   </data>
   <data name="Image_ReceiveException" xml:space="preserve">
-    <value>Exception occured while receiving an image.</value>
+    <value>Ошибка при передаче изображения.</value>
   </data>
   <data name="Image_SaveException" xml:space="preserve">
-    <value>Exception occured while saving an image.</value>
+    <value>Ошибка при сохранении изображения.</value>
   </data>
   <data name="Image_SizeExceeeded" xml:space="preserve">
-    <value>Image size must not be over {0} bytes.</value>
+    <value>Размер изображения не должен превышать {0} байт.</value>
   </data>
   <data name="Image_SourceNotSpecified" xml:space="preserve">
-    <value>Image source is not specified.</value>
+    <value>Источник изображения не указан.</value>
   </data>
 </root>

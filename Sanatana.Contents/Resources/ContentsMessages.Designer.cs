@@ -61,7 +61,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Текст комментария не может быть пустым..
+        ///   Looks up a localized string similar to Comment text can not be empty..
         /// </summary>
         public static string Comment_ContentEmpty {
             get {
@@ -70,7 +70,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Для доступа требуются дополнительные права..
+        ///   Looks up a localized string similar to Additional permissions are required to access,.
         /// </summary>
         public static string Common_AuthorizationRequired {
             get {
@@ -79,7 +79,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Категория не найдена.
+        ///   Looks up a localized string similar to Category not found.
         /// </summary>
         public static string Common_CategoryNotFound {
             get {
@@ -88,7 +88,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверно указана дата {0}.
+        ///   Looks up a localized string similar to Date was not submitted correctly {0}.
         /// </summary>
         public static string Common_DateParseException {
             get {
@@ -97,7 +97,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Во время обработки запроса произошло исключение..
+        ///   Looks up a localized string similar to En exception occured during execution of the request..
         /// </summary>
         public static string Common_ProcessingError {
             get {
@@ -106,7 +106,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пользователь не найден..
+        ///   Looks up a localized string similar to User not found..
         /// </summary>
         public static string Common_UserNotFound {
             get {
@@ -115,7 +115,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Автор.
+        ///   Looks up a localized string similar to Author.
         /// </summary>
         public static string Content_AuthorName {
             get {
@@ -124,7 +124,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Категория.
+        ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Content_CategoryId {
             get {
@@ -133,7 +133,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Количество комментариев.
+        ///   Looks up a localized string similar to Comments count.
         /// </summary>
         public static string Content_CommentsCount {
             get {
@@ -142,7 +142,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Текст материала не может быть пустым..
+        ///   Looks up a localized string similar to Content text can not be empty..
         /// </summary>
         public static string Content_FullContentEmpty {
             get {
@@ -151,7 +151,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Полный текст.
+        ///   Looks up a localized string similar to Full text.
         /// </summary>
         public static string Content_FullText {
             get {
@@ -160,7 +160,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Материал по этому адресу не существует или был удален..
+        ///   Looks up a localized string similar to Content with with address does not exist..
         /// </summary>
         public static string Content_NotFound {
             get {
@@ -169,7 +169,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Время публикации должно быть уникально. Попробуйте изменить время публикации на другое..
+        ///   Looks up a localized string similar to Publish time must be unique. Try changing publish time to a different value..
         /// </summary>
         public static string Content_PublishTimeIsNotUnique {
             get {
@@ -178,7 +178,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Время публикации.
+        ///   Looks up a localized string similar to Publish time.
         /// </summary>
         public static string Content_PublishTimeUtc {
             get {
@@ -187,7 +187,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Краткий текст.
+        ///   Looks up a localized string similar to Short text.
         /// </summary>
         public static string Content_ShortText {
             get {
@@ -196,7 +196,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Показано материалов: {0} из {1}.
+        ///   Looks up a localized string similar to Content shown: {0} from {1}.
         /// </summary>
         public static string Content_Shown {
             get {
@@ -205,7 +205,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Название.
+        ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Content_Title {
             get {
@@ -214,7 +214,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Название материала не может быть пустым..
+        ///   Looks up a localized string similar to Title can not be empty..
         /// </summary>
         public static string Content_TitleEmpty {
             get {
@@ -223,7 +223,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Уже есть материал с таким адресом. Измените адрес материала или заголовок, если адрес составляется автоматически..
+        ///   Looks up a localized string similar to Content with same url already exists. Consider changing url itself or content title if url is generated from it..
         /// </summary>
         public static string Content_UrlIsNotUnique {
             get {
@@ -232,7 +232,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Количество просмотров.
+        ///   Looks up a localized string similar to Views count.
         /// </summary>
         public static string Content_ViewsCount {
             get {
@@ -241,7 +241,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Содержимое было изменено с момента получения кем-то другим. Ваше действие их отменит. Уверены, что хотите продолжить?.
+        ///   Looks up a localized string similar to Content was updated by somebody else since time you selected it. After you submit this updated will be discarded. You sure want to continue?.
         /// </summary>
         public static string Content_WrongUpdateNonce {
             get {
@@ -250,7 +250,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не верный формат изображения..
+        ///   Looks up a localized string similar to Unexpected image format..
         /// </summary>
         public static string Image_FormatException {
             get {
@@ -259,7 +259,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не верно сформирован адрес {0}.
+        ///   Looks up a localized string similar to Url is not formatted correctly {0}.
         /// </summary>
         public static string Image_InvalidUrl {
             get {
@@ -268,7 +268,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Изображение с названием {0} уже сохранено..
+        ///   Looks up a localized string similar to Image with a name {0} already exists..
         /// </summary>
         public static string Image_NameInUse {
             get {
@@ -277,7 +277,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка при передаче изображения..
+        ///   Looks up a localized string similar to Exception occured while receiving an image..
         /// </summary>
         public static string Image_ReceiveException {
             get {
@@ -286,7 +286,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка при сохранении изображения..
+        ///   Looks up a localized string similar to Exception occured while saving an image..
         /// </summary>
         public static string Image_SaveException {
             get {
@@ -295,7 +295,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Размер изображения не должен превышать {0} байт..
+        ///   Looks up a localized string similar to Image size must not be over {0} bytes..
         /// </summary>
         public static string Image_SizeExceeeded {
             get {
@@ -304,7 +304,7 @@ namespace Sanatana.Contents.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Источник изображения не указан..
+        ///   Looks up a localized string similar to Image source is not specified..
         /// </summary>
         public static string Image_SourceNotSpecified {
             get {
