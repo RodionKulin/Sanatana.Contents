@@ -14,7 +14,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         public bool CheckVersion { get; set; }
         public TKey? UserId { get; set; }
         public int Permission { get; set; }
-        public int? ContentImagesPathMapperId { get; set; }
+        public int? ContentImagesPathProviderId { get; set; }
 
     }
 }

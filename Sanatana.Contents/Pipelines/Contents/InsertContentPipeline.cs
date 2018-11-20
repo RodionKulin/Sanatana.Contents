@@ -56,18 +56,18 @@ namespace Sanatana.Contents.Pipelines.Contents
 
         //modules
         public virtual Task<bool> ValidateInput(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
             if (string.IsNullOrEmpty(content.Title))
             {
-                context.Output = ContentEditResult.Error(ContentsMessages.Content_TitleEmpty);
+                context.Output = ContentUpdateResult.Error(ContentsMessages.Content_TitleEmpty);
                 return Task.FromResult(false);
             }
             if (string.IsNullOrEmpty(content.FullText))
             {
-                context.Output = ContentEditResult.Error(ContentsMessages.Content_FullContentEmpty);
+                context.Output = ContentUpdateResult.Error(ContentsMessages.Content_FullContentEmpty);
                 return Task.FromResult(false);
             }
 

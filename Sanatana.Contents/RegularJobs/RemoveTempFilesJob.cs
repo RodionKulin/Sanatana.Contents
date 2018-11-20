@@ -30,15 +30,15 @@ namespace Sanatana.Contents.RegularJobs
         //methods
         public virtual void Execute()
         {
-            foreach (FilePathProvider filePathMapper in _filePathProviders.Values)
+            foreach (FilePathProvider filePathProvider in _filePathProviders.Values)
             {
-                if(filePathMapper.RemoveFilesAfterAge == null)
+                if(filePathProvider.RemoveFilesAfterAge == null)
                 {
                     continue;
                 }
                 
                 _fileService
-                    .Clean(filePathMapper.FilePathProviderId, filePathMapper.RemoveFilesAfterAge.Value)
+                    .Clean(filePathProvider.FilePathProviderId, filePathProvider.RemoveFilesAfterAge.Value)
                     .Wait();
             }
         }

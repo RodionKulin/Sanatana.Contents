@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Contents
 {
-    public class ContentEditResult
+    public class ContentUpdateResult
     {
         //properties
         public OperationStatus Status { get; set; }
@@ -16,45 +16,45 @@ namespace Sanatana.Contents.Pipelines.Contents
 
 
         //init       
-        public static ContentEditResult Error(string message)
+        public static ContentUpdateResult Error(string message)
         {
-            return new ContentEditResult()
+            return new ContentUpdateResult()
             {
                 Status = OperationStatus.Error,
                 Messages = new List<string>() { message }
             };
         }
         
-        public static ContentEditResult ContentNotFound()
+        public static ContentUpdateResult ContentNotFound()
         {
-            return new ContentEditResult
+            return new ContentUpdateResult
             {
                 Messages = new List<string> { ContentsMessages.Content_NotFound },
                 Status = OperationStatus.NotFound
             };
         }
 
-        public static ContentEditResult PermissionDenied()
+        public static ContentUpdateResult PermissionDenied()
         {
-            return new ContentEditResult
+            return new ContentUpdateResult
             {
                 Messages = new List<string> { ContentsMessages.Common_AuthorizationRequired },
                 Status = OperationStatus.PermissionDenied
             };
         }
 
-        public static ContentEditResult VersionChanged()
+        public static ContentUpdateResult VersionChanged()
         {
-            return new ContentEditResult
+            return new ContentUpdateResult
             {
                 Messages = new List<string> { ContentsMessages.Content_WrongUpdateNonce },
                 Status = OperationStatus.VersionChanged
             };
         }
 
-        public static ContentEditResult Success()
+        public static ContentUpdateResult Success()
         {
-            return new ContentEditResult()
+            return new ContentUpdateResult()
             {
                 Status = OperationStatus.Success,
                 Messages = new List<string>() { }

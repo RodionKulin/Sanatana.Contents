@@ -29,7 +29,7 @@ namespace Sanatana.Contents.Di.AutofacSpecs
             public AutofacSetupBase()
             {
                 _builder = new ContainerBuilder();
-                _builder.RegisterModule(new ContentAutofacModule<long>());
+                _builder.RegisterModule(new ContentAutofacModule());
                 _builder.RegisterModule(new MongoDbAutofacModule(new MongoDbConnectionSettings
                 {
                     DatabaseName = "SanatanaContentsSpecs",

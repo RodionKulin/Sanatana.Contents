@@ -51,11 +51,11 @@ namespace Sanatana.Contents.Files.Services
         public virtual Task Move(int oldMapperId, string oldDirectoryArg, string oldFileNameArg
             , int newMapperId, string newDirectoryArg, string newFileNameArg)
         {
-            FilePathProvider oldPathMapper = _filePathProviders[oldMapperId];
-            string oldPath = oldPathMapper.GetPathAndName(oldDirectoryArg, oldFileNameArg);
+            FilePathProvider oldPathProvider = _filePathProviders[oldMapperId];
+            string oldPath = oldPathProvider.GetPathAndName(oldDirectoryArg, oldFileNameArg);
 
-            FilePathProvider newPathMapper = _filePathProviders[newMapperId];
-            string newPath = newPathMapper.GetPathAndName(newDirectoryArg, newFileNameArg);
+            FilePathProvider newPathProvider = _filePathProviders[newMapperId];
+            string newPath = newPathProvider.GetPathAndName(newDirectoryArg, newFileNameArg);
 
             return _fileStorage.Move(new List<string>{ oldPath }, new List<string> { newPath });
         }

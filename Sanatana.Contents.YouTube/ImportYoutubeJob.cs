@@ -71,7 +71,7 @@ namespace Sanatana.Contents
                 post.State = _settings.NewContentState;
                 post.AuthorId = _settings.AuthorId;
 
-                ContentEditResult importResult = _importPipeline.Execute(new ContentEditParams<TKey, YoutubePost<TKey>>()
+                ContentUpdateResult importResult = _importPipeline.Execute(new ContentUpdateParams<TKey, YoutubePost<TKey>>()
                 {
                     Content = post,
                     Permission = 0

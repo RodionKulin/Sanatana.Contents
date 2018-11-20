@@ -30,7 +30,7 @@ namespace Sanatana.Contents.Di.AutofacSpecs.Objects
 
         }
 
-        public override Task<ContentEditResult> Execute(ContentEditParams<ObjectId, Ticket<ObjectId>> inputModel, ContentEditResult outputModel)
+        public override Task<ContentUpdateResult> Execute(ContentUpdateParams<ObjectId, Ticket<ObjectId>> inputModel, ContentUpdateResult outputModel)
         {
             return base.Execute(inputModel, outputModel);
         }

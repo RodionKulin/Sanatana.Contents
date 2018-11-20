@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Contents
 {
-    public class ContentEditParams<TKey, TContent>
+    public class ContentUpdateParams<TKey, TContent>
         where TKey : struct
         where TContent : Content<TKey>
     {
@@ -18,13 +18,13 @@ namespace Sanatana.Contents.Pipelines.Contents
         public List<string> AllowedIFrameUrls { get; set; }
         public int Permission { get; set; }
         public TKey? UserId { get; set; }
-        public int? ContentImagesPathMapperId { get; set; }
+        public int? ContentImagesPathProviderId { get; set; }
         public bool CheckVersion { get; set; }
 
 
 
         //init
-        public ContentEditParams()
+        public ContentUpdateParams()
         {
             AllowedIFrameUrls = new List<string>()
             {

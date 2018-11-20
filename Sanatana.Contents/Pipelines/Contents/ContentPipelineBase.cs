@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 namespace Sanatana.Contents.Pipelines.Contents
 {
     public abstract class ContentPipelineBase<TKey, TCategory, TContent> 
-        : Pipeline<ContentEditParams<TKey, TContent>, ContentEditResult>
+        : Pipeline<ContentUpdateParams<TKey, TContent>, ContentUpdateResult>
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>
@@ -60,15 +60,15 @@ namespace Sanatana.Contents.Pipelines.Contents
 
 
         //execute
-        public override Task<ContentEditResult> Execute(
-            ContentEditParams<TKey, TContent> inputModel, ContentEditResult outputModel)
+        public override Task<ContentUpdateResult> Execute(
+            ContentUpdateParams<TKey, TContent> inputModel, ContentUpdateResult outputModel)
         {
-            outputModel = outputModel ?? ContentEditResult.Success();
+            outputModel = outputModel ?? ContentUpdateResult.Success();
             return base.Execute(inputModel, outputModel);
         }
 
         public override async Task RollBack(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             await base.RollBack(context);
 
@@ -78,7 +78,7 @@ namespace Sanatana.Contents.Pipelines.Contents
             }
             if (context.Output == null)
             {
-                context.Output = ContentEditResult.Error(ContentsMessages.Common_ProcessingError);
+                context.Output = ContentUpdateResult.Error(ContentsMessages.Common_ProcessingError);
             }
 
             return;
@@ -88,7 +88,7 @@ namespace Sanatana.Contents.Pipelines.Contents
 
         //methods
         public virtual async Task<bool> CheckPermission(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
@@ -98,7 +98,7 @@ namespace Sanatana.Contents.Pipelines.Contents
 
             if (hasPermission == false)
             {
-                context.Output = ContentEditResult.PermissionDenied();
+                context.Output = ContentUpdateResult.PermissionDenied();
                 return false;
             }
 
@@ -106,7 +106,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual Task<bool> SanitizeTitle(
-          PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+          PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
@@ -119,7 +119,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual Task<bool> CreateUrl(
-           PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+           PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
@@ -130,7 +130,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual Task<bool> SanitizeFullContent(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
@@ -148,7 +148,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual Task<bool> FixIframeSrc(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
@@ -183,11 +183,11 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual async Task<bool> ReplaceContentTempImagesSrc(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
-            if(context.Input.ContentImagesPathMapperId == null)
+            if(context.Input.ContentImagesPathProviderId == null)
             {
-                throw new KeyNotFoundException($"No {nameof(context.Input.ContentImagesPathMapperId)} specified. Content images can not be processed.");
+                throw new KeyNotFoundException($"No {nameof(context.Input.ContentImagesPathProviderId)} specified. Content images can not be processed.");
             }
 
             TContent content = context.Input.Content;
@@ -203,7 +203,7 @@ namespace Sanatana.Contents.Pipelines.Contents
                 ShortContentDocument
             };
 
-            int pathProviderId = context.Input.ContentImagesPathMapperId.Value;
+            int pathProviderId = context.Input.ContentImagesPathProviderId.Value;
             await _imageFileService.UpdateContentImages(pathProviderId, contentElements, contentId).ConfigureAwait(false);
           
             content.FullText = FullContentDocument.ToString();
@@ -212,7 +212,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
         
         public virtual Task<bool> CreateShortContent(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
@@ -228,7 +228,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual Task<bool> SanitizeShortContent(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
@@ -247,7 +247,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual async Task<bool> InsertContentDb(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 
@@ -262,12 +262,12 @@ namespace Sanatana.Contents.Pipelines.Contents
 
             if (insertResult == ContentInsertResult.UrlIsNotUnique)
             {
-                context.Output = ContentEditResult.Error(ContentsMessages.Content_UrlIsNotUnique);
+                context.Output = ContentUpdateResult.Error(ContentsMessages.Content_UrlIsNotUnique);
                 return false;
             }
             else if (insertResult == ContentInsertResult.PublishTimeUtcIsNotUnique)
             {
-                context.Output = ContentEditResult.Error(ContentsMessages.Content_PublishTimeIsNotUnique);
+                context.Output = ContentUpdateResult.Error(ContentsMessages.Content_PublishTimeIsNotUnique);
                 return false;
             }
 
@@ -275,7 +275,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual async Task<bool> UpdateContentSearch(
-           PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+           PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
             bool doIndex = ShouldIndex(context);
@@ -293,7 +293,7 @@ namespace Sanatana.Contents.Pipelines.Contents
             return true;
         }
 
-        protected bool ShouldIndex(PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+        protected bool ShouldIndex(PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             TContent content = context.Input.Content;
 

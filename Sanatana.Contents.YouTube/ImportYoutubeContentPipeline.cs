@@ -56,15 +56,15 @@ namespace Sanatana.Contents
             Register(InsertContentDb);
         }
 
-        public override Task<ContentEditResult> Execute(
-            ContentEditParams<TKey, TContent> inputModel, ContentEditResult outputModel)
+        public override Task<ContentUpdateResult> Execute(
+            ContentUpdateParams<TKey, TContent> inputModel, ContentUpdateResult outputModel)
         {
-            outputModel = outputModel ?? ContentEditResult.Success();
+            outputModel = outputModel ?? ContentUpdateResult.Success();
             return base.Execute(inputModel, outputModel);
         }
 
         public override async Task RollBack(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             await base.RollBack(context);
 
@@ -74,7 +74,7 @@ namespace Sanatana.Contents
             }
             if (context.Output == null)
             {
-                context.Output = ContentEditResult.Error(ContentsMessages.Common_ProcessingError);
+                context.Output = ContentUpdateResult.Error(ContentsMessages.Common_ProcessingError);
             }
 
             return;
@@ -83,7 +83,7 @@ namespace Sanatana.Contents
 
         //steps
         public virtual Task<bool> ValidateType(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             bool isYoutubePost = context.Input.Content is YoutubePost<TKey>;
             if (!isYoutubePost)
@@ -95,7 +95,7 @@ namespace Sanatana.Contents
         }
 
         public virtual Task<bool> ParseYoutubeId(
-           PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+           PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             YoutubePost<TKey> youtubePost = context.Input.Content as YoutubePost<TKey>;
 
@@ -103,7 +103,7 @@ namespace Sanatana.Contents
             Match idMatch = youtubeIdRegex.Match(youtubePost.YoutubeUrl);
             if (idMatch.Groups.Count < 2)
             {
-                context.Output = ContentEditResult.Error(YouTubeMessages.GetPreviewImageException);
+                context.Output = ContentUpdateResult.Error(YouTubeMessages.GetPreviewImageException);
                 return Task.FromResult(false);
             }
 
@@ -112,7 +112,7 @@ namespace Sanatana.Contents
         }
 
         public virtual Task<bool> CreateHtmlContent(
-            PipelineContext<ContentEditParams<TKey, TContent>, ContentEditResult> context)
+            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
             YoutubePost<TKey> youtubePost = context.Input.Content as YoutubePost<TKey>;
 

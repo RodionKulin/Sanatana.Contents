@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace Sanatana.Contents.Pipelines.Contents
 {
     public class DeleteContentPipeline<TKey, TCategory, TContent, TComment> 
-        : Pipeline<ContentDeleteParams<TKey>, PipelineResult>
+        : Pipeline<ContentDeleteParams<TKey>, ContentUpdateResult>
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>, new()
@@ -65,15 +65,15 @@ namespace Sanatana.Contents.Pipelines.Contents
             Register(DeleteContentSearch);
         }
 
-        public override Task<PipelineResult> Execute(
-            ContentDeleteParams<TKey> inputModel, PipelineResult outputModel)
+        public override Task<ContentUpdateResult> Execute(
+            ContentDeleteParams<TKey> inputModel, ContentUpdateResult outputModel)
         {
-            outputModel = outputModel ?? PipelineResult.Success();
+            outputModel = outputModel ?? ContentUpdateResult.Success();
             return base.Execute(inputModel, outputModel);
         }
 
         public override async Task RollBack(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
             await base.RollBack(context);
 
@@ -83,7 +83,7 @@ namespace Sanatana.Contents.Pipelines.Contents
             }
             if (context.Output == null)
             {
-                context.Output = PipelineResult.Error(ContentsMessages.Common_ProcessingError);
+                context.Output = ContentUpdateResult.Error(ContentsMessages.Common_ProcessingError);
             }
 
             return;
@@ -92,7 +92,7 @@ namespace Sanatana.Contents.Pipelines.Contents
 
         //modules
         public virtual async Task<bool> SelectExisting(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
             TKey contentId = context.Input.ContentId;
             TContent contentResult = await _contentQueries.SelectOne(
@@ -102,7 +102,7 @@ namespace Sanatana.Contents.Pipelines.Contents
 
             if (contentResult == null)
             {
-                context.Output = PipelineResult.Error(ContentsMessages.Content_NotFound);
+                context.Output = ContentUpdateResult.ContentNotFound();
                 return false;
             }
 
@@ -111,7 +111,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual async Task<bool> CheckPermission(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
             bool hasPermission = await _permissionSelector.CheckIsAllowed(
                 _storedContent.CategoryId, context.Input.Permission, context.Input.UserId)
@@ -119,7 +119,7 @@ namespace Sanatana.Contents.Pipelines.Contents
 
             if (hasPermission == false)
             {
-                context.Output = PipelineResult.Error(ContentsMessages.Common_AuthorizationRequired);
+                context.Output = ContentUpdateResult.PermissionDenied();
                 return false;
             }
 
@@ -127,13 +127,13 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual Task<bool> CheckVersion(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
             bool versionChangedSinceDataFetched = context.Input.Version < _storedContent.Version;
 
             if (versionChangedSinceDataFetched && context.Input.CheckVersion)
             {
-                context.Output = PipelineResult.Error(ContentsMessages.Content_WrongUpdateNonce);
+                context.Output = ContentUpdateResult.VersionChanged();
                 return Task.FromResult(false);
             }
 
@@ -141,14 +141,14 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
         
         public virtual Task<bool> IncrementVersion(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
             context.Input.Version++;
             return Task.FromResult(true);
         }
         
         public virtual async Task<bool> DeleteCommentsDb(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
             long commentsDeleted = await _commentQueries
                 .DeleteMany(x => EqualityComparer<TKey>.Default.Equals(x.ContentId, context.Input.ContentId))
@@ -158,7 +158,7 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual async Task<bool> DeleteContentDb(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
             List<TKey> contentIds = new List<TKey> { context.Input.ContentId };
 
@@ -169,23 +169,23 @@ namespace Sanatana.Contents.Pipelines.Contents
         }
 
         public virtual async Task<bool> DeleteContentImages(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
-            if (context.Input.ContentImagesPathMapperId == null)
+            if (context.Input.ContentImagesPathProviderId == null)
             {
-                throw new KeyNotFoundException($"No {nameof(context.Input.ContentImagesPathMapperId)} specified. Content images can not be processed.");
+                throw new KeyNotFoundException($"No {nameof(context.Input.ContentImagesPathProviderId)} specified. Content images can not be processed.");
             }
 
             string contentId = context.Input.ContentId.ToString();
 
-            int pathProviderId = context.Input.ContentImagesPathMapperId.Value;
+            int pathProviderId = context.Input.ContentImagesPathProviderId.Value;
             await _fileService.DeleteDirectory(pathProviderId, contentId).ConfigureAwait(false);
 
             return true;
         }
 
         public virtual async Task<bool> DeleteContentSearch(
-            PipelineContext<ContentDeleteParams<TKey>, PipelineResult> context)
+            PipelineContext<ContentDeleteParams<TKey>, ContentUpdateResult> context)
         {
             TKey contentId = context.Input.ContentId;
             if (_storedContent.IsIndexed == false)
