@@ -8,8 +8,13 @@ namespace Sanatana.Contents.Pipelines.Images
 {
     public class UploadImageResult
     {
-        //properties
+        /// <summary>
+        /// Full url constructed by FilePathProvider
+        /// </summary>
         public string Url { get; set; }
+        /// <summary>
+        /// File name without extension provided in ImageDestinationParams.DestinationFileName or ShortGuid if not provided.
+        /// </summary>
         public string FileName { get; set; }
     }
 }

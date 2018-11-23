@@ -83,20 +83,22 @@ namespace Sanatana.Contents.Pipelines.Images
 
             for (int i = 0; i < context.Input.Destinations.Count; i++)
             {
-                ImageDestinationParams targetFile = context.Input.Destinations[i];
-                FilePathProvider pathProvider = _filePathProviders[targetFile.FilePathProviderId];
+                ImageDestinationParams destination = context.Input.Destinations[i];
+                FilePathProvider pathProvider = _filePathProviders[destination.FilePathProviderId];
 
-                string fileName = context.Input.DestinationFileNames == null
-                    ? ShortGuid.NewGuid().Value
-                    : context.Input.DestinationFileNames[i];
+                string fileName = destination.DestinationFileName ?? ShortGuid.NewGuid().Value;
+                var urlArgs = new List<string>(destination.RelativePathArgs);
+                urlArgs.Add(fileName);
 
+                //file name and url used to show on web page
                 context.Output.Data.Add(new UploadImageResult()
                 {
-                    FileName = pathProvider.GetName(fileName),
-                    Url = pathProvider.GetFullUrl(context.Input.RelativePathArg, fileName)
+                    FileName = fileName,
+                    Url = pathProvider.GetFullUrl(urlArgs.ToArray())
                 });
 
-                string filePathAndName = pathProvider.GetPathAndName(context.Input.RelativePathArg, fileName);
+                //file path and name to store
+                string filePathAndName = pathProvider.GetPathAndName(urlArgs.ToArray());
                 filePathAndName = filePathAndName.Replace('/', '\\');
                 _filePathsWithName.Add(filePathAndName);
             }

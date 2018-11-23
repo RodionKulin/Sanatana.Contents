@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Core.Operations;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -267,8 +268,7 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
 
             return aggregateProjected.ToListAsync();
         }
-
-
+        
 
         //update
         public virtual async Task<long> UpdateMany(TContent values
@@ -347,6 +347,7 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
                 : bulkResult.MatchedCount == 1
                     ? OperationStatus.VersionChanged
                     : OperationStatus.Success;
+
 
             return result;
         }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Objects.DTOs;
+using MongoDB.Driver.Core.Events;
 
 namespace Sanatana.Contents.Database.MongoDb.Context
 {
@@ -69,7 +70,13 @@ namespace Sanatana.Contents.Database.MongoDb.Context
                 ReadPreference = ReadPreference.PrimaryPreferred,
                 Credential = connectionSettings.Credential
             };
-                        
+
+            clientSettings.ClusterConfigurator = cb => {
+                cb.Subscribe<CommandStartedEvent>(e => {
+                    System.Diagnostics.Trace.WriteLine($"{e.CommandName} - {e.Command.ToJson()}");
+                });
+            };
+
             MongoClient client = new MongoClient(clientSettings);
             return client.GetDatabase(connectionSettings.DatabaseName);
         }
