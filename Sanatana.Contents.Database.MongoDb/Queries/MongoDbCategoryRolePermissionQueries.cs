@@ -43,7 +43,10 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
         {
             foreach (CategoryRolePermission<ObjectId> item in categoryRolePermissions)
             {
-                item.CategoryRolePermissionId = ObjectId.GenerateNewId();
+                if (item.CategoryRolePermissionId == ObjectId.Empty)
+                {
+                    item.CategoryRolePermissionId = ObjectId.GenerateNewId();
+                }
             }
 
             return _categoryRolePermissionCollection.InsertManyAsync(categoryRolePermissions);

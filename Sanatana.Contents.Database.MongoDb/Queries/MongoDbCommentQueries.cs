@@ -73,7 +73,10 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
         {
             foreach (TComment comment in comments)
             {
-                comment.CommentId = ObjectId.GenerateNewId();
+                if (comment.CommentId == ObjectId.Empty)
+                {
+                    comment.CommentId = ObjectId.GenerateNewId();
+                }
                 comment.Content = null;
             }
 

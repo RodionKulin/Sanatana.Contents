@@ -45,7 +45,10 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
         {
             foreach (TCategory category in categories)
             {
-                category.CategoryId = ObjectId.GenerateNewId();
+                if (category.CategoryId == ObjectId.Empty)
+                {
+                    category.CategoryId = ObjectId.GenerateNewId();
+                }
             }
 
             return _categoryCollection.InsertManyAsync(categories);

@@ -65,7 +65,11 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
         {
             try
             {
-                content.ContentId = ObjectId.GenerateNewId();
+                if(content.ContentId == ObjectId.Empty)
+                {
+                    content.ContentId = ObjectId.GenerateNewId();
+                }
+
                 await _contentCollection
                     .InsertOneAsync(content)
                     .ConfigureAwait(false);
@@ -94,7 +98,8 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
         {
             contents.ToList().ForEach(x =>
             {
-                x.ContentId = ObjectId.GenerateNewId();
+                if(x.ContentId == ObjectId.Empty)
+                    x.ContentId = ObjectId.GenerateNewId();
             });
             return _contentCollection.InsertManyAsync(contents);
         }
