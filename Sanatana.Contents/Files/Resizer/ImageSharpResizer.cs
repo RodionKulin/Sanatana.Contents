@@ -73,6 +73,11 @@ namespace Sanatana.Contents.Files.Resizer
                 RaiseWidthProportionally(width, sizes);
                 FillHeightIfBigger(height, sizes);
             }
+
+            if (sizes.Padding.IsEmpty)
+            {
+                sizes.Padding = sizes.Size;
+            }
         }
 
         protected virtual byte[] Save(Image<Rgba32> image
@@ -226,14 +231,12 @@ namespace Sanatana.Contents.Files.Resizer
         {
             if (sizes.Width < width)
             {
-                int widthDfference = (width - sizes.Width);
-                sizes.Padding = new Size(widthDfference, sizes.Padding.Height);
+                sizes.Padding = new Size(width, sizes.Padding.Height);
                 sizes.Width = width;
             }
             if (sizes.Height < height)
             {
-                int heightDifference = (height - sizes.Height);
-                sizes.Padding = new Size(sizes.Padding.Width, heightDifference);
+                sizes.Padding = new Size(sizes.Padding.Width, height);
                 sizes.Height = height;
             }
         }

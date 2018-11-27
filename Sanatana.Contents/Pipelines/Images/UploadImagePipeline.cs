@@ -87,7 +87,7 @@ namespace Sanatana.Contents.Pipelines.Images
                 FilePathProvider pathProvider = _filePathProviders[destination.FilePathProviderId];
 
                 string fileName = destination.DestinationFileName ?? ShortGuid.NewGuid().Value;
-                var urlArgs = new List<string>(destination.RelativePathArgs);
+                var urlArgs = new List<string>(destination.RelativePathArgs ?? new string[0]);
                 urlArgs.Add(fileName);
 
                 //file name and url used to show on web page

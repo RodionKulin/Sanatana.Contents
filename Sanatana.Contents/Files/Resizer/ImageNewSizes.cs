@@ -10,10 +10,25 @@ namespace Sanatana.Contents.Files.Resizer
     public class ImageNewSizes
     {
         //properties
+        /// <summary>
+        /// Target image final width.
+        /// </summary>
         public int Width { get; set; }
+        /// <summary>
+        /// Target image final height.
+        /// </summary>
         public int Height { get; set; }
+        /// <summary>
+        /// Target size that will be used to cut actual image sizes.
+        /// </summary>
         public Rectangle CropRegion { get; set; }
+        /// <summary>
+        /// Target size that will be used to squeeze or stretch image.
+        /// </summary>
         public Size Size { get; set; }
+        /// <summary>
+        /// Target size that will be filled with white space if actual image size is not enough.
+        /// </summary>
         public Size Padding { get; set; }
 
 

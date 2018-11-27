@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Images
 {
+    [Serializable]
     public class ImageDestinationParams
     {
         //properties
