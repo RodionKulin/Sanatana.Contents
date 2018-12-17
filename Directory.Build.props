@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <Version Condition=" '$(TRAVIS_BUILD_NUMBER)' == '' ">0.0.1-local</Version>
+    <Version Condition=" '$(TRAVIS_BUILD_NUMBER)' != '' ">1.0.$(TRAVIS_BUILD_NUMBER)</Version>
+    <Authors>Sanatana</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RepositoryUrl>https://github.com/RodionKulin/Sanatana.Contents</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseUrl>https://github.com/RodionKulin/Sanatana.Contents/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright ©2016 RodionKulin</Copyright>
+  </PropertyGroup>
+</Project>

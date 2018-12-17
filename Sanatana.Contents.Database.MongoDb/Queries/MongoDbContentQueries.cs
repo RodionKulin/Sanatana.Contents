@@ -116,8 +116,8 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
 
             //string explain = _mongoDbContext.Content.ExplainCount(ExplainVerbosity.QueryPlanner
             //    , filter, options).Result.ToJsonIntended();
-          
-            return _contentCollection.CountAsync(filter, options);
+
+            return _contentCollection.CountDocumentsAsync(filter, options);
         }
         
 

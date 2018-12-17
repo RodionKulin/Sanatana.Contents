@@ -2,20 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	<Description>Content management framework Youtube content import</Description>
+	<PackageTags>ContentManagement;Youtube;CustomContentTypes</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.6.7" />
+    <PackageReference Include="Sanatana.Patterns.Pipelines" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sanatana.Contents\Sanatana.Contents.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Sanatana.Patterns.Pipelines">
-      <HintPath>..\ThirdParty\Sanatana.Patterns.Pipelines.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -32,9 +30,5 @@
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;..\Build\&quot;" />
-  </Target>
 
 </Project>

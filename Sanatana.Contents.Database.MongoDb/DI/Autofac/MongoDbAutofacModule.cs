@@ -6,12 +6,13 @@ using Sanatana.Contents.Database.MongoDb;
 using Sanatana.Contents.Database.MongoDb.Context;
 using Sanatana.Contents.Database.MongoDb.DataChangeNotifiers;
 using Sanatana.Contents.Database.MongoDb.Queries;
+using Sanatana.Contents.DI.Autofac;
 using Sanatana.MongoDb;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sanatana.Contents.Di.Autofac
+namespace Sanatana.Contents.Database.MongoDb.DI.Autofac
 {
     public class MongoDbAutofacModule : Module
     {

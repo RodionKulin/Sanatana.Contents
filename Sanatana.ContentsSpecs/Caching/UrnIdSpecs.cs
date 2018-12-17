@@ -18,7 +18,7 @@ namespace Sanatana.ContentsSpecs.Caching
         {
             //then_does_not_add_entry_with_already_present_key
             string cacheKey = UrnId.Create<List<CategoryRolePermission<long>>>();
-            string expected = "urn:System.Collections.Generic.List`1[[Sanatana.Contents.Objects.Entities.CategoryRolePermission`1[[MongoDB.Bson.ObjectId, MongoDB.Bson, Version=2.7.0.0, Culture=neutral, PublicKeyToken=null]], Sanatana.Contents, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null]]:all";
+            string expected = "urn:System.Collections.Generic.List`1[[Sanatana.Contents.Objects.Entities.CategoryRolePermission`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Sanatana.Contents, Version=0.0.1.0, Culture=neutral, PublicKeyToken=null]]:all";
             cacheKey.ShouldEqual(expected);
         }
     }

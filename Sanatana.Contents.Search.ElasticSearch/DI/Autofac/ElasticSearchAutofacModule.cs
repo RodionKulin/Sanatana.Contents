@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sanatana.Contents.Di.Autofac
+namespace Sanatana.Contents.Search.ElasticSearch.DI.Autofac
 {
     public class ElasticSearchAutofacModule<TKey> : Module
         where TKey : struct

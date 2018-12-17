@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	<Description>Content management framework AWS S3 file management</Description>
+	<PackageTags>ContentManagement;Files;AWS;S3</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,9 +29,5 @@
       <LastGenOutput>AmazonS3Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;..\Build\&quot;" />
-  </Target>
 
 </Project>

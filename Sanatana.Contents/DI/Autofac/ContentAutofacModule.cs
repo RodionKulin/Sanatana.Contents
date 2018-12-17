@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sanatana.Contents.Di.Autofac
+namespace Sanatana.Contents.DI.Autofac
 {
     public class ContentAutofacModule : Module
     {

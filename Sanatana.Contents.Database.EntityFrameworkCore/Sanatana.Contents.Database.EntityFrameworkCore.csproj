@@ -2,25 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	<Description>Content management framework EntityFrameworkCore storage</Description>
+	<PackageTags>ContentManagement;Storage;EF;EntityFrameworkCore</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="AutoMapper" Version="6.2.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Sanatana.EntityFrameworkCore" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sanatana.Contents\Sanatana.Contents.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Sanatana.EntityFrameworkCore">
-      <HintPath>..\ThirdParty\Sanatana.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;..\Build\&quot;" />
-  </Target>
 
 </Project>

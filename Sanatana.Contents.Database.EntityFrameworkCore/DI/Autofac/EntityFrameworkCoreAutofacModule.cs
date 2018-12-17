@@ -5,12 +5,13 @@ using Sanatana.Contents.Database.EntityFrameworkCore;
 using Sanatana.Contents.Database.EntityFrameworkCore.Context;
 using Sanatana.Contents.Database.EntityFrameworkCore.DataChangeNotifiers;
 using Sanatana.Contents.Database.EntityFrameworkCore.Queries;
+using Sanatana.Contents.DI.Autofac;
 using Sanatana.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sanatana.Contents.Di.Autofac
+namespace Sanatana.Contents.Database.EntityFrameworkCore.DI.Autofac
 {
     public class EntityFrameworkCoreAutofacModule : Module
     {

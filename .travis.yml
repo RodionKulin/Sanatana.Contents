@@ -1,0 +1,18 @@
+language: csharp
+mono: none
+dotnet: 2.1.2
+solution: Sanatana.Contents.sln
+script:
+  - dotnet pack Sanatana.Contents/Sanatana.Contents.csproj -o ../nuget -c Release
+  - dotnet pack Sanatana.Contents.Database.EntityFrameworkCore/Sanatana.Contents.Database.EntityFrameworkCore.csproj -o ../nuget -c Release
+  - dotnet pack Sanatana.Contents.Database.MongoDb/Sanatana.Contents.Database.MongoDb.csproj -o ../nuget -c Release
+  - dotnet pack Sanatana.Contents.Files.AmazonS3/Sanatana.Contents.Files.AmazonS3.csproj -o ../nuget -c Release
+  - dotnet pack Sanatana.Contents.Search.ElasticSearch/Sanatana.Contents.Search.ElasticSearch.csproj -o ../nuget -c Release
+  - dotnet pack Sanatana.Contents.YouTube/Sanatana.Contents.YouTube.csproj -o ../nuget -c Release
+  
+  - dotnet nuget push nuget/Sanatana.Contents.*.nupkg --force-english-output -k $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+  - dotnet nuget push nuget/Sanatana.Contents.Database.EntityFrameworkCore.*.nupkg --force-english-output -k $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+  - dotnet nuget push nuget/Sanatana.Contents.Database.MongoDb.*.nupkg --force-english-output -k $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+  - dotnet nuget push nuget/Sanatana.Contents.Files.AmazonS3.*.nupkg --force-english-output -k $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+  - dotnet nuget push nuget/Sanatana.Contents.Search.ElasticSearch.*.nupkg --force-english-output -k $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+  - dotnet nuget push nuget/Sanatana.Contents.YouTube.*.nupkg --force-english-output -k $NUGET_API_KEY --source https://api.nuget.org/v3/index.json

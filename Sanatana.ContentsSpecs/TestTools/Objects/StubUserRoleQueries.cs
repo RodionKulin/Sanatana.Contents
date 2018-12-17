@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sanatana.Contents.Di.AutofacSpecs.Objects
+namespace Sanatana.ContentsSpecs.TestTools.Objects
 {
     public class StubUserRoleQueries : IUserRolesQueries<ObjectId>
     {
         public Task<List<ObjectId>> SelectUserRoles(ObjectId? userId)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new List<ObjectId>());
         }
     }
 }

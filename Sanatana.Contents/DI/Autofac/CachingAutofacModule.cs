@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sanatana.Contents.Di.Autofac
+namespace Sanatana.Contents.DI.Autofac
 {
     public class CachingAutofacModule : Module
     {

@@ -15,7 +15,7 @@ using Sanatana.Contents.Search;
 using Sanatana.Contents.Selectors.Permissions;
 using Sanatana.Contents.Utilities;
 
-namespace Sanatana.Contents.Di.AutofacSpecs.Objects
+namespace Sanatana.ContentsSpecs.TestTools.Objects
 {
     public class InsertTicketPipeline 
         : InsertContentPipeline<ObjectId, Category<ObjectId>, Ticket<ObjectId>>

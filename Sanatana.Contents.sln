@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanatana.Contents", "Sanatana.Contents\Sanatana.Contents.csproj", "{595AC522-768F-461E-B390-AC7DE9035776}"
 EndProject
@@ -17,17 +17,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanatana.Contents.Search.El
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanatana.ContentsSpecs", "Sanatana.ContentsSpecs\Sanatana.ContentsSpecs.csproj", "{0490429A-2778-49DF-B75C-6AA455DCA528}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanatana.Contents.Di.Autofac", "Sanatana.Contents.Di.Autofac\Sanatana.Contents.Di.Autofac.csproj", "{FF39BF71-DF04-4C3B-8280-180A463C0B05}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanatana.Contents.Database.MongoDb", "Sanatana.Contents.Database.MongoDb\Sanatana.Contents.Database.MongoDb.csproj", "{5A89ED46-8E2D-495E-BE03-AAB786E43A60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanatana.Contents.Database.MongoDbSpecs", "Sanatana.Contents.Database.MongoDbSpecs\Sanatana.Contents.Database.MongoDbSpecs.csproj", "{031F24CD-B91D-4A98-A3B0-FE9C78762EAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanatana.Contents.Di.AutofacSpecs", "Sanatana.Contents.Di.AutofacSpecs\Sanatana.Contents.Di.AutofacSpecs.csproj", "{41962D99-1B33-463E-A426-55A4796926BB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanatana.Contents.Database.EntityFrameworkCore", "Sanatana.Contents.Database.EntityFrameworkCore\Sanatana.Contents.Database.EntityFrameworkCore.csproj", "{BD4F5100-238E-4F9A-9869-89B40D865B32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanatana.Contents.Database.EntityFrameworkCoreSpecs", "Sanatana.Contents.Database.EntityFrameworkCoreSpecs\Sanatana.Contents.Database.EntityFrameworkCoreSpecs.csproj", "{1113E0A5-FA11-4B36-B558-ABC9EE7C23D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{561BC27D-8E47-4B78-9637-2ACCB6637F8E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		.travis.yml = .travis.yml
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +65,6 @@ Global
 		{0490429A-2778-49DF-B75C-6AA455DCA528}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0490429A-2778-49DF-B75C-6AA455DCA528}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0490429A-2778-49DF-B75C-6AA455DCA528}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF39BF71-DF04-4C3B-8280-180A463C0B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF39BF71-DF04-4C3B-8280-180A463C0B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF39BF71-DF04-4C3B-8280-180A463C0B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF39BF71-DF04-4C3B-8280-180A463C0B05}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5A89ED46-8E2D-495E-BE03-AAB786E43A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5A89ED46-8E2D-495E-BE03-AAB786E43A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A89ED46-8E2D-495E-BE03-AAB786E43A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,10 +73,6 @@ Global
 		{031F24CD-B91D-4A98-A3B0-FE9C78762EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{031F24CD-B91D-4A98-A3B0-FE9C78762EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{031F24CD-B91D-4A98-A3B0-FE9C78762EAE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41962D99-1B33-463E-A426-55A4796926BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41962D99-1B33-463E-A426-55A4796926BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41962D99-1B33-463E-A426-55A4796926BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41962D99-1B33-463E-A426-55A4796926BB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD4F5100-238E-4F9A-9869-89B40D865B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD4F5100-238E-4F9A-9869-89B40D865B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD4F5100-238E-4F9A-9869-89B40D865B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,7 +89,6 @@ Global
 		{A07723CB-EB46-4C31-B168-9C5E3AB5DE4C} = {67A1AFD7-C666-4214-8586-02FEC1CB1ECF}
 		{0490429A-2778-49DF-B75C-6AA455DCA528} = {67A1AFD7-C666-4214-8586-02FEC1CB1ECF}
 		{031F24CD-B91D-4A98-A3B0-FE9C78762EAE} = {67A1AFD7-C666-4214-8586-02FEC1CB1ECF}
-		{41962D99-1B33-463E-A426-55A4796926BB} = {67A1AFD7-C666-4214-8586-02FEC1CB1ECF}
 		{1113E0A5-FA11-4B36-B558-ABC9EE7C23D4} = {67A1AFD7-C666-4214-8586-02FEC1CB1ECF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

@@ -1,8 +1,6 @@
 ﻿using Autofac;
-using MongoDB.Bson;
 using NUnit.Framework;
-using Sanatana.Contents.Di.Autofac;
-using Sanatana.MongoDb;
+using Sanatana.Contents.DI.Autofac;
 using SpecsFor;
 using System;
 using System.Collections.Generic;
@@ -10,15 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Should;
-using Sanatana.Contents.Di.AutofacSpecs.Objects;
+using Should.Core;
 using Sanatana.Contents.Database;
 using Sanatana.Contents.Files.Queries;
 using Sanatana.Contents.Caching.Concrete;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Selectors.Contents;
 using Sanatana.Contents.Objects;
+using Sanatana.ContentsSpecs.TestTools.Objects;
+using MongoDB.Bson;
+using Sanatana.Contents.Database.MongoDb.DI.Autofac;
+using Sanatana.MongoDb;
 
-namespace Sanatana.Contents.Di.AutofacSpecs
+namespace Sanatana.Contents.DI.AutofacSpecs
 {
     public class AutofacSpecs
     {
@@ -122,7 +124,7 @@ namespace Sanatana.Contents.Di.AutofacSpecs
         public class when_calling_generic_selector : AutofacSetupBase
         {
             [Test]
-            public void then_calles_selector_instance_from_autofac()
+            public void then_calls_selector_instance_from_autofac()
             {
                 IContainer container = _builder.Build();
                 var selector1 = container.Resolve<IContentSelector<ObjectId, Category<ObjectId>, Content<ObjectId>>>();

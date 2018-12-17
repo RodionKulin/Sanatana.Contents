@@ -9,7 +9,7 @@ using Sanatana.Contents.Files.Resizer;
 using Sanatana.Contents.Files.Downloads;
 using Sanatana.Contents.Files.Services;
 
-namespace Sanatana.Contents.Di.Autofac
+namespace Sanatana.Contents.DI.Autofac
 {
     public class FilesAutofacModule : Module
     {
