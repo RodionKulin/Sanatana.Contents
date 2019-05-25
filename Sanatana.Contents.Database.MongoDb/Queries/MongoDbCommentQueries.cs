@@ -122,11 +122,11 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
 
             if (orderDescending)
             {
-                fluent = fluent.SortByDescending(x => x.AddTimeUtc);
+                fluent = fluent.SortByDescending(x => x.CreatedTimeUtc);
             }
             else
             {
-                fluent = fluent.SortBy(x => x.AddTimeUtc);
+                fluent = fluent.SortBy(x => x.CreatedTimeUtc);
             }
 
             return fluent.ToListAsync();
@@ -165,11 +165,11 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
 
             if (orderDescending)
             {
-                query = query.SortByDescending(x => x.Comment.AddTimeUtc);
+                query = query.SortByDescending(x => x.Comment.CreatedTimeUtc);
             }
             else
             {
-                query = query.SortBy(x => x.Comment.AddTimeUtc);
+                query = query.SortBy(x => x.Comment.CreatedTimeUtc);
             }
 
             return query

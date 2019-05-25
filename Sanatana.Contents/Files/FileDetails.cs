@@ -8,7 +8,7 @@ namespace Sanatana.Contents.Files
 {
     public class FileDetails
     {
-        public string Key { get; set; }
+        public string NamePath { get; set; }
         public DateTime LastModifyTimeUtc { get; set; }
     }
 }

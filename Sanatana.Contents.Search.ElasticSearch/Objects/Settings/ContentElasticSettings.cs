@@ -94,7 +94,7 @@ namespace Sanatana.Contents.Search.ElasticSearch.Objects.Settings
                           .Index(true)
                       )
                       .Date(field => field
-                          .Name(name => name.PublishTimeUtc)
+                          .Name(name => name.PublishedTimeUtc)
                           .Index(true)
                       )
                       .Keyword(field => field

@@ -13,8 +13,9 @@ using System.Linq;
 
 namespace Sanatana.Contents.Pipelines.Categories
 {
-    public class CategoryPipelineBase<TKey, TCategory>
-        : Pipeline<CategoryEditParams<TKey, TCategory>>
+    public abstract class CategoryPipelineBase<TKey, TCategory>
+        : Pipeline<CategoryEditParams<TKey, TCategory>>, 
+        ICategoryPipelineBase<TKey, TCategory> 
         where TKey : struct
         where TCategory : Category<TKey>
     {

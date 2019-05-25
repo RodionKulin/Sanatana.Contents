@@ -17,7 +17,8 @@ namespace Sanatana.ContentsSpecs.TestTools.Providers
             var options = Options.Create(new MemoryCacheOptions());
             instance.MockContainer.Configure(cfg =>
             {
-                cfg.For<IMemoryCache>().Use(new MemoryCache(Options.Create(new MemoryCacheOptions())));
+                cfg.For<IMemoryCache>().Use(
+                    new MemoryCache(Options.Create(new MemoryCacheOptions())));
             });
 
         }

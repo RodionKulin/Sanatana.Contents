@@ -195,7 +195,7 @@ namespace Sanatana.Contents.Search.ElasticSearch.ExpressionsToNest.FieldTypes
             if(typeMapExists == false)
             {
                 throw new NotImplementedException(
-                   $"Elasticseatch type {elasticTypeName} was not found.");
+                   $"Elasticsearch type {elasticTypeName} was not found.");
             }
 
             MemberTypeMapping memberMap;
@@ -203,13 +203,13 @@ namespace Sanatana.Contents.Search.ElasticSearch.ExpressionsToNest.FieldTypes
             if (memberMapExists == false)
             {
                 throw new NotImplementedException(
-                    $"Elasticseatch type {elasticTypeName} does not have field representing entity {entityMemberName} member.");
+                    $"Elasticsearch type {elasticTypeName} does not have field representing entity {entityMemberName} member.");
             }
 
             if (memberMap.Ignore == true)
             {
                 throw new ArgumentException(
-                   $"Entity member {entityMemberName} is configured to be ignored for Elasticseatch type {elasticTypeName} but was used in expression.");
+                   $"Entity member {entityMemberName} is configured to be ignored for Elasticsearch type {elasticTypeName} but was used in expression.");
             }
 
             return memberMap;

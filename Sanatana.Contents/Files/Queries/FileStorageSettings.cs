@@ -7,6 +7,9 @@ namespace Sanatana.Contents.Files.Queries
 {
     public class FileStorageSettings
     {
-        public string Directory { get; set; }
+        /// <summary>
+        /// File storage will store all the files and create sub directories inside base directory.
+        /// </summary>
+        public string BaseDirectory { get; set; }
     }
 }

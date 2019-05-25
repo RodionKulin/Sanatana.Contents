@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sanatana.Contents.Search.ElasticSearch</name>
+    </assembly>
+    <members>
+        <member name="T:Sanatana.Contents.Search.ElasticSearch.ExpressionsToNest.FieldTypes.ElasticFieldTypeProvider`1">
+            <summary>
+            Provides elastic field type information and field names after renaming by inferrer
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Sanatana.Contents.Search.ElasticSearch.Objects.EntitySearchParams`1.Filter(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})" -->
+    </members>
+</doc>

@@ -1,10 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<Description>Content management framework ElasticSearch search</Description>
-	<PackageTags>ContentManagement;Search;ElasticSearch</PackageTags>
+    <Description>Content management framework ElasticSearch search</Description>
+    <PackageTags>ContentManagement;Search;ElasticSearch</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents.Search.ElasticSearch\Sanatana.Contents.Search.ElasticSearch.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents.Search.ElasticSearch\Sanatana.Contents.Search.ElasticSearch.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,10 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<Description>Content management framework</Description>
-	<PackageTags>ContentManagement;Backend;CustomContentTypes;Pipelines;Sanitizing;Search;Permissions</PackageTags>
+	  <Description>Content management framework</Description>
+	  <PackageTags>ContentManagement;Backend;CustomContentTypes;Pipelines;Sanitizing;Search;Permissions</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents\Sanatana.Contents.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents\Sanatana.Contents.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

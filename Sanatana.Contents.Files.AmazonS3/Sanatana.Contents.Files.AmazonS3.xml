@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sanatana.Contents.Files.AmazonS3</name>
+    </assembly>
+    <members>
+        <member name="T:Sanatana.Contents.Files.AmazonS3.Resources.AmazonS3Messages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.AmazonS3.Resources.AmazonS3Messages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.AmazonS3.Resources.AmazonS3Messages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.AmazonS3.Resources.AmazonS3Messages.RegionNotFound">
+            <summary>
+              Looks up a localized string similar to Amazon region named {0} not found..
+            </summary>
+        </member>
+    </members>
+</doc>

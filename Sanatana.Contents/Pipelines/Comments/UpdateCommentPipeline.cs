@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Sanatana.Patterns.Pipelines;
-using Sanatana.Contents.Pipelines.Images;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Database;
 using Sanatana.Contents.Search;
@@ -14,8 +13,9 @@ using Sanatana.Contents.Selectors.Permissions;
 
 namespace Sanatana.Contents.Pipelines.Comments
 {
-    public class UpdateCommentPipeline<TKey, TCategory, TContent, TComment> 
-        : CommentPipelineBase<TKey, TCategory, TContent, TComment>
+    public class UpdateCommentPipeline<TKey, TCategory, TContent, TComment>
+        : CommentPipelineBase<TKey, TCategory, TContent, TComment>, 
+        IUpdateCommentPipeline<TKey, TCategory, TContent, TComment>
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>
@@ -57,7 +57,7 @@ namespace Sanatana.Contents.Pipelines.Comments
             var updateProps = new Expression<Func<TComment , object>>[]
             {
                 p => p.Text,
-                p => p.UpdateTimeUtc,
+                p => p.UpdatedTimeUtc,
                 p => p.State
             };
 
@@ -74,7 +74,7 @@ namespace Sanatana.Contents.Pipelines.Comments
             var updateProps = new Expression<Func<TComment , object>>[]
             {
                 p => p.Text,
-                p => p.UpdateTimeUtc,
+                p => p.UpdatedTimeUtc,
                 p => p.State
             };
 

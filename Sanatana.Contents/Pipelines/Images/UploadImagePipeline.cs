@@ -15,7 +15,9 @@ using Sanatana.Contents.Extensions;
 
 namespace Sanatana.Contents.Pipelines.Images
 {
-    public class UploadImagePipeline : Pipeline<UploadImageParams, PipelineResult<List<UploadImageResult>>>
+    public class UploadImagePipeline
+        : Pipeline<UploadImageParams, PipelineResult<List<UploadImageResult>>>, 
+        IUploadImagePipeline
     {
         //fields
         protected IPipelineExceptionHandler _exceptionHandler;

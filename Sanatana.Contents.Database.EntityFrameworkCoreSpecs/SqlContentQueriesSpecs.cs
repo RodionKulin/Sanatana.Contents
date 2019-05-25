@@ -69,7 +69,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCoreSpecs
                     ShortText = "ShortContent " + 6,
                     FullText = "FullContent " + 6,
                     Url = "url1",
-                    PublishTimeUtc = DateTime.UtcNow
+                    PublishedTimeUtc = DateTime.UtcNow
                 };
                 ContentInsertResult result = SUT.InsertOne(_insertedContent).Result;
                 result.ShouldEqual(ContentInsertResult.Success);
@@ -80,7 +80,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCoreSpecs
             {
                 var newContent = new Ticket
                 {
-                    PublishTimeUtc = _insertedContent.PublishTimeUtc
+                    PublishedTimeUtc = _insertedContent.PublishedTimeUtc
                 };
                 ContentInsertResult sameUrlResult = SUT.InsertOne(newContent).Result;
                 sameUrlResult.ShouldEqual(ContentInsertResult.PublishTimeUtcIsNotUnique);
@@ -95,7 +95,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCoreSpecs
                     .SingleOrDefault();
 
                 content.ShouldNotBeNull();
-                content.PublishTimeUtc.ShouldEqual(_insertedContent.PublishTimeUtc);
+                content.PublishedTimeUtc.ShouldEqual(_insertedContent.PublishedTimeUtc);
                 content.Url.ShouldEqual(_insertedContent.Url);
             }
         }

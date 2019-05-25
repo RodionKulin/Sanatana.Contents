@@ -112,10 +112,10 @@ namespace Sanatana.Contents.Selectors.Contents
             filterConditions = await AddCategoryFilter(permission, userId, filterConditions, categoryIds)
                 .ConfigureAwait(false);
 
-            DateTime publishDateUtc = vm.Content.PublishTimeUtc;
+            DateTime publishDateUtc = vm.Content.PublishedTimeUtc;
             DateTime topViewMinTimeUtc = DateTime.UtcNow - topViewsSelectPeriod.Value;
             Expression<Func<TContent, bool>> topViewsFilter = filterConditions
-                .And(x => x.PublishTimeUtc >= topViewMinTimeUtc);
+                .And(x => x.PublishedTimeUtc >= topViewMinTimeUtc);
 
 
             //related queries
@@ -250,7 +250,7 @@ namespace Sanatana.Contents.Selectors.Contents
                 Contents = contentInCategory,
                 LastPublishTimeUtcIso8601 = contentInCategory.Count == 0
                     ? null
-                    : contentInCategory.Last().PublishTimeUtc.ToIso8601(),
+                    : contentInCategory.Last().PublishedTimeUtc.ToIso8601(),
                 ContentNumberMessage = string.Format(ContentsMessages.Content_Shown
                     , contentInCategory.Count, contentCountSelectedCategories)
             };
@@ -260,7 +260,7 @@ namespace Sanatana.Contents.Selectors.Contents
           DateTime selectBeforeTimeUtc, int pageSize, DataAmount dataAmount
            , Expression<Func<TContent, bool>> filterConditions)
         {
-            filterConditions = filterConditions.And(x => x.PublishTimeUtc < selectBeforeTimeUtc);
+            filterConditions = filterConditions.And(x => x.PublishedTimeUtc < selectBeforeTimeUtc);
             return _contentQueries.SelectMany(1, pageSize, dataAmount, true, filterConditions);
         }
 
@@ -268,7 +268,7 @@ namespace Sanatana.Contents.Selectors.Contents
           DateTime selectAfterTimeUtc, int pageSize, DataAmount dataAmount
            , Expression<Func<TContent, bool>> filterConditions)
         {
-            filterConditions = filterConditions.And(x => x.PublishTimeUtc > selectAfterTimeUtc);
+            filterConditions = filterConditions.And(x => x.PublishedTimeUtc > selectAfterTimeUtc);
             return _contentQueries.SelectMany(1, pageSize, dataAmount, false, filterConditions);
         }
 
@@ -316,7 +316,7 @@ namespace Sanatana.Contents.Selectors.Contents
                 Contents = items,
                 LastPublishTimeUtcIso8601 = items.Count == 0
                     ? null
-                    : items.Last().PublishTimeUtc.ToIso8601()                
+                    : items.Last().PublishedTimeUtc.ToIso8601()                
             };
         }
 

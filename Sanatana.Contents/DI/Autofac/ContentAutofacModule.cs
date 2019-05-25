@@ -26,30 +26,27 @@ namespace Sanatana.Contents.DI.Autofac
         {
             builder.RegisterType<EntitiesDatabaseNameMapping>().AsSelf().SingleInstance();
             builder.RegisterType<RethrowPipelineExceptionHandler>().As<IPipelineExceptionHandler>().InstancePerDependency();
-            
-            builder.RegisterGeneric(typeof(InsertCategoryPipeline<,>)).AsSelf().InstancePerDependency();
-            builder.RegisterGeneric(typeof(UpdateCategoryPipeline<,>)).AsSelf().InstancePerDependency();
-            builder.RegisterGeneric(typeof(DeleteCategoryPipeline<,>)).AsSelf().InstancePerDependency();
+            builder.RegisterType<HtmlMediaExtractor>().As<IHtmlMediaExtractor>().InstancePerDependency();
+            builder.RegisterType<UrlEncoder>().As<IUrlEncoder>().InstancePerDependency();
 
-            builder.RegisterGeneric(typeof(InsertContentPipeline<,,>)).AsSelf().InstancePerDependency();
-            builder.RegisterGeneric(typeof(UpdateContentPipeline<,,>)).AsSelf().InstancePerDependency();
-            builder.RegisterGeneric(typeof(DeleteContentPipeline<,,,>)).AsSelf().InstancePerDependency();
+            builder.RegisterGeneric(typeof(InsertCategoryPipeline<,>)).As(typeof(IInsertCategoryPipeline<,>)).InstancePerDependency();
+            builder.RegisterGeneric(typeof(UpdateCategoryPipeline<,>)).As(typeof(IUpdateCategoryPipeline<,>)).InstancePerDependency();
+            builder.RegisterGeneric(typeof(DeleteCategoryPipeline<,>)).As(typeof(IDeleteCategoryPipeline<,>)).InstancePerDependency();
 
-            builder.RegisterGeneric(typeof(InsertCommentPipeline<,,,>)).AsSelf().InstancePerDependency();
-            builder.RegisterGeneric(typeof(UpdateCommentPipeline<,,,>)).AsSelf().InstancePerDependency();
-            builder.RegisterGeneric(typeof(DeleteCommentPipeline<,,,>)).AsSelf().InstancePerDependency();
+            builder.RegisterGeneric(typeof(InsertContentPipeline<,,>)).As(typeof(IInsertContentPipeline<,,>)).InstancePerDependency();
+            builder.RegisterGeneric(typeof(UpdateContentPipeline<,,>)).As(typeof(IUpdateContentPipeline<,,>)).InstancePerDependency();
+            builder.RegisterGeneric(typeof(DeleteContentPipeline<,,,>)).As(typeof(IDeleteContentPipeline<,,,>)).InstancePerDependency();
 
-            builder.RegisterType<UploadImagePipeline>().AsSelf().InstancePerDependency();
+            builder.RegisterGeneric(typeof(InsertCommentPipeline<,,,>)).As(typeof(IInsertCommentPipeline<,,,>)).InstancePerDependency();
+            builder.RegisterGeneric(typeof(UpdateCommentPipeline<,,,>)).As(typeof(IUpdateCommentPipeline<,,,>)).InstancePerDependency();
+            builder.RegisterGeneric(typeof(DeleteCommentPipeline<,,,>)).As(typeof(IDeleteCommentPipeline<,,,>)).InstancePerDependency();
+
+            builder.RegisterType<UploadImagePipeline>().As(typeof(IUploadImagePipeline)).InstancePerDependency();
 
             builder.RegisterGeneric(typeof(CategorySelector<,>)).As(typeof(ICategorySelector<,>)).InstancePerDependency();
             builder.RegisterGeneric(typeof(ContentSelector<,,>)).As(typeof(IContentSelector<,,>)).InstancePerDependency();
             builder.RegisterGeneric(typeof(CommentSelector<,,,>)).As(typeof(ICommentSelector<,,,>)).InstancePerDependency();
             builder.RegisterGeneric(typeof(PermissionSelector<,>)).As(typeof(IPermissionSelector<,>)).InstancePerDependency();
-
-            builder.RegisterType<HtmlMediaExtractor>().As<IHtmlMediaExtractor>().InstancePerDependency();
-            builder.RegisterType<UrlEncoder>().As<IUrlEncoder>().InstancePerDependency();
-
-
         }
     }
 }

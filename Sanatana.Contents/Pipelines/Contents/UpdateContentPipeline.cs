@@ -20,7 +20,8 @@ using Sanatana.Contents.Files.Services;
 namespace Sanatana.Contents.Pipelines.Contents
 {
     public class UpdateContentPipeline<TKey, TCategory, TContent>
-        : ContentPipelineBase<TKey, TCategory, TContent>
+        : ContentPipelineBase<TKey, TCategory, TContent>, 
+        IUpdateContentPipeline<TKey, TCategory, TContent>
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>
@@ -135,10 +136,10 @@ namespace Sanatana.Contents.Pipelines.Contents
             TContent content = context.Input.Content;
 
             //make sure PublishTime is unique for continuation queries.
-            if(_existingContent.PublishTimeUtc != content.PublishTimeUtc)
+            if(_existingContent.PublishedTimeUtc != content.PublishedTimeUtc)
             {
-                content.PublishTimeUtc = content.PublishTimeUtc
-                    .AddMilliseconds(-content.PublishTimeUtc.Millisecond)
+                content.PublishedTimeUtc = content.PublishedTimeUtc
+                    .AddMilliseconds(-content.PublishedTimeUtc.Millisecond)
                     .AddMilliseconds(_random.Next(1000));
             }
 

@@ -13,34 +13,37 @@ namespace Sanatana.Contents.Caching.CacheProviders
     public class MemoryPersistentCacheProvider : ICacheProvider
     {
         //fields
-        protected HashSet<string> _allCacheKeys = new HashSet<string>();
-        protected Dictionary<string, List<string>> _depenencies = new Dictionary<string, List<string>>();
-        protected object _dependenciesLock = new object();
-        protected object _allKeysLock = new object();
+        protected object _lock = new object();
+        /// <summary>
+        /// key is parent and values are dependent children from parent key, that should be evicted all together with the parent eviction.
+        /// </summary>
+        protected ConcurrentDictionary<string, HashSet<string>> _parentToChildrenDependencies;
+        /// <summary>
+        /// key is dependent child and values are parents that get removed one by one only on parent eviction.
+        /// </summary>
+        protected ConcurrentDictionary<string, HashSet<string>> _childToParentsDependencies;
         protected IMemoryCache _cache;
 
 
         //init
         public MemoryPersistentCacheProvider(IMemoryCache memoryCache)
         {
+            _parentToChildrenDependencies = new ConcurrentDictionary<string, HashSet<string>>();
+            _childToParentsDependencies = new ConcurrentDictionary<string, HashSet<string>>();
             _cache = memoryCache;
         }
 
 
 
         //basic cache methods
-        public virtual Task<bool> Add<T>(string key, T value
-            , TimeSpan? expirationTime = null, List<string> dependFromKeys = null)
+        public virtual Task<bool> Add<T>(string key, T value,
+            TimeSpan? expirationTime = null, List<string> dependencyKeys = null)
         {
-            lock(_allKeysLock)
+            lock(_lock)
             {
-                if (_allCacheKeys.Contains(key) == true)
+                if (_childToParentsDependencies.TryGetValue(key, out _))
                 {
                     return Task.FromResult(false);
-                }
-                else
-                {
-                    _allCacheKeys.Add(key);
                 }
 
                 var options = new MemoryCacheEntryOptions()
@@ -51,25 +54,19 @@ namespace Sanatana.Contents.Caching.CacheProviders
                 }
                 _cache.Set(key, value, options);
 
-                if (dependFromKeys != null)
-                {
-                    RegisterDependencies(key, dependFromKeys);
-                }
+                RemoveDependentChildren(key);
+                UnregisterChildFromParentsDependencies(key);
+                RegisterDependencies(key, dependencyKeys);
             }
 
             return Task.FromResult(true);
         }
 
-        public virtual Task Set<T>(string key, T value
-            , TimeSpan? expirationTime = null, List<string> dependFromKeys = null)
+        public virtual Task Set<T>(string key, T value,
+            TimeSpan? expirationTime = null, List<string> dependencyKeys = null)
         {
-            lock (_allKeysLock)
+            lock(_lock)
             {
-                if (_allCacheKeys.Contains(key) == false)
-                {
-                    _allCacheKeys.Add(key);
-                }
-
                 var options = new MemoryCacheEntryOptions()
                     .RegisterPostEvictionCallback(CacheEvictionCallback);
                 if (expirationTime != null)
@@ -78,10 +75,9 @@ namespace Sanatana.Contents.Caching.CacheProviders
                 }
                 _cache.Set(key, value, options);
 
-                if (dependFromKeys != null)
-                {
-                    RegisterDependencies(key, dependFromKeys);
-                }
+                RemoveDependentChildren(key);
+                UnregisterChildFromParentsDependencies(key);
+                RegisterDependencies(key, dependencyKeys);
             }
 
             return Task.FromResult(0);
@@ -95,13 +91,15 @@ namespace Sanatana.Contents.Caching.CacheProviders
 
         public virtual Task Clear()
         {
-            lock(_allKeysLock)
+            lock(_lock)
             {
-                foreach (string cacheKey in _allCacheKeys)
+                foreach (KeyValuePair<string, HashSet<string>> entry in _childToParentsDependencies)
                 {
-                    _cache.Remove(cacheKey);
+                    _cache.Remove(entry.Key);
                 }
-                _allCacheKeys.Clear();
+
+                _parentToChildrenDependencies.Clear();
+                _childToParentsDependencies.Clear();
             }
 
             return Task.FromResult(0);
@@ -109,10 +107,9 @@ namespace Sanatana.Contents.Caching.CacheProviders
 
         public virtual Task Remove(string key)
         {
-            lock (_allKeysLock)
+            lock(_lock)
             {
                 _cache.Remove(key);
-                _allCacheKeys.Remove(key);
             }
 
             return Task.FromResult(0);
@@ -120,14 +117,11 @@ namespace Sanatana.Contents.Caching.CacheProviders
 
         public virtual Task Remove(IEnumerable<string> keys)
         {
-            lock (_allKeysLock)
+            lock(_lock)
             {
                 foreach (string cacheKey in keys)
                 {
                     _cache.Remove(cacheKey);
-
-                    string removeKey = cacheKey;
-                    _allCacheKeys.Remove(removeKey);
                 }
             }
 
@@ -136,19 +130,18 @@ namespace Sanatana.Contents.Caching.CacheProviders
 
         public virtual Task RemoveByRegex(string pattern)
         {
-            lock (_allKeysLock)
+            Regex regex = new Regex(pattern);
+
+            lock (_lock)
             {
-                Regex regex = new Regex(pattern);
-                IEnumerable<string> matchedKeys = _allCacheKeys
+                IEnumerable<string> matchedKeys = _childToParentsDependencies
+                    .Select(x => x.Key)
                     .Where(x => regex.IsMatch(x))
                     .ToList();
 
                 foreach (string cacheKey in matchedKeys)
                 {
                     _cache.Remove(cacheKey);
-
-                    string removeKey = cacheKey;
-                    _allCacheKeys.Remove(removeKey);
                 }
             }
 
@@ -157,50 +150,88 @@ namespace Sanatana.Contents.Caching.CacheProviders
 
 
 
-        //dependency methods
-        protected virtual void RegisterDependencies(string dependentKey, List<string> dependFromKeys)
+        //dependency registration
+        protected virtual void RegisterDependencies(string childDependentKey, 
+            List<string> parentDependencyKeys = null)
         {
-            lock (_dependenciesLock)
+            var parentsHashSet = parentDependencyKeys == null
+                ? new HashSet<string>()
+                : new HashSet<string>(parentDependencyKeys);
+            _childToParentsDependencies.AddOrUpdate(childDependentKey, parentsHashSet,
+                (_, oldValue) => parentsHashSet);
+
+            if(parentDependencyKeys == null)
             {
-                foreach (string key in dependFromKeys)
-                {
-                    if (_depenencies.ContainsKey(key) == false)
+                return;
+            }
+
+            foreach (string parentKey in parentDependencyKeys)
+            {
+                _parentToChildrenDependencies.AddOrUpdate(parentKey,
+                    new HashSet<string>() { childDependentKey },
+                    (_, oldValue) =>
                     {
-                        _depenencies[key] = new List<string>();
-                    }
-                    _depenencies[key].Add(dependentKey);
+                        //executed outside of concurrent dictionary lock
+                        oldValue.Add(childDependentKey);
+                        return oldValue;
+                    });
+            }
+        }
+
+        /// <summary>
+        /// Removed all children dependent from parent evicted cache key
+        /// </summary>
+        /// <param name="evictedKey"></param>
+        protected virtual void RemoveDependentChildren(string evictedKey)
+        {
+            HashSet<string> childrenCacheKeys;
+            _parentToChildrenDependencies.TryRemove(evictedKey, out childrenCacheKeys);
+            if (childrenCacheKeys != null)
+            {
+                foreach (string dependentChildKey in childrenCacheKeys)
+                {
+                    _cache.Remove(dependentChildKey);
                 }
             }
         }
 
+        /// <summary>
+        /// Remove evicted key from parents list. So when parent is evicted it won't effect the child.
+        /// </summary>
+        /// <param name="evictedKey"></param>
+        protected virtual void UnregisterChildFromParentsDependencies(string evictedKey)
+        {
+            HashSet<string> parentCacheKeys = null;
+            _childToParentsDependencies.TryRemove(evictedKey, out parentCacheKeys);
+            if (parentCacheKeys != null)
+            {
+                foreach (string parent in parentCacheKeys)
+                {
+                    HashSet<string> childrenCacheKeys;
+                    _parentToChildrenDependencies.TryGetValue(parent, out childrenCacheKeys);
+                    if (childrenCacheKeys != null)
+                    {
+                        childrenCacheKeys.Remove(evictedKey);
+                    }
+                }
+            }
+        }
+
+
+        //Callback
         protected virtual void CacheEvictionCallback(object key, object value, EvictionReason reason, object state)
         {
-            lock (_dependenciesLock)
+            string evictedKey = (string)key;
+            lock (_lock)
             {
-                string evictedKey = (string)key;
-
-                if (_depenencies.ContainsKey(evictedKey))
-                {
-                    List<string> dependentCacheKeys = _depenencies[evictedKey];
-
-                    lock (_allCacheKeys)
-                    {
-                        foreach (string dependentKey in dependentCacheKeys)
-                        {
-                            _cache.Remove(dependentKey);
-                            _allCacheKeys.Remove(dependentKey);
-                        }
-                    }
-
-                    _depenencies.Remove(evictedKey);
-                }
+                RemoveDependentChildren(evictedKey);
+                UnregisterChildFromParentsDependencies(evictedKey);
             }
         }
-
 
 
         //IDisposable
-        public void Dispose()
+        public virtual void Dispose()
         {
             _cache.Dispose();
         }

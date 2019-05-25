@@ -12,7 +12,9 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Categories
 {
-    public class InsertCategoryPipeline<TKey, TCategory> : CategoryPipelineBase<TKey, TCategory>
+    public class InsertCategoryPipeline<TKey, TCategory>
+        : CategoryPipelineBase<TKey, TCategory>, 
+        IInsertCategoryPipeline<TKey, TCategory> 
         where TKey : struct
         where TCategory : Category<TKey>
     {

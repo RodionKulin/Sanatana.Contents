@@ -85,7 +85,7 @@ namespace Sanatana.Contents.Caching.Concrete
             int eachCategoryCount, DataAmount dataAmmount, Expression<Func<TContent, bool>> filterConditions)
         {
             IEnumerable<TContent> allContent = await SelectAll().ConfigureAwait(false);
-            allContent = allContent.OrderByDescending(x => x.PublishTimeUtc);
+            allContent = allContent.OrderByDescending(x => x.PublishedTimeUtc);
             allContent = allContent.Where(filterConditions.Compile());
            
             IEnumerable<IGrouping<TKey, TContent>> groups = allContent.GroupBy(x => x.CategoryId);
@@ -127,11 +127,11 @@ namespace Sanatana.Contents.Caching.Concrete
 
             if (orderDescending)
             {
-                allContent = allContent.OrderByDescending(x => x.PublishTimeUtc);
+                allContent = allContent.OrderByDescending(x => x.PublishedTimeUtc);
             }
             else
             {
-                allContent = allContent.OrderBy(x => x.PublishTimeUtc);
+                allContent = allContent.OrderBy(x => x.PublishedTimeUtc);
             }
 
             int skip = (page - 1) * pageSize;

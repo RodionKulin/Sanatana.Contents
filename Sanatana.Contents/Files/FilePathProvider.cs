@@ -10,9 +10,12 @@ namespace Sanatana.Contents.Files
 {
     public class FilePathProvider
     {
+        protected string _nameFormat;
+
+
         //properties
         /// <summary>
-        /// Identifier used to match FilePathProvider to uploaded image.
+        /// Identifier used to match FilePathProvider to uploaded file.
         /// </summary>
         public int FilePathProviderId { get; set; }
         /// <summary>
@@ -20,13 +23,28 @@ namespace Sanatana.Contents.Files
         /// </summary>
         public string BaseUrl { get; set; }
         /// <summary>
-        /// Relative path format used to construct file directory. Used in both file storage and file url used to serve it. Default format is {0} that will just return argument provided.
+        /// Relative path format used to construct file path.
+        /// Used in both file storage and file url to serve it. 
+        /// Default format is {0} that will just return argument provided.
         /// </summary>
         public string RelativePathFormat { get; set; }
         /// <summary>
-        /// Name format used to construct file name. Default format is {0} that will just return argument provided.
+        /// Name format used to construct file name. 
+        /// Default format is {0} that will just return argument provided.
         /// </summary>
-        public string NameFormat { get; set; }
+        public string NameFormat
+        {
+            get { return _nameFormat; }
+            set
+            {
+                int formattingArgsCount = CountFormatArguments(value);
+                if(formattingArgsCount > 1)
+                {
+                    throw new NotSupportedException($"Number of formatting arguments in {nameof(NameFormat)} should not be greater than 1. Provided value holds {value} format.");
+                }
+                _nameFormat = value;
+            }
+        }
         /// <summary>
         /// Optional age after which file will be removed by RemoveTempFilesJob.
         /// </summary>
@@ -41,10 +59,10 @@ namespace Sanatana.Contents.Files
             NameFormat = "{0}";
         }
 
-        public FilePathProvider(int filePathProviderId, string urlBase, ImageFormat extension)
+        public FilePathProvider(int filePathProviderId, string baseUrl, ImageFormat extension)
         {
             FilePathProviderId = filePathProviderId;
-            BaseUrl = urlBase;
+            BaseUrl = baseUrl;
             RelativePathFormat = "{0}";
             NameFormat = "{0}." + extension.ToString().ToLower();
         }
@@ -92,13 +110,15 @@ namespace Sanatana.Contents.Files
         }
 
         /// <summary>
-        /// Construct relative path replacing all arguments with string.Empty.
+        /// Constuct relative path replacing all RelativePathFormat arguments with empty string.
         /// </summary>
         /// <returns></returns>
         public virtual string GetRootPath()
         {
-            int argumentsCount =  CountFormatArguments(RelativePathFormat);
-            string[] arguments = Enumerable.Range(0, argumentsCount).Select(x => string.Empty).ToArray();
+            int argumentsCount = CountFormatArguments(RelativePathFormat);
+            string[] arguments = Enumerable.Range(0, argumentsCount)
+                .Select(x => string.Empty)
+                .ToArray();
 
             string rootPath = string.Format(RelativePathFormat, arguments);
             return rootPath.Replace('\\', '/').Trim('/') + "/";
@@ -134,7 +154,7 @@ namespace Sanatana.Contents.Files
 
         //url
         /// <summary>
-        /// Get BaseUrl and replace \ with /.
+        /// Get base url and replacing '\' symbol with '/'
         /// </summary>
         /// <returns></returns>
         public virtual string GetBaseUrl()
@@ -143,18 +163,18 @@ namespace Sanatana.Contents.Files
         }
 
         /// <summary>
-        /// Get url domain and path common to all images created by this FilePathProvider.
+        /// Get base url and path shared with by files created by this FilePathProvider
         /// </summary>
         /// <returns></returns>
-        public virtual string GetRootDirectoryUrl()
+        public virtual string GetRootPathUrl()
         {
             string urlBase = GetBaseUrl();
-            string rootDirectory = GetRootPath();
-            return string.Format("{0}/{1}/", urlBase, rootDirectory);
+            string rootPath = GetRootPath();
+            return string.Format("{0}/{1}/", urlBase, rootPath);
         }
 
         /// <summary>
-        /// Create full url including domain and path from provided arguments.
+        /// Create full url including base url, relative path and file name from provided arguments
         /// </summary>
         /// <param name="directoryAndNameFormatArgs">Arguments supplied to RelativeDirectoryFormat combined with NameFormat.</param>
         /// <returns></returns>
@@ -166,7 +186,7 @@ namespace Sanatana.Contents.Files
         }
 
         /// <summary>
-        /// Remove BaseUrl from full url.
+        /// Remove BaseUrl from full url
         /// </summary>
         /// <param name="fullUrl"></param>
         /// <returns></returns>

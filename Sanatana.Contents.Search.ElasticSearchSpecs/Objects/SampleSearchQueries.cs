@@ -61,7 +61,7 @@ namespace Sanatana.Contents.Search.ElasticSearchSpecs.TestTools.Objects
                                     },
                                     new DateRangeQuery
                                     {
-                                        Field = nameof(ContentIndexed<long>.PublishTimeUtc),
+                                        Field = nameof(ContentIndexed<long>.PublishedTimeUtc),
                                         LessThan = DateTime.UtcNow
                                     }
                                 }

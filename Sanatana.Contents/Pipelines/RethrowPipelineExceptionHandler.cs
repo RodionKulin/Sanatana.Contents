@@ -7,7 +7,7 @@ namespace Sanatana.Contents.Pipelines
 {
     public class RethrowPipelineExceptionHandler : IPipelineExceptionHandler
     {
-        public void Handle<TInput, TOutput>(PipelineContext<TInput, TOutput> context)
+        public virtual void Handle<TInput, TOutput>(PipelineContext<TInput, TOutput> context)
         {
             if(context.Exceptions != null
                 && context.Exceptions.Count > 0)

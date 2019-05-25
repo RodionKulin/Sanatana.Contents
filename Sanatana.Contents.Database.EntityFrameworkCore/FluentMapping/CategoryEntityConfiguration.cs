@@ -23,7 +23,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.FluentMapping
             builder.HasKey(t => t.CategoryId);
 
             // Columns
-            builder.Property(x => x.AddTimeUtc).HasColumnType("datetime2");
+            builder.Property(x => x.CreatedTimeUtc).HasColumnType("datetime2");
 
             // Table Mappings
             builder.ToTable(DefaultTableNameConstants.CATEGORY_DEFAULT_NAME, _connectionSettings.Schema);

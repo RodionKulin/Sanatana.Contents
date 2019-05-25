@@ -16,8 +16,9 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Contents
 {
-    public class DeleteContentPipeline<TKey, TCategory, TContent, TComment> 
-        : Pipeline<ContentDeleteParams<TKey>, ContentUpdateResult>
+    public class DeleteContentPipeline<TKey, TCategory, TContent, TComment>
+        : Pipeline<ContentDeleteParams<TKey>, ContentUpdateResult>, 
+        IDeleteContentPipeline<TKey, TCategory, TContent, TComment>
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>, new()

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Sanatana.Contents.Resources;
 
@@ -21,17 +23,18 @@ namespace Sanatana.Contents.Files.Queries
         }
 
 
-        //methods
+        //files
         public virtual Task Create(string namePath, byte[] inputBytes)
         {
-            string fullPath = Path.Combine(_settings.Directory, namePath);
+            namePath = namePath.Replace('/', '\\');
+            string fullPath = Path.Combine(_settings.BaseDirectory, namePath);
             FileInfo file = new FileInfo(fullPath);
             if (file.Exists)
             {
                 file.Delete();
             }
 
-            if(file.Directory.Exists == false)
+            if (file.Directory.Exists == false)
             {
                 file.Directory.Create();
             }
@@ -44,34 +47,10 @@ namespace Sanatana.Contents.Files.Queries
             return Task.FromResult(0);
         }
 
-        public virtual Task<List<FileDetails>> GetList(string directoryPath)
-        {
-            List<FileDetails> list = new List<FileDetails>();
-
-            string fullPath = Path.Combine(_settings.Directory, directoryPath);
-            DirectoryInfo directory = new DirectoryInfo(fullPath);
-            if(directory.Exists == false)
-            {
-                return Task.FromResult(list);
-            }
-
-            FileInfo[] files = directory.GetFiles();
-            foreach (FileInfo file in files)
-            {
-                string key = file.FullName.Replace(_settings.Directory, string.Empty);
-                list.Add(new FileDetails()
-                {
-                    LastModifyTimeUtc = file.LastWriteTimeUtc,
-                    Key = key
-                });
-            }
-
-            return Task.FromResult(list);
-        }
-
         public virtual Task<bool> Exists(string namePath)
         {
-            string fullPath = Path.Combine(_settings.Directory, namePath);
+            namePath = namePath.Replace('/', '\\');
+            string fullPath = Path.Combine(_settings.BaseDirectory, namePath);
             bool exists = File.Exists(fullPath);
 
             return Task.FromResult(exists);
@@ -81,8 +60,8 @@ namespace Sanatana.Contents.Files.Queries
         {
             for (int i = 0; i < oldNamePaths.Count; i++)
             {
-                string oldFullPath = Path.Combine(_settings.Directory, oldNamePaths[i]);
-                string newFullPath = Path.Combine(_settings.Directory, newNamePaths[i]);
+                string oldFullPath = Path.Combine(_settings.BaseDirectory, oldNamePaths[i].Replace('/', '\\'));
+                string newFullPath = Path.Combine(_settings.BaseDirectory, newNamePaths[i].Replace('/', '\\'));
 
                 DirectoryInfo directory = new DirectoryInfo(newFullPath);
                 if (directory.Exists == false)
@@ -100,15 +79,15 @@ namespace Sanatana.Contents.Files.Queries
         {
             for (int i = 0; i < oldNamePaths.Count; i++)
             {
-                string oldFullPath = Path.Combine(_settings.Directory, oldNamePaths[i]);
-                string newFullPath = Path.Combine(_settings.Directory, newNamePaths[i]);
-                
+                string oldFullPath = Path.Combine(_settings.BaseDirectory, oldNamePaths[i].Replace('/', '\\'));
+                string newFullPath = Path.Combine(_settings.BaseDirectory, newNamePaths[i].Replace('/', '\\'));
+
                 DirectoryInfo directory = new DirectoryInfo(newFullPath);
                 if (directory.Exists == false)
                 {
                     directory.Create();
                 }
-                
+
                 File.Move(oldFullPath, newFullPath);
             }
 
@@ -119,25 +98,51 @@ namespace Sanatana.Contents.Files.Queries
         {
             for (int i = 0; i < namePaths.Count; i++)
             {
-                string fullPath = Path.Combine(_settings.Directory, namePaths[i]);
+                string fullPath = Path.Combine(_settings.BaseDirectory, namePaths[i].Replace('/', '\\'));
                 FileInfo file = new FileInfo(fullPath);
                 if (file.Exists)
                 {
                     file.Delete();
                 }
+
             }
 
             return Task.FromResult(0);
         }
 
-        public virtual Task Delete(string namePath)
+
+
+        //directories
+        public virtual Task<List<FileDetails>> GetList(string directoryPath)
         {
-            return Delete(new List<string>() { namePath });
+            List<FileDetails> list = new List<FileDetails>();
+
+            directoryPath = directoryPath.Replace('/', '\\');
+            string fullPath = Path.Combine(_settings.BaseDirectory, directoryPath);
+            DirectoryInfo directory = new DirectoryInfo(fullPath);
+            if (directory.Exists == false)
+            {
+                return Task.FromResult(list);
+            }
+
+            FileInfo[] files = directory.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string key = file.FullName.Replace(_settings.BaseDirectory, string.Empty);
+                list.Add(new FileDetails()
+                {
+                    LastModifyTimeUtc = file.LastWriteTimeUtc,
+                    NamePath = key
+                });
+            }
+
+            return Task.FromResult(list);
         }
 
         public virtual Task DeleteDirectory(string directoryPath)
         {
-            string fullPath = Path.Combine(_settings.Directory, directoryPath);
+            directoryPath = directoryPath.Replace('/', '\\');
+            string fullPath = Path.Combine(_settings.BaseDirectory, directoryPath);
             DirectoryInfo directory = new DirectoryInfo(fullPath);
             if (directory.Exists)
             {

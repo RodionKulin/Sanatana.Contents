@@ -20,15 +20,15 @@ namespace Sanatana.Contents
     {
         //fields
         private ImportYoutubeSettings<TKey> _settings;
-        private IContentQueries<TKey, YoutubePost<TKey>> _contentQueries;
-        private ImportYoutubeContentPipeline<TKey, TCategory, YoutubePost<TKey>> _importPipeline;
+        private IContentQueries<TKey, YoutubeContent<TKey>> _contentQueries;
+        private ImportYoutubeContentPipeline<TKey, TCategory, YoutubeContent<TKey>> _importPipeline;
         private ICategoryQueries<TKey, TCategory> _categoryQueries;
 
         
         //init
         public ImportYoutubeJob(ImportYoutubeSettings<TKey> settings
-            , IContentQueries<TKey, YoutubePost<TKey>> contentQueries, ICategoryQueries<TKey, TCategory> categoryQueries
-            , ImportYoutubeContentPipeline<TKey, TCategory, YoutubePost<TKey>> importPipeline)
+            , IContentQueries<TKey, YoutubeContent<TKey>> contentQueries, ICategoryQueries<TKey, TCategory> categoryQueries
+            , ImportYoutubeContentPipeline<TKey, TCategory, YoutubeContent<TKey>> importPipeline)
         {
             _settings = settings;
             _contentQueries = contentQueries;
@@ -40,7 +40,7 @@ namespace Sanatana.Contents
         //methods    
         public virtual void Execute()
         {
-            List<YoutubePost<TKey>> channelVideos = GetChannelVideos();
+            List<YoutubeContent<TKey>> channelVideos = GetChannelVideos();
             if (channelVideos.Count == 0)
             {
                 return;
@@ -64,14 +64,14 @@ namespace Sanatana.Contents
                 return;
             }
             
-            foreach (YoutubePost<TKey> post in channelVideos)
+            foreach (YoutubeContent<TKey> post in channelVideos)
             {
                 post.CategoryId = category.CategoryId;
-                post.PublishTimeUtc = DateTime.UtcNow;
+                post.PublishedTimeUtc = DateTime.UtcNow;
                 post.State = _settings.NewContentState;
                 post.AuthorId = _settings.AuthorId;
 
-                ContentUpdateResult importResult = _importPipeline.Execute(new ContentUpdateParams<TKey, YoutubePost<TKey>>()
+                ContentUpdateResult importResult = _importPipeline.Execute(new ContentUpdateParams<TKey, YoutubeContent<TKey>>()
                 {
                     Content = post,
                     Permission = 0
@@ -79,9 +79,9 @@ namespace Sanatana.Contents
             }
         }
         
-        public virtual List<YoutubePost<TKey>> GetChannelVideos()
+        public virtual List<YoutubeContent<TKey>> GetChannelVideos()
         {
-            var youtubePosts = new List<YoutubePost<TKey>>();
+            var youtubePosts = new List<YoutubeContent<TKey>>();
 
             HtmlWeb website = new HtmlWeb();
             HtmlDocument doc = website.Load(_settings.ChannelUrl);
@@ -117,7 +117,7 @@ namespace Sanatana.Contents
                     continue;
                 }
 
-                youtubePosts.Add(new YoutubePost<TKey>()
+                youtubePosts.Add(new YoutubeContent<TKey>()
                 {
                     YoutubeUrl = href,
                     Title = UppercaseFirstChar(title)
@@ -135,12 +135,12 @@ namespace Sanatana.Contents
 
             while (true)
             {
-                List<YoutubePost<TKey>> existingPosts = _contentQueries.SelectMany(
+                List<YoutubeContent<TKey>> existingPosts = _contentQueries.SelectMany(
                     page, YouTubeConstants.EXISTING_POST_QUERY_COUNT, DataAmount.DescriptionOnly, false, 
                     x => EqualityComparer<TKey>.Default.Equals(x.CategoryId, category.CategoryId))
                     .Result;
 
-                IEnumerable<YoutubePost<TKey>> existingYoutubePosts = existingPosts.Cast<YoutubePost<TKey>>();
+                IEnumerable<YoutubeContent<TKey>> existingYoutubePosts = existingPosts.Cast<YoutubeContent<TKey>>();
                 IEnumerable<string> urls = existingYoutubePosts.Select(p => p.YoutubeUrl);
                 existingPostUrls.AddRange(urls);
 

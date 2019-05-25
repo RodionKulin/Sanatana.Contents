@@ -57,8 +57,8 @@ namespace Sanatana.Contents.RegularJobs
                 Expression<Func<TContent, bool>> filter = 
                     x => x.NeverIndex == false
                     && x.IsIndexed == false
-                    && x.PublishTimeUtc <= DateTime.UtcNow
-                    && x.PublishTimeUtc >= _lastRequestTimeUtc;
+                    && x.PublishedTimeUtc <= DateTime.UtcNow
+                    && x.PublishedTimeUtc >= _lastRequestTimeUtc;
                 if(_settings.AdditionalFilters != null)
                 {
                     filter = filter.And(_settings.AdditionalFilters);

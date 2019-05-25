@@ -13,14 +13,14 @@ namespace Sanatana.Contents.Objects.Entities
         //properties
         public TKey ContentId { get; set; }
         public TKey CategoryId { get; set; }
+        public TKey AuthorId { get; set; }
         public long Version { get; set; }
         public string Url { get; set; }
         public string Title { get; set; }
         public string FullText { get; set; }
         public string ShortText { get; set; }
-        public TKey AuthorId { get; set; }
-        public DateTime AddTimeUtc { get; set; }
-        public DateTime PublishTimeUtc { get; set; }
+        public DateTime CreatedTimeUtc { get; set; }
+        public DateTime PublishedTimeUtc { get; set; }
         public int State { get; set; }
         public bool IsIndexed { get; set; }
         public bool NeverIndex { get; set; }

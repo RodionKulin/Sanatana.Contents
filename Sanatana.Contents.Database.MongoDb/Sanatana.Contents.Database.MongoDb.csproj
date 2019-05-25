@@ -1,10 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<Description>Content management framework MongoDb storage</Description>
-	<PackageTags>ContentManagement;Storage;MongoDb</PackageTags>
+    <Description>Content management framework MongoDb storage</Description>
+    <PackageTags>ContentManagement;Storage;MongoDb</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents.Database.MongoDb\Sanatana.Contents.Database.MongoDb.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents.Database.MongoDb\Sanatana.Contents.Database.MongoDb.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

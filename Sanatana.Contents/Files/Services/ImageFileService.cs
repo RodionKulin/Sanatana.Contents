@@ -52,7 +52,7 @@ namespace Sanatana.Contents.Files.Services
             //remove unused files
             List<FileDetails> unusedFiles = await GetUnusedStoredKeys(
                 pathProviderId, destinationCurrentFilePaths, newDirectoryArg);
-            List<string> fileToRemoveFilePaths = unusedFiles.Select(x => x.Key).ToList();
+            List<string> fileToRemoveFilePaths = unusedFiles.Select(x => x.NamePath).ToList();
             await _fileStorage.Delete(fileToRemoveFilePaths);
 
             //move temp file to destination path
@@ -95,7 +95,7 @@ namespace Sanatana.Contents.Files.Services
         protected virtual IEnumerable<string> SelectMatchingRoot(int pathProviderId, List<string> imageUrls)
         {
             FilePathProvider pathMapper = _filePathProviders[pathProviderId];
-            string rootDirectoryUrl = pathMapper.GetRootDirectoryUrl();
+            string rootDirectoryUrl = pathMapper.GetRootPathUrl();
 
             IEnumerable<string> matchedUrls = imageUrls
                 .Where(p => p.StartsWith(rootDirectoryUrl));
@@ -114,7 +114,7 @@ namespace Sanatana.Contents.Files.Services
 
             List<FileDetails> unusedStoredKeys = storageStaticImages
                 .Where(storedFile => currentFilePaths
-                    .Any(currentFilePath => currentFilePath == storedFile.Key) == false)
+                    .Any(currentFilePath => currentFilePath == storedFile.NamePath) == false)
                 .ToList();
 
             return unusedStoredKeys;

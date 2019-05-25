@@ -14,6 +14,7 @@ using Sanatana.Contents.Objects.DTOs;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Database.MongoDb.Context;
 using Sanatana.Contents.Utilities;
+using System.Runtime.ExceptionServices;
 
 namespace Sanatana.Contents.Database.MongoDb.Queries
 {
@@ -82,13 +83,13 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
                     return ContentInsertResult.UrlIsNotUnique;
                 };
 
-                string publishTimeUtcField = FieldDefinitions.GetFieldMappedName<TContent>(x => x.PublishTimeUtc);
+                string publishTimeUtcField = FieldDefinitions.GetFieldMappedName<TContent>(x => x.PublishedTimeUtc);
                 if (MongoDbUtility.IsDuplicateException(ex, publishTimeUtcField))
                 {
                     return ContentInsertResult.PublishTimeUtcIsNotUnique;
                 }
 
-                throw ex;
+                ExceptionDispatchInfo.Capture(ex).Throw();
             }
 
             return ContentInsertResult.Success;
@@ -170,11 +171,11 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
                 
             if (orderDescending)
             {
-                query = query.SortByDescending(p => p.PublishTimeUtc);
+                query = query.SortByDescending(p => p.PublishedTimeUtc);
             }
             else
             {
-                query = query.SortBy(p => p.PublishTimeUtc);
+                query = query.SortBy(p => p.PublishedTimeUtc);
             }
 
             return query.ToListAsync();
@@ -213,7 +214,7 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
             };
 
             IAggregateFluent<BsonDocument> aggregateFluent = _contentCollection.Aggregate(options)
-                .SortByDescending(p => p.PublishTimeUtc)
+                .SortByDescending(p => p.PublishedTimeUtc)
                 .Match(filter)
                 .Group(new BsonDocument
                 {

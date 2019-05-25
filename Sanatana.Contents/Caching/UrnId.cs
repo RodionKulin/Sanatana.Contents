@@ -31,10 +31,10 @@ namespace Sanatana.Contents.Caching
         public static string Create(string objectTypeName, string idFieldValue)
         {
             if (objectTypeName.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("objectTypeName cannot have the illegal characters: ':'", "objectTypeName");
+                throw new ArgumentException($"{nameof(objectTypeName)} cannot have the illegal characters: ':'", nameof(objectTypeName));
 
             if (idFieldValue.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", "idFieldValue");
+                throw new ArgumentException($"{nameof(idFieldValue)} cannot have the illegal characters: ':'", nameof(idFieldValue));
 
             return $"urn:{objectTypeName}:{idFieldValue}";
         }
@@ -42,7 +42,7 @@ namespace Sanatana.Contents.Caching
         public static string Create(Type objectType, string idFieldValue)
         {
             if (idFieldValue.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", "idFieldValue");
+                throw new ArgumentException($"{nameof(idFieldValue)} cannot have the illegal characters: ':'", nameof(idFieldValue));
 
             return $"urn:{objectType.FullName}:{idFieldValue}";
         }
@@ -55,10 +55,10 @@ namespace Sanatana.Contents.Caching
         public static string Create(Type objectType, string idFieldName, string idFieldValue)
         {
             if (idFieldValue.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", "idFieldValue");
+                throw new ArgumentException($"{nameof(idFieldValue)} cannot have the illegal characters: ':'", nameof(idFieldValue));
 
             if (idFieldName.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("idFieldName cannot have the illegal characters: ':'", "idFieldName");
+                throw new ArgumentException($"{nameof(idFieldName)} cannot have the illegal characters: ':'", nameof(idFieldName));
 
             return $"urn:{objectType.FullName}:{idFieldName}:{idFieldValue}";
         }
@@ -84,7 +84,7 @@ namespace Sanatana.Contents.Caching
         public static string CreateWithParts(string objectTypeName, params string[] keyParts)
         {
             if (objectTypeName.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException($"objectTypeName cannot have the illegal characters: '{FieldSeperator.ToString()}'", nameof(objectTypeName));
+                throw new ArgumentException($"{nameof(objectTypeName)} cannot have the illegal characters: '{FieldSeperator.ToString()}'", nameof(objectTypeName));
 
             var sb = new StringBuilder();
             foreach (string keyPart in keyParts)

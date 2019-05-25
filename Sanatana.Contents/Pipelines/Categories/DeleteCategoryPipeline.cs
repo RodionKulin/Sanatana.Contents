@@ -12,8 +12,9 @@ using System.Linq;
 
 namespace Sanatana.Contents.Pipelines.Categories
 {
-    public class DeleteCategoryPipeline<TKey, TCategory> 
-        : CategoryPipelineBase<TKey, TCategory>
+    public class DeleteCategoryPipeline<TKey, TCategory>
+        : CategoryPipelineBase<TKey, TCategory>, 
+        IDeleteCategoryPipeline<TKey, TCategory> 
         where TKey : struct
         where TCategory : Category<TKey>, new()
     {

@@ -19,8 +19,9 @@ using Sanatana.Contents.Files.Services;
 
 namespace Sanatana.Contents.Pipelines.Contents
 {
-    public class InsertContentPipeline<TKey, TCategory, TContent> 
-        : ContentPipelineBase<TKey, TCategory, TContent>
+    public class InsertContentPipeline<TKey, TCategory, TContent>
+        : ContentPipelineBase<TKey, TCategory, TContent>, 
+        IInsertContentPipeline<TKey, TCategory, TContent>
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>

@@ -71,11 +71,11 @@ namespace Sanatana.Contents.Caching.Concrete
             IEnumerable<TComment> query = allComments.Skip(skip).Take(pageSize);
             if (orderDescending)
             {
-                query = query.OrderByDescending(x => x.AddTimeUtc);
+                query = query.OrderByDescending(x => x.CreatedTimeUtc);
             }
             else
             {
-                query = query.OrderBy(x => x.AddTimeUtc);
+                query = query.OrderBy(x => x.CreatedTimeUtc);
             }
                 
             return query.ToList();

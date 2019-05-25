@@ -59,7 +59,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             {
                 List<TContent> matchingContent = await dbContext.Set<TContent>()
                     .Where(x => x.Url == content.Url
-                        || x.PublishTimeUtc == content.PublishTimeUtc)
+                        || x.PublishedTimeUtc == content.PublishedTimeUtc)
                     .ToListAsync()
                     .ConfigureAwait(false);
 
@@ -67,7 +67,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
                 {
                     return ContentInsertResult.UrlIsNotUnique;
                 }
-                else if (matchingContent.Any(x => x.PublishTimeUtc == content.PublishTimeUtc))
+                else if (matchingContent.Any(x => x.PublishedTimeUtc == content.PublishedTimeUtc))
                 {
                     return ContentInsertResult.PublishTimeUtcIsNotUnique;
                 }
@@ -134,7 +134,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             using (Repository repository = new Repository(dbContext))
             {
                 return await repository
-                    .SelectPageQuery(page, pageSize, orderDescending, filterConditions, x => x.PublishTimeUtc)
+                    .SelectPageQuery(page, pageSize, orderDescending, filterConditions, x => x.PublishedTimeUtc)
                     .ProjectTo<TContent>(projection)
                     .ToListAsync()
                     .ConfigureAwait(false);

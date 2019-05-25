@@ -1,10 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<Description>Content management framework EntityFrameworkCore storage</Description>
-	<PackageTags>ContentManagement;Storage;EF;EntityFrameworkCore</PackageTags>
+	  <Description>Content management framework EntityFrameworkCore storage</Description>
+	  <PackageTags>ContentManagement;Storage;EF;EntityFrameworkCore</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents.Database.EntityFrameworkCore\Sanatana.Contents.Database.EntityFrameworkCore.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents.Database.EntityFrameworkCore\Sanatana.Contents.Database.EntityFrameworkCore.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

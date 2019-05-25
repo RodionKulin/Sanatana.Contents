@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Categories
 {
-    public class UpdateCategoryPipeline<TKey, TCategory> : CategoryPipelineBase<TKey, TCategory>
+    public class UpdateCategoryPipeline<TKey, TCategory>
+        : CategoryPipelineBase<TKey, TCategory>, 
+        IUpdateCategoryPipeline<TKey, TCategory> 
         where TKey : struct
         where TCategory : Category<TKey>
     {

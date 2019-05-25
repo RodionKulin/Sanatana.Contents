@@ -19,6 +19,10 @@ using Sanatana.ContentsSpecs.TestTools.Objects;
 using MongoDB.Bson;
 using Sanatana.Contents.Database.MongoDb.DI.Autofac;
 using Sanatana.MongoDb;
+using Sanatana.Contents.Pipelines.Comments;
+using Sanatana.Contents.Search;
+using Sanatana.Contents.Pipelines.Categories;
+using Sanatana.Contents.Pipelines.Contents;
 
 namespace Sanatana.Contents.DI.AutofacSpecs
 {
@@ -41,9 +45,10 @@ namespace Sanatana.Contents.DI.AutofacSpecs
                 _builder.RegisterModule(new CachingAutofacModule());
                 _builder.RegisterModule(new FilesAutofacModule(new FileStorageSettings
                 {
-                    Directory = "temp"
+                    BaseDirectory = "temp"
                 }));
                 _builder.RegisterType<StubUserRoleQueries>().As<IUserRolesQueries<ObjectId>>().SingleInstance();
+                _builder.RegisterType<NoSearchQueries<ObjectId>>().As<ISearchQueries<ObjectId>>().SingleInstance();
             }
         }
 
@@ -133,6 +138,47 @@ namespace Sanatana.Contents.DI.AutofacSpecs
                 var pageVM = selector1.SelectPage(1, 10
                     , DataAmount.FullContent, true, 0, null, false, x => true).Result;
                 pageVM.ShouldNotBeNull();
+            }
+        }
+
+        [TestFixture]
+        public class when_calling_generic_pipeline : AutofacSetupBase
+        {
+            [Test]
+            public void then_pipeline_instance_is_resolved()
+            {
+                IContainer container = _builder.Build();
+                var pipeline = container.Resolve<IDeleteCommentPipeline<ObjectId, Category<ObjectId>, Content<ObjectId>, Comment<ObjectId>>>();
+                pipeline.ShouldNotBeNull();
+            }
+        }
+
+        [TestFixture]
+        public class when_calling_all_generic_pipelines : AutofacSetupBase
+        {
+            [Test]
+            public void then_pipeline_instances_are_resolved()
+            {
+                IContainer container = _builder.Build();
+
+                Type[] resolveTypes = new Type[]
+                {
+                    typeof(IInsertCategoryPipeline<ObjectId, Category<ObjectId>>),
+                    typeof(IUpdateCategoryPipeline<ObjectId, Category<ObjectId>>),
+                    typeof(IDeleteCategoryPipeline<ObjectId, Category<ObjectId>>),
+                    typeof(IInsertContentPipeline<ObjectId, Category<ObjectId>, Content<ObjectId>>),
+                    typeof(IUpdateContentPipeline<ObjectId, Category<ObjectId>, Content<ObjectId>>),
+                    typeof(IDeleteContentPipeline<ObjectId, Category<ObjectId>, Content<ObjectId>, Comment<ObjectId>>),
+                    typeof(IInsertCommentPipeline<ObjectId, Category<ObjectId>, Content<ObjectId>, Comment<ObjectId>>),
+                    typeof(IUpdateCommentPipeline<ObjectId, Category<ObjectId>, Content<ObjectId>, Comment<ObjectId>>),
+                    typeof(IDeleteCommentPipeline<ObjectId, Category<ObjectId>, Content<ObjectId>, Comment<ObjectId>>)
+                };
+
+                foreach (Type serviceType in resolveTypes)
+                {
+                    var pipeline = container.Resolve(serviceType);
+                    pipeline.ShouldNotBeNull();
+                }
             }
         }
     }

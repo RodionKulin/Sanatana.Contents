@@ -1,13 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<Description>Content management framework AWS S3 file management</Description>
-	<PackageTags>ContentManagement;Files;AWS;S3</PackageTags>
+    <Description>Content management framework AWS S3 file management</Description>
+    <PackageTags>ContentManagement;Files;AWS;S3</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents.Files.AmazonS3\Sanatana.Contents.Files.AmazonS3.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\dev\Собственное\Библиотеки\Sanatana.Contents\Sanatana.Contents.Files.AmazonS3\Sanatana.Contents.Files.AmazonS3.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="AWSSDK.S3" Version="3.3.17" />
   </ItemGroup>
 

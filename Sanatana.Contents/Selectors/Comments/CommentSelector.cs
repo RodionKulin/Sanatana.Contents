@@ -81,7 +81,7 @@ namespace Sanatana.Contents.Selectors.Comments
             else
             {
                 return comments
-                    .OrderByDescending(x => x.AddTimeUtc)
+                    .OrderByDescending(x => x.CreatedTimeUtc)
                     .Select(x => new ParentVM<TComment>(x))
                     .ToList();
             }
@@ -118,7 +118,7 @@ namespace Sanatana.Contents.Selectors.Comments
                 commentVm.HasChildren = true;
             }
 
-            return vmList.OrderByDescending(x => x.Item.AddTimeUtc).ToList();
+            return vmList.OrderByDescending(x => x.Item.CreatedTimeUtc).ToList();
         }
 
         public virtual async Task<Expression<Func<TComment, bool>>> AddCategoryFilter(
@@ -184,7 +184,7 @@ namespace Sanatana.Contents.Selectors.Comments
             else
             {
                 return comments
-                    .OrderByDescending(x => x.Comment.AddTimeUtc)
+                    .OrderByDescending(x => x.Comment.CreatedTimeUtc)
                     .Select(x => new ParentVM<CommentJoinResult<TKey, TComment, TContent>>(x))
                     .ToList();
             }
@@ -221,7 +221,7 @@ namespace Sanatana.Contents.Selectors.Comments
                 commentVm.HasChildren = true;
             }
 
-            return vmList.OrderByDescending(x => x.Item.Comment.AddTimeUtc).ToList();
+            return vmList.OrderByDescending(x => x.Item.Comment.CreatedTimeUtc).ToList();
         }
 
         public virtual async Task<Expression<Func<CommentJoinResult<TKey, TComment, TContent>, bool>>> AddCategoryFilter(

@@ -10,6 +10,7 @@ using Amazon.S3;
 using Amazon.Runtime;
 using Amazon.S3.Model;
 using Sanatana.Contents.Files.Queries;
+using System.Runtime.ExceptionServices;
 
 namespace Sanatana.Contents.Files.AmazonS3
 {
@@ -78,7 +79,7 @@ namespace Sanatana.Contents.Files.AmazonS3
                 {
                     files.Add(new FileDetails()
                     {
-                        Key = s3Object.Key,
+                        NamePath = s3Object.Key,
                         LastModifyTimeUtc = s3Object.LastModified.ToUniversalTime()
                     });
                 }
@@ -212,7 +213,7 @@ namespace Sanatana.Contents.Files.AmazonS3
                 }
                 else
                 {
-                    throw ex;
+                    ExceptionDispatchInfo.Capture(ex).Throw();
                 }
             }
 

@@ -29,8 +29,8 @@ namespace Sanatana.ContentsSpecs.Files.Queries
             [Test]
             public void then_does_image_processing_using_imagesharp()
             {
-                System.Diagnostics.Debugger.Launch();
-                System.Diagnostics.Debugger.Break();
+                //System.Diagnostics.Debugger.Launch();
+                //System.Diagnostics.Debugger.Break();
 
                 string source = "SampleContent/source.jpg";
                 string destination = "SampleContent/destination.jpg";

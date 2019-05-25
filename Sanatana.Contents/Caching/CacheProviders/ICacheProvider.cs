@@ -15,7 +15,7 @@ namespace Sanatana.Contents.Caching.CacheProviders
         /// <param name="expirationTime"></param>
         /// <param name="dependencyKeys"></param>
         /// <returns>Returns true is item was added, otherwise false.</returns>
-        Task<bool> Add<T>(string key, T value, TimeSpan? expirationTime = null, List<string> relatedKeys = null);
+        Task<bool> Add<T>(string key, T value, TimeSpan? expirationTime = null, List<string> dependencyKeys = null);
 
         /// <summary>
         /// Sets an item into the cache at the cache key specified regardless if it already exists or not.

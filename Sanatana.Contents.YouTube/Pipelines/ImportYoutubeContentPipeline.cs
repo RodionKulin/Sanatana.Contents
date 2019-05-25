@@ -85,10 +85,10 @@ namespace Sanatana.Contents
         public virtual Task<bool> ValidateType(
             PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
-            bool isYoutubePost = context.Input.Content is YoutubePost<TKey>;
+            bool isYoutubePost = context.Input.Content is YoutubeContent<TKey>;
             if (!isYoutubePost)
             {
-                throw new ArgumentException($"Unexpected Content type {context.Input.Content.GetType()} instead of {nameof(YoutubePost<TKey>)}.");
+                throw new ArgumentException($"Unexpected Content type {context.Input.Content.GetType()} instead of {nameof(YoutubeContent<TKey>)}.");
             }
 
             return Task.FromResult(true);
@@ -97,7 +97,7 @@ namespace Sanatana.Contents
         public virtual Task<bool> ParseYoutubeId(
            PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
-            YoutubePost<TKey> youtubePost = context.Input.Content as YoutubePost<TKey>;
+            YoutubeContent<TKey> youtubePost = context.Input.Content as YoutubeContent<TKey>;
 
             Regex youtubeIdRegex = new Regex(@"/watch\?v=([A-Za-z0-9\-]+)");
             Match idMatch = youtubeIdRegex.Match(youtubePost.YoutubeUrl);
@@ -114,7 +114,7 @@ namespace Sanatana.Contents
         public virtual Task<bool> CreateHtmlContent(
             PipelineContext<ContentUpdateParams<TKey, TContent>, ContentUpdateResult> context)
         {
-            YoutubePost<TKey> youtubePost = context.Input.Content as YoutubePost<TKey>;
+            YoutubeContent<TKey> youtubePost = context.Input.Content as YoutubeContent<TKey>;
 
             youtubePost.FullText = $"<p style=\"text-align: center;\"><iframe allowfullscreen=\"\" frameborder=\"0\" height=\"360\" scrolling=\"no\" src=\"//www.youtube.com/v/{_youtubeId}\" width=\"640\"></iframe></p>";
             youtubePost.ShortText = youtubePost.FullText;

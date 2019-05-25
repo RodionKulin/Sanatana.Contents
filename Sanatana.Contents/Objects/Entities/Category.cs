@@ -11,7 +11,7 @@ namespace Sanatana.Contents.Objects.Entities
     {
         public TKey CategoryId { get; set; }
         public TKey? ParentCategoryId { get; set; }
-        public DateTime AddTimeUtc { get; set; }
+        public DateTime CreatedTimeUtc { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public int SortOrder { get; set; }

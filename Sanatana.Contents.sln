@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanatana.Contents.YouTube",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanatana.Contents.Search.ElasticSearch", "Sanatana.Contents.Search.ElasticSearch\Sanatana.Contents.Search.ElasticSearch.csproj", "{F63071E7-88BA-4926-9FB6-A7D3DA74C3FE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{67A1AFD7-C666-4214-8586-02FEC1CB1ECF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{67A1AFD7-C666-4214-8586-02FEC1CB1ECF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanatana.Contents.Search.ElasticSearchSpecs", "Sanatana.Contents.Search.ElasticSearchSpecs\Sanatana.Contents.Search.ElasticSearchSpecs.csproj", "{A07723CB-EB46-4C31-B168-9C5E3AB5DE4C}"
 EndProject

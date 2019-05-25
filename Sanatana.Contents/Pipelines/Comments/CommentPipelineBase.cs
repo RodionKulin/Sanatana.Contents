@@ -16,8 +16,9 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Comments
 {
-    public abstract class CommentPipelineBase<TKey, TCategory, TContent, TComment> 
-        : Pipeline<CommentEditParams<TKey, TComment>>
+    public abstract class CommentPipelineBase<TKey, TCategory, TContent, TComment>
+        : Pipeline<CommentEditParams<TKey, TComment>>, 
+        ICommentPipelineBase<TKey, TCategory, TContent, TComment>
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>

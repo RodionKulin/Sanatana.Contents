@@ -1,0 +1,708 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sanatana.Contents</name>
+    </assembly>
+    <members>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.ICacheProvider.Add``1(System.String,``0,System.Nullable{System.TimeSpan},System.Collections.Generic.List{System.String})">
+            <summary>
+            Adds a new item into the cache at the specified cache key only if the cache is empty.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="expirationTime"></param>
+            <param name="dependencyKeys"></param>
+            <returns>Returns true is item was added, otherwise false.</returns>
+        </member>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.ICacheProvider.Set``1(System.String,``0,System.Nullable{System.TimeSpan},System.Collections.Generic.List{System.String})">
+            <summary>
+            Sets an item into the cache at the cache key specified regardless if it already exists or not.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="expirationTime"></param>
+            <param name="dependencyKeys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.ICacheProvider.Get``1(System.String)">
+            <summary>
+            Retrieves the specified item from the cache.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.ICacheProvider.Clear">
+            <summary>
+            Invalidates all data on the cache.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.ICacheProvider.Remove(System.String)">
+            <summary>
+            Removes the specified item from the cache.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>        
+        </member>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.ICacheProvider.Remove(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes the cache for all the keys provided.
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.ICacheProvider.RemoveByRegex(System.String)">
+            <summary>
+            Removes items from the cache based on the specified regular expression pattern
+            </summary>
+            <param name="pattern">Regular expression pattern to search cache keys</param>
+        </member>
+        <member name="F:Sanatana.Contents.Caching.CacheProviders.MemoryPersistentCacheProvider._parentToChildrenDependencies">
+            <summary>
+            key is parent and values are dependent children from parent key, that should be evicted all together with the parent eviction.
+            </summary>
+        </member>
+        <member name="F:Sanatana.Contents.Caching.CacheProviders.MemoryPersistentCacheProvider._childToParentsDependencies">
+            <summary>
+            key is dependent child and values are parents that get removed one by one only on parent eviction.
+            </summary>
+        </member>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.MemoryPersistentCacheProvider.RemoveDependentChildren(System.String)">
+            <summary>
+            Removed all children dependent from parent evicted cache key
+            </summary>
+            <param name="evictedKey"></param>
+        </member>
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.MemoryPersistentCacheProvider.UnregisterChildFromParentsDependencies(System.String)">
+            <summary>
+            Remove evicted key from parents list. So when parent is evicted it won't effect the child.
+            </summary>
+            <param name="evictedKey"></param>
+        </member>
+        <member name="T:Sanatana.Contents.Caching.UrnId">
+            <summary>
+            Uniform Resource Name generator for cache from entity type name, id field or custom keys. 
+            Based on ServiceStack UrnId implementation.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.FilePathProvider.FilePathProviderId">
+            <summary>
+            Identifier used to match FilePathProvider to uploaded file.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.FilePathProvider.BaseUrl">
+            <summary>
+            Url domain and optional starting path.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.FilePathProvider.RelativePathFormat">
+            <summary>
+            Relative path format used to construct file path.
+            Used in both file storage and file url to serve it. 
+            Default format is {0} that will just return argument provided.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.FilePathProvider.NameFormat">
+            <summary>
+            Name format used to construct file name. 
+            Default format is {0} that will just return argument provided.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.FilePathProvider.RemoveFilesAfterAge">
+            <summary>
+            Optional age after which file will be removed by RemoveTempFilesJob.
+            </summary>
+        </member>
+        <member name="M:Sanatana.Contents.Files.FilePathProvider.GetName(System.String[])">
+            <summary>
+            Constuct name form NameFormat and provided arguments.
+            </summary>
+            <param name="nameFormatArgs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Files.FilePathProvider.GetRootPath">
+            <summary>
+            Constuct relative path replacing all RelativePathFormat arguments with empty string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Files.FilePathProvider.GetPath(System.String[])">
+            <summary>
+            Constuct relative path form RelativePathFormat and provided arguments.
+            </summary>
+            <param name="directoryFormatArgs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Files.FilePathProvider.GetPathAndName(System.String[])">
+            <summary>
+            Constuct relative path and name form RelativePathFormat, NameFormat combined to single format string and provided arguments.
+            </summary>
+            <param name="directoryAndNameFormatArgs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Files.FilePathProvider.GetBaseUrl">
+            <summary>
+            Get base url and replacing '\' symbol with '/'
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Files.FilePathProvider.GetRootPathUrl">
+            <summary>
+            Get base url and path shared with by files created by this FilePathProvider
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Files.FilePathProvider.GetFullUrl(System.String[])">
+            <summary>
+            Create full url including base url, relative path and file name from provided arguments
+            </summary>
+            <param name="directoryAndNameFormatArgs">Arguments supplied to RelativeDirectoryFormat combined with NameFormat.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Files.FilePathProvider.TrimToRelativeUrl(System.String)">
+            <summary>
+            Remove BaseUrl from full url
+            </summary>
+            <param name="fullUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Sanatana.Contents.Files.Queries.FileStorageSettings.BaseDirectory">
+            <summary>
+            File storage will store all the files and create sub directories inside base directory.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.Resizer.ImageNewSizes.Width">
+            <summary>
+            Target image final width.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.Resizer.ImageNewSizes.Height">
+            <summary>
+            Target image final height.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.Resizer.ImageNewSizes.CropRegion">
+            <summary>
+            Target size that will be used to cut actual image sizes.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.Resizer.ImageNewSizes.Size">
+            <summary>
+            Target size that will be used to squeeze or stretch image.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Files.Resizer.ImageNewSizes.Padding">
+            <summary>
+            Target size that will be filled with white space if actual image size is not enough.
+            </summary>
+        </member>
+        <member name="F:Sanatana.Contents.Files.Resizer.ImageResizeType.None">
+            <summary>
+            No resizing.
+            </summary>
+        </member>
+        <member name="F:Sanatana.Contents.Files.Resizer.ImageResizeType.FitRatio">
+            <summary>
+            Save image propotions and resize to fit width and height.
+            </summary>
+        </member>
+        <member name="F:Sanatana.Contents.Files.Resizer.ImageResizeType.FitAndFill">
+            <summary>
+            Save image propotions and resize to fit width and height. Add space to match exactly desired width and height.
+            </summary>
+        </member>
+        <member name="F:Sanatana.Contents.Files.Resizer.ImageResizeType.FitHeightAndCropWidth">
+            <summary>
+            Save image propotions and fit height. Then crop image width if it's larger than desized width.
+            </summary>
+        </member>
+        <member name="F:Sanatana.Contents.Files.Resizer.ImageResizeType.FitWidthAndCropHeight">
+            <summary>
+            Save image propotions and fit width. Then crop image height if it's larger than desized height.
+            </summary>
+        </member>
+        <member name="F:Sanatana.Contents.Files.Resizer.ImageResizeType.FitWidthAndSqueezeHeight">
+            <summary>
+            Fit width. If image height is larger than resized height then squeeze it.
+            </summary>
+        </member>
+        <member name="M:Sanatana.Contents.Files.Resizer.ImageSharpResizer.LowerAllProportionally(System.Int32,System.Int32,Sanatana.Contents.Files.Resizer.ImageNewSizes)">
+            <summary>
+            Shrink width and height to maximum values if it's bigger, saving image propotions
+            </summary>
+            <param name="maxWidth"></param>
+            <param name="maxHeight"></param>
+            <param name="sizes.Width.Width"></param>
+            <param name="новаяВысота"></param>
+        </member>
+        <member name="M:Sanatana.Contents.Files.Resizer.ImageSharpResizer.RaiseToLowestProportionally(System.Int32,System.Int32,Sanatana.Contents.Files.Resizer.ImageNewSizes)">
+            <summary>
+            Raise width and height to minimum values, saving image propotions
+            </summary>
+            <param name="minWidth"></param>
+            <param name="minHeight"></param>
+            <param name="sizes.Width.Width"></param>
+            <param name="sizes.Height.Height"></param>
+        </member>
+        <member name="M:Sanatana.Contents.Files.Resizer.ImageSharpResizer.RaiseWidthProportionally(System.Int32,Sanatana.Contents.Files.Resizer.ImageNewSizes)">
+            <summary>
+            Raise width to minimum value, saving image propotions
+            </summary>
+            <param name="minWidth"></param>
+            <param name="sizes.Width.Width"></param>
+            <param name="sizes.Height.Height"></param>
+        </member>
+        <member name="M:Sanatana.Contents.Files.Resizer.ImageSharpResizer.RaiseHeightProportionally(System.Int32,Sanatana.Contents.Files.Resizer.ImageNewSizes)">
+            <summary>
+            Raise height to minimum value, saving image propotions
+            </summary>
+            <param name="minWidth"></param>
+            <param name="sizes.Width.Width"></param>
+            <param name="sizes.Height.Height"></param>
+        </member>
+        <member name="M:Sanatana.Contents.Files.Resizer.ImageSharpResizer.AddSpaceOnBorders(System.Int32,System.Int32,Sanatana.Contents.Files.Resizer.ImageNewSizes)">
+            <summary>
+            Fill required width and height with white space
+            </summary>
+            <param name="minWidth"></param>
+            <param name="minHeight"></param>
+            <param name="sizes"></param>
+        </member>
+        <member name="M:Sanatana.Contents.Files.Resizer.ImageSharpResizer.CutHeight(System.Int32,Sanatana.Contents.Files.Resizer.ImageNewSizes)">
+            <summary>
+            Cut extra height on image edges
+            </summary>
+            <param name="maxHeight"></param>
+            <param name="sizes"></param>
+        </member>
+        <member name="M:Sanatana.Contents.Files.Resizer.ImageSharpResizer.CutAll(System.Int32,System.Int32,Sanatana.Contents.Files.Resizer.ImageNewSizes)">
+            <summary>
+            Cut extra width and height on image edges
+            </summary>
+        </member>
+        <member name="M:Sanatana.Contents.Files.Resizer.ImageSharpResizer.FillHeightIfBigger(System.Int32,Sanatana.Contents.Files.Resizer.ImageNewSizes)">
+            <summary>
+            Shrink image height if it's higher then max value
+            </summary>
+            <param name="maxHeight"></param>
+            <param name="sizes"></param>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.ImageDestinationParams.Width">
+            <summary>
+            Target width that will be used with ResizeType to adjust image size.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.ImageDestinationParams.Height">
+            <summary>
+            Target height that will be used with ResizeType to adjust image size.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.ImageDestinationParams.RoundCorners">
+            <summary>
+            Round image corners.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.ImageDestinationParams.TargetFormat">
+            <summary>
+            Format used to store image as a file.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.ImageDestinationParams.ResizeType">
+            <summary>
+            Resizing type to adjust image width and height before storing it.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.ImageDestinationParams.FilePathProviderId">
+            <summary>
+            Id for FilePathProvider that should be registered in dependency container. FilePathProvider stores parameters to construct full url for the image.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.ImageDestinationParams.DestinationFileName">
+            <summary>
+            Optional file name without extension. If not provided new ShortGuid will be used.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.ImageDestinationParams.RelativePathArgs">
+            <summary>
+            Optional. If provided is used as a directory name to put file into. Number of parameters for string.Format function depends on format supplied to FilePathProvider selected.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.UploadImageParams.FileStream">
+            <summary>
+            Input stream receiveing image file. One of DownloadUrl or FileStream is required.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.UploadImageParams.DownloadUrl">
+            <summary>
+            DownloadUrl to get image from. One of DownloadUrl or FileStream is required.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.UploadImageParams.Destinations">
+            <summary>
+            Destination format that image will be transformed to. If more than one provided multiple images will be created.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.UploadImageParams.FileLength">
+            <summary>
+            Optional input file length used to compare with FileLengthLimit.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.UploadImageParams.FileLengthLimit">
+            <summary>
+            Optional input file length limit.  If exceed will interrupt upload and return message. If input file length is not provided can insterrupt input Stream on exceeding the limit. 
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.UploadImageResult.Url">
+            <summary>
+            Full url constructed by FilePathProvider
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Pipelines.Images.UploadImageResult.FileName">
+            <summary>
+            File name without extension provided in ImageDestinationParams.DestinationFileName or ShortGuid if not provided.
+            </summary>
+        </member>
+        <member name="T:Sanatana.Contents.RegularJobs.IndexFutureContentJob`3">
+            <summary>
+            Will index in search engine all content that reached it's PublishDateUtc and was not indexed yet.
+            Implementation description: This job follows logic of default InsertContentPipeline and UpdateContentPipeline.
+            if content passed through it has future PublishDateUtc, than it will not be indexed.
+            This job also does not check all the previously created content each time when executed.
+            Job will remember it's last execution time and check content only after this time.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Sanatana.Contents.Resources.ContentsMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Comment_ContentEmpty">
+            <summary>
+              Looks up a localized string similar to Comment text can not be empty..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Common_AuthorizationRequired">
+            <summary>
+              Looks up a localized string similar to Additional permissions are required to access,.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Common_CategoryNotFound">
+            <summary>
+              Looks up a localized string similar to Category not found.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Common_DateParseException">
+            <summary>
+              Looks up a localized string similar to Date was not submitted correctly {0}.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Common_ProcessingError">
+            <summary>
+              Looks up a localized string similar to En exception occured during execution of the request..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Common_UserNotFound">
+            <summary>
+              Looks up a localized string similar to User not found..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_AuthorName">
+            <summary>
+              Looks up a localized string similar to Author.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_CategoryId">
+            <summary>
+              Looks up a localized string similar to Category.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_CommentsCount">
+            <summary>
+              Looks up a localized string similar to Comments count.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_FullContentEmpty">
+            <summary>
+              Looks up a localized string similar to Content text can not be empty..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_FullText">
+            <summary>
+              Looks up a localized string similar to Full text.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_NotFound">
+            <summary>
+              Looks up a localized string similar to Content with with address does not exist..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_PublishTimeIsNotUnique">
+            <summary>
+              Looks up a localized string similar to Publish time must be unique. Try changing publish time to a different value..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_PublishTimeUtc">
+            <summary>
+              Looks up a localized string similar to Publish time.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_ShortText">
+            <summary>
+              Looks up a localized string similar to Short text.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_Shown">
+            <summary>
+              Looks up a localized string similar to Content shown: {0} from {1}.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_Title">
+            <summary>
+              Looks up a localized string similar to Title.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_TitleEmpty">
+            <summary>
+              Looks up a localized string similar to Title can not be empty..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_UrlIsNotUnique">
+            <summary>
+              Looks up a localized string similar to Content with same url already exists. Consider changing url itself or content title if url is generated from it..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_ViewsCount">
+            <summary>
+              Looks up a localized string similar to Views count.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Content_WrongUpdateNonce">
+            <summary>
+              Looks up a localized string similar to Content was updated by somebody else since time you selected it. After you submit this updated will be discarded. You sure want to continue?.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Image_FormatException">
+            <summary>
+              Looks up a localized string similar to Unexpected image format..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Image_InvalidUrl">
+            <summary>
+              Looks up a localized string similar to Url is not formatted correctly {0}.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Image_NameInUse">
+            <summary>
+              Looks up a localized string similar to Image with a name {0} already exists..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Image_ReceiveException">
+            <summary>
+              Looks up a localized string similar to Exception occured while receiving an image..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Image_SaveException">
+            <summary>
+              Looks up a localized string similar to Exception occured while saving an image..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Image_SizeExceeeded">
+            <summary>
+              Looks up a localized string similar to Image size must not be over {0} bytes..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Resources.ContentsMessages.Image_SourceNotSpecified">
+            <summary>
+              Looks up a localized string similar to Image source is not specified..
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.Status">
+            <summary>
+            Status of database queries and permission validation completion.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.Errors">
+            <summary>
+            Errors describing Status if it is different from OperationStatus.Success.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.Page">
+            <summary>
+            Selected page number.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.PageSize">
+            <summary>
+            Number of items on the page.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.TotalItems">
+            <summary>
+            Total number of Content items in selected categories with respect to provided filter parameter.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.LastPublishTimeUtcIso8601">
+            <summary>
+            PublishTimeUtc of latest Content returned. Can be used to select next Content after that PublishDataUtc on next continuation request.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.ContentNumberMessage">
+            <summary>
+            Message about current and total number of pages.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.AllCategories">
+            <summary>
+            All categories that provided user has permission to access.
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Selectors.Contents.ContentPageVM`3.SelectedCategories">
+            <summary>
+            Selected categories that provided user has permission to access.
+            </summary>
+        </member>
+        <member name="T:Sanatana.Contents.Utilities.ShortGuid">
+            <summary>
+            Represents a globally unique identifier (GUID) with a
+            shorter string value. Sguid
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Utilities.ShortGuid.Guid">
+            <summary>
+            Gets/sets the underlying Guid
+            </summary>
+        </member>
+        <member name="P:Sanatana.Contents.Utilities.ShortGuid.Value">
+            <summary>
+            Gets/sets the underlying base64 encoded string
+            </summary>
+        </member>
+        <member name="F:Sanatana.Contents.Utilities.ShortGuid.Empty">
+            <summary>
+            A read-only instance of the ShortGuid class whose value
+            is guaranteed to be all zeroes.
+            </summary>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.#ctor(System.String)">
+            <summary>
+            Creates a ShortGuid from a base64 encoded string
+            </summary>
+            <param name="value">The encoded guid as a
+            base64 string</param>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.#ctor(System.Guid)">
+            <summary>
+            Creates a ShortGuid from a Guid
+            </summary>
+            <param name="guid">The Guid to encode</param>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.Encode(System.String)">
+            <summary>
+            Creates a new instance of a Guid using the string value,
+            then returns the base64 encoded version of the Guid.
+            </summary>
+            <param name="value">An actual Guid string (i.e. not a ShortGuid)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.Encode(System.Guid)">
+            <summary>
+            Encodes the given Guid as a base64 string that is 22
+            characters long.
+            </summary>
+            <param name="guid">The Guid to encode</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.Decode(System.String)">
+            <summary>
+            Decodes the given base64 string
+            </summary>
+            <param name="value">The base64 encoded string of a Guid</param>
+            <returns>A new Guid</returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.NewGuid">
+            <summary>
+            Initialises a new instance of the ShortGuid class
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.ToString">
+            <summary>
+            Returns the base64 encoded guid as a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.Equals(System.Object)">
+            <summary>
+            Returns a value indicating whether this instance and a
+            specified Object represent the same type and value.
+            </summary>
+            <param name="obj">The object to compare</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.GetHashCode">
+            <summary>
+            Returns the HashCode for underlying Guid.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.op_Equality(Sanatana.Contents.Utilities.ShortGuid,Sanatana.Contents.Utilities.ShortGuid)">
+            <summary>
+            Determines if both ShortGuids have the same underlying
+            Guid value.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.op_Inequality(Sanatana.Contents.Utilities.ShortGuid,Sanatana.Contents.Utilities.ShortGuid)">
+            <summary>
+            Determines if both ShortGuids do not have the
+            same underlying Guid value.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.op_Implicit(Sanatana.Contents.Utilities.ShortGuid)~System.String">
+            <summary>
+            Implicitly converts the ShortGuid to it's string equivilent
+            </summary>
+            <param name="shortGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.op_Implicit(Sanatana.Contents.Utilities.ShortGuid)~System.Guid">
+            <summary>
+            Implicitly converts the ShortGuid to it's Guid equivilent
+            </summary>
+            <param name="shortGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.op_Implicit(System.String)~Sanatana.Contents.Utilities.ShortGuid">
+            <summary>
+            Implicitly converts the string to a ShortGuid
+            </summary>
+            <param name="shortGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sanatana.Contents.Utilities.ShortGuid.op_Implicit(System.Guid)~Sanatana.Contents.Utilities.ShortGuid">
+            <summary>
+            Implicitly converts the Guid to a ShortGuid
+            </summary>
+            <param name="guid"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

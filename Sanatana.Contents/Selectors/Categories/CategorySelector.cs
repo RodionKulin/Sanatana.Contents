@@ -75,7 +75,7 @@ namespace Sanatana.Contents.Selectors.Categories
 
             return vmList
                 .OrderByDescending(x => x.Item.SortOrder)
-                .ThenBy(p => p.Item.AddTimeUtc)
+                .ThenBy(p => p.Item.CreatedTimeUtc)
                 .ToList();
         }
 

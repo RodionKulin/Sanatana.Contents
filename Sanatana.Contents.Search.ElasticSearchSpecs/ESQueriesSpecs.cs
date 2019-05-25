@@ -227,7 +227,7 @@ namespace Sanatana.Contents.Search.ElasticSearchSpecs
                            Title = x + "Allows to highlight content search results on one or more fields.",
                            FullText = x + "The implementation uses either the lucene plain highlight, the fast vector highlighter (fvh) or postings highlighter.",
                            State = 1,
-                           PublishTimeUtc = DateTime.UtcNow.AddDays(-1)
+                           PublishedTimeUtc = DateTime.UtcNow.AddDays(-1)
                        })
                        .ToList();
                 _contentIds = contentList
@@ -266,7 +266,7 @@ namespace Sanatana.Contents.Search.ElasticSearchSpecs
                         {
                             new EntitySearchParams<ContentIndexed<long>>()
                                 .Filter(x => x.State != 0)
-                                .Filter(x => x.PublishTimeUtc < DateTime.UtcNow)
+                                .Filter(x => x.PublishedTimeUtc < DateTime.UtcNow)
                             ,
                             new EntitySearchParams<CommentIndexed<long>>()
                                 .Filter(x => x.ContentId == 1)
@@ -336,7 +336,7 @@ namespace Sanatana.Contents.Search.ElasticSearchSpecs
                            Title = x + " Predefined Allows to highlight content search results on one or more fields.",
                            FullText = x + "The implementation uses either the lucene plain highlight, the fast vector highlighter (fvh) or postings highlighter.",
                            State = 1,
-                           PublishTimeUtc = DateTime.UtcNow.AddDays(-1)
+                           PublishedTimeUtc = DateTime.UtcNow.AddDays(-1)
                        })
                        .ToList();
                 _contentIds = contentList

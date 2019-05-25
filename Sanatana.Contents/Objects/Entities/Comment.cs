@@ -17,8 +17,8 @@ namespace Sanatana.Contents.Objects.Entities
         public int State { get; set; }
         public TKey? BranchCommentId { get; set; }
         public TKey? ParentCommentId { get; set; }
-        public DateTime AddTimeUtc { get; set; }
-        public DateTime UpdateTimeUtc { get; set; }
+        public DateTime CreatedTimeUtc { get; set; }
+        public DateTime UpdatedTimeUtc { get; set; }
         public long Version { get; set; }
         public bool NeverIndex { get; set; }
         public bool IsIndexed { get; set; }

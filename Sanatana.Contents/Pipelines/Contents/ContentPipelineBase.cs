@@ -21,8 +21,9 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Contents
 {
-    public abstract class ContentPipelineBase<TKey, TCategory, TContent> 
-        : Pipeline<ContentUpdateParams<TKey, TContent>, ContentUpdateResult>
+    public abstract class ContentPipelineBase<TKey, TCategory, TContent>
+        : Pipeline<ContentUpdateParams<TKey, TContent>, ContentUpdateResult>, 
+        IContentPipelineBase<TKey, TCategory, TContent>
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>
@@ -36,11 +37,8 @@ namespace Sanatana.Contents.Pipelines.Contents
         protected IUrlEncoder _urlEncoder;
         protected IImageFileService _imageFileService;
         protected IHtmlMediaExtractor _htmlMediaExtractor;
-
-
-        //properties
-        public HtmlElement FullContentDocument { get; set; }
-        public HtmlElement ShortContentDocument { get; set; }
+        protected HtmlElement _fullContentDocument;
+        protected HtmlElement _shortContentDocument;
 
 
 
@@ -139,11 +137,11 @@ namespace Sanatana.Contents.Pipelines.Contents
                 AllowedIFrameUrls = context.Input.AllowedIFrameUrls
             };
 
-            if (FullContentDocument == null)
-                FullContentDocument = HtmlParser.Parse(content.FullText);
-            sanitizer.Sanitize(FullContentDocument);
+            if (_fullContentDocument == null)
+                _fullContentDocument = HtmlParser.Parse(content.FullText);
+            sanitizer.Sanitize(_fullContentDocument);
 
-            content.FullText = FullContentDocument.ToString();
+            content.FullText = _fullContentDocument.ToString();
             return Task.FromResult(true);
         }
 
@@ -152,14 +150,14 @@ namespace Sanatana.Contents.Pipelines.Contents
         {
             TContent content = context.Input.Content;
 
-            if (FullContentDocument == null)
-                FullContentDocument = HtmlParser.Parse(content.FullText);
-            if (ShortContentDocument == null)
-                ShortContentDocument = HtmlParser.Parse(content.ShortText ?? string.Empty);
+            if (_fullContentDocument == null)
+                _fullContentDocument = HtmlParser.Parse(content.FullText);
+            if (_shortContentDocument == null)
+                _shortContentDocument = HtmlParser.Parse(content.ShortText ?? string.Empty);
             List<HtmlElement> contentElements = new List<HtmlElement>()
             {
-                FullContentDocument,
-                ShortContentDocument
+                _fullContentDocument,
+                _shortContentDocument
             };
 
             foreach (HtmlElement document in contentElements)
@@ -177,8 +175,8 @@ namespace Sanatana.Contents.Pipelines.Contents
                 }
             }
 
-            content.FullText = FullContentDocument.ToString();
-            content.ShortText = ShortContentDocument.ToString();
+            content.FullText = _fullContentDocument.ToString();
+            content.ShortText = _shortContentDocument.ToString();
             return Task.FromResult(true);
         }
 
@@ -193,21 +191,21 @@ namespace Sanatana.Contents.Pipelines.Contents
             TContent content = context.Input.Content;
             string contentId = content.ContentId.ToString();
             
-            if (FullContentDocument == null)
-                FullContentDocument = HtmlParser.Parse(content.FullText);
-            if (ShortContentDocument == null)
-                ShortContentDocument = HtmlParser.Parse(content.ShortText ?? string.Empty);            
+            if (_fullContentDocument == null)
+                _fullContentDocument = HtmlParser.Parse(content.FullText);
+            if (_shortContentDocument == null)
+                _shortContentDocument = HtmlParser.Parse(content.ShortText ?? string.Empty);            
             List<HtmlElement> contentElements = new List<HtmlElement>()
             {
-                FullContentDocument,
-                ShortContentDocument
+                _fullContentDocument,
+                _shortContentDocument
             };
 
             int pathProviderId = context.Input.ContentImagesPathProviderId.Value;
             await _imageFileService.UpdateContentImages(pathProviderId, contentElements, contentId).ConfigureAwait(false);
           
-            content.FullText = FullContentDocument.ToString();
-            content.ShortText = ShortContentDocument.ToString();
+            content.FullText = _fullContentDocument.ToString();
+            content.ShortText = _shortContentDocument.ToString();
             return true;
         }
         
@@ -216,10 +214,10 @@ namespace Sanatana.Contents.Pipelines.Contents
         {
             TContent content = context.Input.Content;
 
-            if (FullContentDocument == null)
-                FullContentDocument = HtmlParser.Parse(content.FullText);
+            if (_fullContentDocument == null)
+                _fullContentDocument = HtmlParser.Parse(content.FullText);
 
-            content.ShortText = HtmlTagRemover.StripHtml(FullContentDocument);
+            content.ShortText = HtmlTagRemover.StripHtml(_fullContentDocument);
 
             content.ShortText = ContentMinifier.Minify(content.ShortText,
                context.Input.MaxShortTextLength, ContentMinifyMode.ToClosestDotAtRight);
@@ -237,12 +235,12 @@ namespace Sanatana.Contents.Pipelines.Contents
                 AllowedIFrameUrls = context.Input.AllowedIFrameUrls
             };
 
-            if (ShortContentDocument == null)
-                ShortContentDocument = HtmlParser.Parse(content.ShortText ?? string.Empty);
+            if (_shortContentDocument == null)
+                _shortContentDocument = HtmlParser.Parse(content.ShortText ?? string.Empty);
             
-            sanitizer.Sanitize(ShortContentDocument);
+            sanitizer.Sanitize(_shortContentDocument);
 
-            content.ShortText = ShortContentDocument.ToString();
+            content.ShortText = _shortContentDocument.ToString();
             return Task.FromResult(true);
         }
 
@@ -252,8 +250,8 @@ namespace Sanatana.Contents.Pipelines.Contents
             TContent content = context.Input.Content;
 
             //make sure PublishTime is unique for continuation queries.
-            content.PublishTimeUtc = content.PublishTimeUtc
-                .AddMilliseconds(-content.PublishTimeUtc.Millisecond)
+            content.PublishedTimeUtc = content.PublishedTimeUtc
+                .AddMilliseconds(-content.PublishedTimeUtc.Millisecond)
                 .AddMilliseconds(_random.Next(1000));
 
             ContentInsertResult insertResult = await _contentQueries
@@ -298,7 +296,7 @@ namespace Sanatana.Contents.Pipelines.Contents
             TContent content = context.Input.Content;
 
             bool doIndex = content.NeverIndex == false
-               && content.PublishTimeUtc <= DateTime.UtcNow;
+               && content.PublishedTimeUtc <= DateTime.UtcNow;
 
             return doIndex;
         }

@@ -95,7 +95,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             {
                 RepositoryResult<TComment> result = await repository
                     .SelectPageAsync(page, pageSize, orderDescending
-                    , filterConditions, x => x.AddTimeUtc, false)
+                    , filterConditions, x => x.CreatedTimeUtc, false)
                     .ConfigureAwait(false);
 
                 return result.Data;
@@ -119,7 +119,8 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
                 IQueryable<TComment> commentSet = dbContext.Set<TComment>();
                 IQueryable<TContent> contentSet = dbContext.Set<TContent>();
                 
-                IQueryable<CommentJoinResult<long, TComment, TContent>> query = from c in commentSet
+                IQueryable<CommentJoinResult<long, TComment, TContent>> query = 
+                    from c in commentSet
                     join t in contentSet on c.ContentId equals t.ContentId
                     select new CommentJoinResult<long, TComment, TContent>
                     {
@@ -129,11 +130,11 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
 
                 if (orderDescending)
                 {
-                    query = query.OrderByDescending(x => x.Comment.AddTimeUtc);
+                    query = query.OrderByDescending(x => x.Comment.CreatedTimeUtc);
                 }
                 else
                 {
-                    query = query.OrderBy(x => x.Comment.AddTimeUtc);
+                    query = query.OrderBy(x => x.Comment.CreatedTimeUtc);
                 }
 
                 List<CommentJoinResult<long, TComment, TContent>> dtos = await query

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents
 {
-    public class YoutubePost<TKey> : Content<TKey>
+    public class YoutubeContent<TKey> : Content<TKey>
         where TKey : struct
     {
         public string YoutubeUrl { get; set; }

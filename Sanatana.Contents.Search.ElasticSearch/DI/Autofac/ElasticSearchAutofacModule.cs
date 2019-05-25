@@ -38,8 +38,6 @@ namespace Sanatana.Contents.Search.ElasticSearch.DI.Autofac
             builder.RegisterType<ElasticSearchAutoMapperFactory<TKey>>().As<IElasticSearchAutoMapperFactory>();
             builder.RegisterType<HighlightMerger<TKey>>().As<IHighlightMerger>();
 
-            
-
         }
     }
 }

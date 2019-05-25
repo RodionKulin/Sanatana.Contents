@@ -13,8 +13,9 @@ using System.Threading.Tasks;
 
 namespace Sanatana.Contents.Pipelines.Comments
 {
-    public class DeleteCommentPipeline<TKey, TCategory, TContent, TComment> 
-        : CommentPipelineBase<TKey, TCategory, TContent, TComment>
+    public class DeleteCommentPipeline<TKey, TCategory, TContent, TComment>
+        : CommentPipelineBase<TKey, TCategory, TContent, TComment>, 
+        IDeleteCommentPipeline<TKey, TCategory, TContent, TComment> 
         where TKey : struct
         where TCategory : Category<TKey>
         where TContent : Content<TKey>

@@ -22,11 +22,11 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.FluentMapping
             // Keys
             builder.HasKey(t => t.CommentId);
             builder.HasIndex(t => t.ContentId).IsUnique(false);
-            builder.HasIndex(t => new { t.AuthorId, t.AddTimeUtc }).IsUnique(false);
+            builder.HasIndex(t => new { t.AuthorId, t.CreatedTimeUtc }).IsUnique(false);
 
             // Columns
-            builder.Property(x => x.AddTimeUtc).HasColumnType("datetime2");
-            builder.Property(x => x.UpdateTimeUtc).HasColumnType("datetime2");
+            builder.Property(x => x.CreatedTimeUtc).HasColumnType("datetime2");
+            builder.Property(x => x.UpdatedTimeUtc).HasColumnType("datetime2");
             builder.Ignore(x => x.Content);
 
             // Table Mappings

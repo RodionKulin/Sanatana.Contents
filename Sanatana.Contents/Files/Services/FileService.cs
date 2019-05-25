@@ -96,7 +96,7 @@ namespace Sanatana.Contents.Files.Services
 
             if (filesToDelete.Count > 0)
             {
-                List<string> keysToDelete = filesToDelete.Select(p => p.Key).ToList();
+                List<string> keysToDelete = filesToDelete.Select(p => p.NamePath).ToList();
                 await _fileStorage.Delete(keysToDelete).ConfigureAwait(false);
             }
         }

@@ -30,7 +30,7 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
         {
             //category index
             IndexKeysDefinition<TContent> categoryIndex = Builders<TContent>.IndexKeys
-               .Ascending(p => p.PublishTimeUtc)
+               .Ascending(p => p.PublishedTimeUtc)
                .Ascending(p => p.State)
                .Ascending(p => p.CategoryId);
 
@@ -77,7 +77,7 @@ namespace Sanatana.Contents.Database.MongoDb.Queries
             //user
             IndexKeysDefinition<TComment> userIndex = Builders<TComment>.IndexKeys
                .Ascending(p => p.AuthorId)
-               .Ascending(p => p.AddTimeUtc);
+               .Ascending(p => p.CreatedTimeUtc);
 
             CreateIndexOptions userOptions = new CreateIndexOptions()
             {
