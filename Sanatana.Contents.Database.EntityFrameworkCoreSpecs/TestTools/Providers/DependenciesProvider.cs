@@ -14,6 +14,7 @@ using Sanatana.Contents.Database.EntityFrameworkCore.Queries;
 using Sanatana.Contents.Database.EntityFrameworkCoreSpecs.SampleEntities;
 using Sanatana.Contents.Database.EntityFrameworkCoreSpecs.SampleEntities.DbContext;
 using Sanatana.Contents.Objects.Entities;
+using Sanatana.EntityFrameworkCore.Batch;
 
 namespace Sanatana.Contents.Database.EntityFrameworkCoreSpecs.TestTools.Providers
 {

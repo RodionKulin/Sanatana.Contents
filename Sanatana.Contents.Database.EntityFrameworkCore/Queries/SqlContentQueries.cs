@@ -1,5 +1,4 @@
 ﻿using Sanatana.Contents.Database.EntityFrameworkCore.Context;
-using Sanatana.EntityFrameworkCore.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -13,6 +12,7 @@ using Sanatana.Contents.Objects;
 using Sanatana.Contents.Objects.DTOs;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Utilities;
+using Sanatana.EntityFrameworkCore.Batch.Commands;
 
 namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
 {
@@ -134,7 +134,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             using (Repository repository = new Repository(dbContext))
             {
                 return await repository
-                    .SelectPageQuery(page, pageSize, orderDescending, filterConditions, x => x.PublishedTimeUtc)
+                    .SelectPageQuery(page, pageSize, orderDescending, filterConditions, x => x.PublishedTimeUtc, false)
                     .ProjectTo<TContent>(projection)
                     .ToListAsync()
                     .ConfigureAwait(false);
@@ -179,7 +179,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             using (Repository repository = new Repository(dbContext))
             {
                 return await repository
-                    .SelectPageQuery(1, pageSize, true, filterConditions, x => x.ViewsCount)
+                    .SelectPageQuery(1, pageSize, true, filterConditions, x => x.ViewsCount, false)
                     .ProjectTo<TContent>(projection)
                     .ToListAsync()
                     .ConfigureAwait(false);

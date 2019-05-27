@@ -6,16 +6,11 @@ using Sanatana.Contents.Pipelines.Categories;
 using Sanatana.Contents.Pipelines.Comments;
 using Sanatana.Contents.Pipelines.Contents;
 using Sanatana.Contents.Pipelines.Images;
-using Sanatana.Contents.Search;
 using Sanatana.Contents.Selectors.Categories;
 using Sanatana.Contents.Selectors.Comments;
 using Sanatana.Contents.Selectors.Contents;
 using Sanatana.Contents.Selectors.Permissions;
 using Sanatana.Contents.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sanatana.Contents.DI.Autofac
 {
@@ -24,7 +19,7 @@ namespace Sanatana.Contents.DI.Autofac
         //methods
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<EntitiesDatabaseNameMapping>().AsSelf().SingleInstance();
+            builder.RegisterType<EntitiesDatabaseNameMapping>().As<IEntitiesDatabaseNameMapping>().SingleInstance();
             builder.RegisterType<RethrowPipelineExceptionHandler>().As<IPipelineExceptionHandler>().InstancePerDependency();
             builder.RegisterType<HtmlMediaExtractor>().As<IHtmlMediaExtractor>().InstancePerDependency();
             builder.RegisterType<UrlEncoder>().As<IUrlEncoder>().InstancePerDependency();

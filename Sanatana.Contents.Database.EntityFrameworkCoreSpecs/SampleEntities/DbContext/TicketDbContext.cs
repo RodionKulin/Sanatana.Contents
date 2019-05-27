@@ -3,6 +3,7 @@ using Sanatana.Contents.Database.EntityFrameworkCore.Context;
 using Sanatana.Contents.Database.EntityFrameworkCore.FluentMapping;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.EntityFrameworkCore;
+using Sanatana.EntityFrameworkCore.Batch;
 using System;
 using System.Collections.Generic;
 using System.Linq;

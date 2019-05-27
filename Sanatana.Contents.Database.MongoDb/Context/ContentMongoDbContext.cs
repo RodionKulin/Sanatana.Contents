@@ -22,7 +22,7 @@ namespace Sanatana.Contents.Database.MongoDb.Context
         private static bool _isMapped = false;
         private static object _mapLock = new object();
         protected MongoDbConnectionSettings _connectionSettings;
-        protected EntitiesDatabaseNameMapping _entitiesDatabaseNameMapping;
+        protected IEntitiesDatabaseNameMapping _entitiesDatabaseNameMapping;
 
         //properties
         public IMongoDatabase Database { get; }
@@ -30,7 +30,7 @@ namespace Sanatana.Contents.Database.MongoDb.Context
 
         //init
         public ContentMongoDbContext(MongoDbConnectionSettings connectionSettings
-            , EntitiesDatabaseNameMapping entitiesDatabaseNameMapping)
+            , IEntitiesDatabaseNameMapping entitiesDatabaseNameMapping)
         {
             _connectionSettings = connectionSettings;
             _entitiesDatabaseNameMapping = entitiesDatabaseNameMapping;

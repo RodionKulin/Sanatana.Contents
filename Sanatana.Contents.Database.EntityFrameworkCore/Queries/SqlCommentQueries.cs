@@ -1,6 +1,6 @@
 ﻿using Sanatana.Contents.Database.EntityFrameworkCore.Context;
-using Sanatana.EntityFrameworkCore.Commands;
-using Sanatana.EntityFrameworkCore.Commands.Merge;
+using Sanatana.EntityFrameworkCore.Batch.Commands;
+using Sanatana.EntityFrameworkCore.Batch.Commands.Merge;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -15,6 +15,7 @@ using Sanatana.Contents.Objects.DTOs;
 using Sanatana.Contents.Utilities;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Objects;
+using Sanatana.EntityFrameworkCore.Batch;
 
 namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
 {
@@ -95,7 +96,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             {
                 RepositoryResult<TComment> result = await repository
                     .SelectPageAsync(page, pageSize, orderDescending
-                    , filterConditions, x => x.CreatedTimeUtc, false)
+                        , filterConditions, x => x.CreatedTimeUtc, false, false)
                     .ConfigureAwait(false);
 
                 return result.Data;
@@ -106,7 +107,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
            int page, int pageSize, bool orderDescending, DataAmount contentDataAmmount
            , Expression<Func<CommentJoinResult<long, TComment, TContent>, bool>> contentFilter)
         {
-            int skip = SqlUtility.ToSkipNumber(page, pageSize);
+            int skip = SqlUtility.ToSkipNumberOneBased(page, pageSize);
 
             var visitor = new EqualityExpressionVisitor();
             contentFilter = (Expression<Func<CommentJoinResult<long, TComment, TContent>, bool>>)visitor.Visit(contentFilter);
@@ -168,13 +169,13 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             ContentsDbContext dbContext = _dbContextFactory.GetDbContext();
             using (Repository repository = new Repository(dbContext))
             {
-                MergeCommand<TComment> merge = repository.MergeParameters(comments.ToList());
+                MergeCommand<TComment> merge = repository.Merge(comments.ToList());
                 merge.Compare
                     .IncludeProperty(x => x.CommentId);
 
                 foreach (Expression<Func<TComment, object>> updateProp in propertiesToUpdate)
                 {
-                    merge.Update.IncludeProperty(updateProp);
+                    merge.UpdateMatched.IncludeProperty(updateProp);
                 }
 
                 return await merge.ExecuteAsync(MergeType.Update)

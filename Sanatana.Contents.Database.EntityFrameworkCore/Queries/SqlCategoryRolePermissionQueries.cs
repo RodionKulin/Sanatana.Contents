@@ -1,6 +1,6 @@
 ﻿using Sanatana.Contents.Database.EntityFrameworkCore.Context;
-using Sanatana.EntityFrameworkCore.Commands;
-using Sanatana.EntityFrameworkCore.Commands.Merge;
+using Sanatana.EntityFrameworkCore.Batch.Commands;
+using Sanatana.EntityFrameworkCore.Batch.Commands.Merge;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -60,7 +60,8 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             ContentsDbContext dbContext = _dbContextFactory.GetDbContext();
             using (Repository repository = new Repository(dbContext))
             {
-                MergeCommand<CategoryRolePermission<long>> merge = repository.MergeParameters(categoryRolePermissions.ToList());
+                MergeCommand<CategoryRolePermission<long>> merge = repository
+                    .Merge(categoryRolePermissions.ToList());
                 merge.Compare
                     .IncludeProperty(x => x.CategoryRolePermissionId);
                 return await merge.ExecuteAsync(MergeType.Update)

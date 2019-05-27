@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sanatana.Contents.Objects.DTOs
+namespace Sanatana.Contents.Objects
 {
     public enum ContentInsertResult
     {

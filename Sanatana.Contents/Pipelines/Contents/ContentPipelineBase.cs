@@ -5,6 +5,7 @@ using Sanatana.Contents.Html;
 using Sanatana.Contents.Html.HtmlNodes;
 using Sanatana.Contents.Html.Media;
 using Sanatana.Contents.Html.Minifier;
+using Sanatana.Contents.Objects;
 using Sanatana.Contents.Objects.DTOs;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Resources;

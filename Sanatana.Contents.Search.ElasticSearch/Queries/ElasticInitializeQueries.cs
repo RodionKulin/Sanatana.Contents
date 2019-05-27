@@ -19,7 +19,8 @@ namespace Sanatana.Contents.Search.ElasticSearch.Queries
 
 
         //init
-        public ElasticInitializeQueries(ElasticSettings<TKey> settings, IElasticClientFactory elasticClientFactory)
+        public ElasticInitializeQueries(
+            ElasticSettings<TKey> settings, IElasticClientFactory elasticClientFactory)
         {
             _settings = settings;
             _client = elasticClientFactory.GetClient();
@@ -63,8 +64,6 @@ namespace Sanatana.Contents.Search.ElasticSearch.Queries
         {
             return analysis
                 .TokenFilters(tokenfilters => tokenfilters
-                    .Stop("ru_stopwords",
-                        stopTokenFilter => stopTokenFilter.StopWords("_russian_"))
                     .Stop("en_stopwords",
                         stopTokenFilter => stopTokenFilter.StopWords("_english_"))
                 )
@@ -75,9 +74,6 @@ namespace Sanatana.Contents.Search.ElasticSearch.Queries
                         .Filters(new List<string>()
                         {
                             "lowercase",
-                            "russian_morphology",
-                            "english_morphology",
-                            "ru_stopwords",
                             "en_stopwords"
                         }
                     )

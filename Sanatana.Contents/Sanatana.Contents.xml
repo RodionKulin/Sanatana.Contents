@@ -58,23 +58,23 @@
             </summary>
             <param name="pattern">Regular expression pattern to search cache keys</param>
         </member>
-        <member name="F:Sanatana.Contents.Caching.CacheProviders.MemoryPersistentCacheProvider._parentToChildrenDependencies">
+        <member name="F:Sanatana.Contents.Caching.CacheProviders.MemoryCacheProvider._parentToChildrenDependencies">
             <summary>
             key is parent and values are dependent children from parent key, that should be evicted all together with the parent eviction.
             </summary>
         </member>
-        <member name="F:Sanatana.Contents.Caching.CacheProviders.MemoryPersistentCacheProvider._childToParentsDependencies">
+        <member name="F:Sanatana.Contents.Caching.CacheProviders.MemoryCacheProvider._childToParentsDependencies">
             <summary>
             key is dependent child and values are parents that get removed one by one only on parent eviction.
             </summary>
         </member>
-        <member name="M:Sanatana.Contents.Caching.CacheProviders.MemoryPersistentCacheProvider.RemoveDependentChildren(System.String)">
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.MemoryCacheProvider.RemoveDependentChildren(System.String)">
             <summary>
             Removed all children dependent from parent evicted cache key
             </summary>
             <param name="evictedKey"></param>
         </member>
-        <member name="M:Sanatana.Contents.Caching.CacheProviders.MemoryPersistentCacheProvider.UnregisterChildFromParentsDependencies(System.String)">
+        <member name="M:Sanatana.Contents.Caching.CacheProviders.MemoryCacheProvider.UnregisterChildFromParentsDependencies(System.String)">
             <summary>
             Remove evicted key from parents list. So when parent is evicted it won't effect the child.
             </summary>
@@ -363,7 +363,7 @@
             File name without extension provided in ImageDestinationParams.DestinationFileName or ShortGuid if not provided.
             </summary>
         </member>
-        <member name="T:Sanatana.Contents.RegularJobs.IndexFutureContentJob`3">
+        <member name="T:Sanatana.Contents.RegularJobs.IndexFutureContentJob`2">
             <summary>
             Will index in search engine all content that reached it's PublishDateUtc and was not indexed yet.
             Implementation description: This job follows logic of default InsertContentPipeline and UpdateContentPipeline.

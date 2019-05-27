@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sanatana.Contents.Database
 {
-    public class EntitiesDatabaseNameMapping
+    public class EntitiesDatabaseNameMapping : IEntitiesDatabaseNameMapping
     {
         //fields
         protected Dictionary<Type, string> _entityNames;

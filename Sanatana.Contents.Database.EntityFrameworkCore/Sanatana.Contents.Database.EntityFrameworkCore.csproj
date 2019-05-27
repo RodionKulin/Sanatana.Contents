@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	  <Description>Content management framework EntityFrameworkCore storage</Description>
+	  <Description>Content management library EntityFrameworkCore storage</Description>
 	  <PackageTags>ContentManagement;Storage;EF;EntityFrameworkCore</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -18,9 +18,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="AutoMapper" Version="6.2.2" />
-    <PackageReference Include="Sanatana.EntityFrameworkCore" Version="1.0.1" />
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
+    <PackageReference Include="Sanatana.EntityFrameworkCore.Batch" Version="1.0.5" />
   </ItemGroup>
 
   <ItemGroup>

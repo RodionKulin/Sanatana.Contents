@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sanatana.Contents.Database.EntityFrameworkCore.FluentMapping;
 using Sanatana.EntityFrameworkCore;
+using Sanatana.EntityFrameworkCore.Batch;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,9 +33,9 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryEntityConfiguration(_connectionSettings));
-            modelBuilder.ApplyConfiguration(new CategoryRolePermissionEntityConfiguration(_connectionSettings));
-            modelBuilder.ApplyConfiguration(new CommentEntityConfiguration(_connectionSettings));
             modelBuilder.ApplyConfiguration(new ContentEntityConfiguration(_connectionSettings));
+            modelBuilder.ApplyConfiguration(new CommentEntityConfiguration(_connectionSettings));
+            modelBuilder.ApplyConfiguration(new CategoryRolePermissionEntityConfiguration(_connectionSettings));
 
             base.OnModelCreating(modelBuilder);
         }

@@ -15,12 +15,12 @@ namespace Sanatana.Contents.Selectors.Permissions
         //fields
         protected ICategoryRolePermissionQueries<TKey> _catRolePermissionQueries;
         protected IUserRolesQueries<TKey> _userRolesQueries;
-        protected EntitiesDatabaseNameMapping _entitiesDatabaseNameMapping;
+        protected IEntitiesDatabaseNameMapping _entitiesDatabaseNameMapping;
 
 
         //init
         public PermissionSelector(ICategoryRolePermissionQueries<TKey> catRolePermissionQueries
-            , IUserRolesQueries<TKey> userRolesQueries, EntitiesDatabaseNameMapping entitiesDatabaseNameMapping)
+            , IUserRolesQueries<TKey> userRolesQueries, IEntitiesDatabaseNameMapping entitiesDatabaseNameMapping)
         {
             _catRolePermissionQueries = catRolePermissionQueries;
             _userRolesQueries = userRolesQueries;

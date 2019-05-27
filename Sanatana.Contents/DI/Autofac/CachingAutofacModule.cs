@@ -18,7 +18,7 @@ namespace Sanatana.Contents.DI.Autofac
         {
             IOptions<MemoryCacheOptions> memoryCacheOptions = Options.Create(new MemoryCacheOptions());
             builder.RegisterInstance(new MemoryCache(memoryCacheOptions)).As<IMemoryCache>().SingleInstance();
-            builder.RegisterType<MemoryPersistentCacheProvider>().As<ICacheProvider>().SingleInstance();
+            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider>().SingleInstance();
             builder.RegisterType<QueryCache>().As<IQueryCache>().SingleInstance();
             builder.RegisterType<DataChangeNotifiersRegistry>().As<IDataChangeNotifiersRegistry>().SingleInstance();
 

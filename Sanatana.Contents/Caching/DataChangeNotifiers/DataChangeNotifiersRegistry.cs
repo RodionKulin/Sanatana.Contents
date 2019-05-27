@@ -46,7 +46,7 @@ namespace Sanatana.Contents.Caching.DataChangeNotifiers
             }
 
             //check new change notifications.
-            //new subsciption and cache data is also cleared here cause it have not yet requested fresh data.
+            //new subsciption and cache data is also cleared here cause it has not yet requested fresh data.
             bool hasChanges = GetHasChanges();
             if (hasChanges)
             {

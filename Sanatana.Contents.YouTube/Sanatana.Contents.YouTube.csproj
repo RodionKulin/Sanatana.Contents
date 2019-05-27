@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>Content management framework Youtube content import</Description>
+    <Description>Content management library Youtube content import</Description>
     <PackageTags>ContentManagement;Youtube;CustomContentTypes</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.6.7" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.4" />
     <PackageReference Include="Sanatana.Patterns.Pipelines" Version="1.0.3" />
   </ItemGroup>
 

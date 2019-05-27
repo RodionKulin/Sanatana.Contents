@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	  <Description>Content management framework</Description>
+	  <Description>Content management library</Description>
 	  <PackageTags>ContentManagement;Backend;CustomContentTypes;Pipelines;Sanitizing;Search;Permissions</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -18,12 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="LinqKit.Core" Version="1.1.15" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="LinqKit.Core" Version="1.1.16" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
     <PackageReference Include="Sanatana.Patterns.Pipelines" Version="1.0.3" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />
-    <PackageReference Include="Unidecode.NET" Version="1.1.1" />
+    <PackageReference Include="Unidecode.NET" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>

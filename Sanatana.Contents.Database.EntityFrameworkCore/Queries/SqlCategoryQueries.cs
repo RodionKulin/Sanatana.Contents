@@ -1,5 +1,5 @@
 ﻿using Sanatana.Contents.Database.EntityFrameworkCore.Context;
-using Sanatana.EntityFrameworkCore.Commands;
+using Sanatana.EntityFrameworkCore.Batch.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -9,7 +9,7 @@ using System.Collections;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Sanatana.EntityFrameworkCore.Commands.Merge;
+using Sanatana.EntityFrameworkCore.Batch.Commands.Merge;
 using Sanatana.Contents.Objects.Entities;
 using Sanatana.Contents.Utilities;
 
@@ -63,7 +63,7 @@ namespace Sanatana.Contents.Database.EntityFrameworkCore.Queries
             ContentsDbContext dbContext = _dbContextFactory.GetDbContext();
             using (Repository repository = new Repository(dbContext))
             {
-                MergeCommand<TCategory> merge = repository.MergeParameters(categories.ToList());
+                MergeCommand<TCategory> merge = repository.Merge(categories.ToList());
                 merge.Compare
                     .IncludeProperty(x => x.CategoryId);
                 return await merge.ExecuteAsync(MergeType.Update)

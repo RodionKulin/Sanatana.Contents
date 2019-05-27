@@ -1,5 +1,6 @@
 ﻿using Sanatana.Contents.Database.EntityFrameworkCore.Context;
 using Sanatana.EntityFrameworkCore;
+using Sanatana.EntityFrameworkCore.Batch;
 using System;
 using System.Collections.Generic;
 using System.Text;

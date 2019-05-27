@@ -24,7 +24,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
     public class MemoryPersistentCacheProviderSpecs 
     {
         [TestFixture]
-        public class when_adding : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_adding : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             int _expectedValue = 1;
             bool _added;
@@ -57,7 +57,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
         }
 
         [TestFixture]
-        public class when_setting : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_setting : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             int _newValue;
 
@@ -79,7 +79,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
         }
 
         [TestFixture]
-        public class when_removing : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_removing : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             protected override void Given()
             {
@@ -108,7 +108,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
         }
 
         [TestFixture]
-        public class when_removing_many : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_removing_many : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             protected override void Given()
             {
@@ -140,7 +140,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
         }
 
         [TestFixture]
-        public class when_removing_by_regex : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_removing_by_regex : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             int _value = 1;
 
@@ -179,7 +179,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
         }
 
         [TestFixture]
-        public class when_clearing_cache : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_clearing_cache : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             protected override void Given()
             {
@@ -205,7 +205,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
         }
 
         [TestFixture]
-        public class when_removing_dependency_parent : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_removing_dependency_parent : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             bool _parentAdded;
             bool _childAdded;
@@ -244,7 +244,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
         }
 
         [TestFixture]
-        public class when_seting_dependency_parent : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_seting_dependency_parent : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             bool _childAdded;
 
@@ -278,7 +278,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
         }
 
         [TestFixture]
-        public class when_removing_dependency_chain : SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+        public class when_removing_dependency_chain : SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             bool _childAdded1;
             bool _childAdded2;
@@ -330,7 +330,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
 
         [TestFixture]
         public class when_concurrently_adding_to_cache : 
-            SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+            SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             Random _random = new Random(DateTime.Now.Millisecond);
             ConcurrentQueue<int?> _actualValues = new ConcurrentQueue<int?>();
@@ -398,7 +398,7 @@ namespace Sanatana.ContentsSpecs.Caching.CacheProviders
 
         [TestFixture]
         public class when_concurrently_removing_from_cache : 
-            SpecsFor<MemoryPersistentCacheProvider>, ICacheDependencies
+            SpecsFor<MemoryCacheProvider>, ICacheDependencies
         {
             ConcurrentQueue<int?> _valuesQueue;
 

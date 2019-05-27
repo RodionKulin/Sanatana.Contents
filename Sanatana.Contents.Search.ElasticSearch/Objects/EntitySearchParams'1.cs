@@ -7,7 +7,7 @@ using System.Text;
 namespace Sanatana.Contents.Search.ElasticSearch.Objects
 {
     public class EntitySearchParams<T> : EntitySearchParams
-            where T : IElasticSearchable
+        where T : IElasticSearchable
     {
         //properties
         public override Type IndexType

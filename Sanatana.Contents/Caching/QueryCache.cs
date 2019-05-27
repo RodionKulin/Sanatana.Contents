@@ -46,7 +46,7 @@ namespace Sanatana.Contents.Caching
             , Func<Task<T>> selector, TimeSpan? expirationTime = null
             , params IDataChangeNotifier[] changeNotifiers)
         {
-            T value = await ToOptimizedResultUsingCache<T>(cacheKey, selector, expirationTime).ConfigureAwait(false);
+            T value = await ToOptimizedResultUsingCache(cacheKey, selector, expirationTime).ConfigureAwait(false);
 
             foreach (IDataChangeNotifier changeNotifier in changeNotifiers)
             {
@@ -59,7 +59,7 @@ namespace Sanatana.Contents.Caching
         public virtual IDataChangeNotifier GetDataChangeNotifier<T>(
             Expression<Func<T, bool>> filter = null)
         {
-            return _changeNotifierFactory.Create<T>(filter);
+            return _changeNotifierFactory.Create(filter);
         }
     }
 }

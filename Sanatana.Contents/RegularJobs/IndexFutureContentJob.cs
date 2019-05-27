@@ -22,9 +22,8 @@ namespace Sanatana.Contents.RegularJobs
     /// Job will remember it's last execution time and check content only after this time.
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public class IndexFutureContentJob<TKey, TCategory, TContent> : IContentRegularJob
+    public class IndexFutureContentJob<TKey, TContent> : IContentRegularJob
         where TKey : struct
-        where TCategory : Category<TKey>
         where TContent : Content<TKey>, new()
     {
         //fields
@@ -35,8 +34,9 @@ namespace Sanatana.Contents.RegularJobs
 
 
         //init
-        public IndexFutureContentJob(IndexFutureContentSettings<TKey, TContent> settings, IContentQueries<TKey, TContent> contentQueries
-            , ICategorySelector<TKey, TCategory> categorySelector, ISearchQueries<TKey> searchQueries)
+        public IndexFutureContentJob(IndexFutureContentSettings<TKey, TContent> settings, 
+            IContentQueries<TKey, TContent> contentQueries,
+            ISearchQueries<TKey> searchQueries)
         {
             _settings = settings;
             _contentQueries = contentQueries;
@@ -46,11 +46,10 @@ namespace Sanatana.Contents.RegularJobs
         }
 
 
-
         //methods
         public virtual void Execute()
         {
-            List<TContent> notIndexedContents = null;
+            List<TContent> notIndexedContent = null;
 
             do
             {
@@ -63,20 +62,21 @@ namespace Sanatana.Contents.RegularJobs
                 {
                     filter = filter.And(_settings.AdditionalFilters);
                 }
-                notIndexedContents = _contentQueries.SelectMany(1, _settings.PageSize
-                    , DataAmount.FullContent, true, filter)
+                notIndexedContent = _contentQueries.SelectMany(
+                    1, _settings.PageSize, DataAmount.FullContent, true, filter)
                     .Result;
-                if (notIndexedContents.Count == 0)
+                if (notIndexedContent.Count == 0)
                 {
                     break;
                 }
 
-                List<object> searchList = notIndexedContents.Cast<object>().ToList();
+                List<object> searchList = notIndexedContent.Cast<object>().ToList();
                 _searchQueries.Insert(searchList).Wait();
 
-                List<TKey> notIndexContentIds = notIndexedContents
+                List<TKey> notIndexContentIds = notIndexedContent
                     .Select(p => p.ContentId)
                     .ToList();
+
                 var updatedValues = new TContent()
                 {
                     IsIndexed = true
@@ -86,7 +86,7 @@ namespace Sanatana.Contents.RegularJobs
                     new Expression<Func<TContent, object>>[] { c => c.IsIndexed })
                     .Result;
             }
-            while (notIndexedContents.Count == _settings.PageSize);
+            while (notIndexedContent.Count == _settings.PageSize);
 
             _lastRequestTimeUtc = DateTime.UtcNow;
         }

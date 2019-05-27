@@ -29,7 +29,6 @@ namespace Sanatana.Contents.Search.ElasticSearchSpecs.TestTools.Providers
 
             ElasticSettings<long> settings = instance.MockContainer.GetInstance<ElasticSettings<long>>();
             IElasticClientFactory clientFactory = instance.MockContainer.GetInstance<IElasticClientFactory>();
-            ElasticClient client = clientFactory.GetClient();
             var initializer = new ElasticInitializeQueries<long>(settings, clientFactory);
 
             initializer.DropIndex();

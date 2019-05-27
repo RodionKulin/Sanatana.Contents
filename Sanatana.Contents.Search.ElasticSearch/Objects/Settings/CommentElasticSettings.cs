@@ -21,15 +21,6 @@ namespace Sanatana.Contents.Search.ElasticSearch.Objects.Settings
 
 
         //methods
-        public override void ApplyInferMappingSettings(ConnectionSettings connection, string defaultIndexName)
-        {
-            connection.InferMappingFor<CommentIndexed<TKey>>(typeMapping => typeMapping
-                .IndexName(defaultIndexName)
-                .TypeName(ElasticTypeName)
-                .IdProperty(IdProperty)
-            );
-        }
-
         public override void ApplyAutomapperSettings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<CommentIndexed<TKey>, Comment<TKey>>();

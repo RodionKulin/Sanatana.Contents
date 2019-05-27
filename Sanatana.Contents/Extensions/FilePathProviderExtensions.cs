@@ -17,7 +17,6 @@ namespace Sanatana.Contents.Extensions
                 .Distinct()
                 .Count();
             
-
             if(distinctCount < totalCount)
             {
                 throw new MissingMemberException($"All registered {nameof(FilePathProvider)} must have unique {nameof(FilePathProvider.FilePathProviderId)}.");

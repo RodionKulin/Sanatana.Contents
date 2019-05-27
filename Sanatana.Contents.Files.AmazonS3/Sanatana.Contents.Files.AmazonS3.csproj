@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>Content management framework AWS S3 file management</Description>
+    <Description>Content management library AWS S3 file management</Description>
     <PackageTags>ContentManagement;Files;AWS;S3</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="AWSSDK.S3" Version="3.3.17" />
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.102.5" />
   </ItemGroup>
 
   <ItemGroup>

@@ -68,7 +68,6 @@ namespace Sanatana.Contents.Search.ElasticSearch.Objects.Settings
         public override void ApplyElasticFieldMapping(MappingsDescriptor mappings, string defaultAnalyzer)
         {
             mappings.Map(FieldTypeMappings);
-            
         }
 
     }

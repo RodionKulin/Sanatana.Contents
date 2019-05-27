@@ -37,8 +37,8 @@ namespace Sanatana.Contents.RegularJobs
                     continue;
                 }
                 
-                _fileService
-                    .Clean(filePathProvider.FilePathProviderId, filePathProvider.RemoveFilesAfterAge.Value)
+                _fileService.Clean(filePathProvider.FilePathProviderId, 
+                    filePathProvider.RemoveFilesAfterAge.Value)
                     .Wait();
             }
         }

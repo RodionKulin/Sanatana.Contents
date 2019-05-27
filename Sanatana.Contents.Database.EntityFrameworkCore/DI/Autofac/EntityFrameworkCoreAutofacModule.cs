@@ -7,6 +7,7 @@ using Sanatana.Contents.Database.EntityFrameworkCore.DataChangeNotifiers;
 using Sanatana.Contents.Database.EntityFrameworkCore.Queries;
 using Sanatana.Contents.DI.Autofac;
 using Sanatana.EntityFrameworkCore;
+using Sanatana.EntityFrameworkCore.Batch;
 using System;
 using System.Collections.Generic;
 using System.Text;

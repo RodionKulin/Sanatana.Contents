@@ -10,26 +10,26 @@ using Microsoft.Extensions.Options;
 
 namespace Sanatana.Contents.Caching.CacheProviders
 {
-    public class MemoryPersistentCacheProvider : ICacheProvider
+    public class MemoryCacheProvider : ICacheProvider
     {
         //fields
         protected object _lock = new object();
         /// <summary>
         /// key is parent and values are dependent children from parent key, that should be evicted all together with the parent eviction.
         /// </summary>
-        protected ConcurrentDictionary<string, HashSet<string>> _parentToChildrenDependencies;
+        protected Dictionary<string, HashSet<string>> _parentToChildrenDependencies;
         /// <summary>
         /// key is dependent child and values are parents that get removed one by one only on parent eviction.
         /// </summary>
-        protected ConcurrentDictionary<string, HashSet<string>> _childToParentsDependencies;
+        protected Dictionary<string, HashSet<string>> _childToParentsDependencies;
         protected IMemoryCache _cache;
 
 
         //init
-        public MemoryPersistentCacheProvider(IMemoryCache memoryCache)
+        public MemoryCacheProvider(IMemoryCache memoryCache)
         {
-            _parentToChildrenDependencies = new ConcurrentDictionary<string, HashSet<string>>();
-            _childToParentsDependencies = new ConcurrentDictionary<string, HashSet<string>>();
+            _parentToChildrenDependencies = new Dictionary<string, HashSet<string>>();
+            _childToParentsDependencies = new Dictionary<string, HashSet<string>>();
             _cache = memoryCache;
         }
 
@@ -154,27 +154,27 @@ namespace Sanatana.Contents.Caching.CacheProviders
         protected virtual void RegisterDependencies(string childDependentKey, 
             List<string> parentDependencyKeys = null)
         {
-            var parentsHashSet = parentDependencyKeys == null
+            _childToParentsDependencies[childDependentKey] = parentDependencyKeys == null
                 ? new HashSet<string>()
                 : new HashSet<string>(parentDependencyKeys);
-            _childToParentsDependencies.AddOrUpdate(childDependentKey, parentsHashSet,
-                (_, oldValue) => parentsHashSet);
 
-            if(parentDependencyKeys == null)
+            if (parentDependencyKeys == null)
             {
                 return;
             }
 
             foreach (string parentKey in parentDependencyKeys)
             {
-                _parentToChildrenDependencies.AddOrUpdate(parentKey,
-                    new HashSet<string>() { childDependentKey },
-                    (_, oldValue) =>
-                    {
-                        //executed outside of concurrent dictionary lock
-                        oldValue.Add(childDependentKey);
-                        return oldValue;
-                    });
+                if (_parentToChildrenDependencies.ContainsKey(parentKey))
+                {
+                    _parentToChildrenDependencies[parentKey].Add(childDependentKey);
+                }
+                else
+                {
+                    _parentToChildrenDependencies[parentKey] = new HashSet<string>() {
+                        childDependentKey
+                    };
+                }
             }
         }
 
@@ -184,8 +184,7 @@ namespace Sanatana.Contents.Caching.CacheProviders
         /// <param name="evictedKey"></param>
         protected virtual void RemoveDependentChildren(string evictedKey)
         {
-            HashSet<string> childrenCacheKeys;
-            _parentToChildrenDependencies.TryRemove(evictedKey, out childrenCacheKeys);
+            HashSet<string> childrenCacheKeys = _parentToChildrenDependencies[evictedKey];
             if (childrenCacheKeys != null)
             {
                 foreach (string dependentChildKey in childrenCacheKeys)
@@ -193,6 +192,8 @@ namespace Sanatana.Contents.Caching.CacheProviders
                     _cache.Remove(dependentChildKey);
                 }
             }
+
+            _parentToChildrenDependencies.Remove(evictedKey);
         }
 
         /// <summary>
@@ -201,8 +202,7 @@ namespace Sanatana.Contents.Caching.CacheProviders
         /// <param name="evictedKey"></param>
         protected virtual void UnregisterChildFromParentsDependencies(string evictedKey)
         {
-            HashSet<string> parentCacheKeys = null;
-            _childToParentsDependencies.TryRemove(evictedKey, out parentCacheKeys);
+            HashSet<string> parentCacheKeys = _childToParentsDependencies[evictedKey];
             if (parentCacheKeys != null)
             {
                 foreach (string parent in parentCacheKeys)
@@ -215,6 +215,8 @@ namespace Sanatana.Contents.Caching.CacheProviders
                     }
                 }
             }
+
+            _childToParentsDependencies.Remove(evictedKey);
         }
 
 
